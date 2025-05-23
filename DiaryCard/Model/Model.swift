@@ -9,16 +9,7 @@ import Foundation
 
 @Observable
 class Model{
-    var cards: [Card] = load("cards.json")
-    
-    func correctedCards() -> [Card] {
-        return cards.map({
-            Card(
-                date: Date.init(timeIntervalSince1970: $0.date.timeIntervalSinceReferenceDate),
-                groups: $0.groups
-            )
-        })
-    }
+    var cards: [Card] = loadCards("cards.json")
 }
 
 
@@ -43,4 +34,14 @@ func load<T: Decodable>(_ filename: String) -> T {
     } catch {
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
     }
+}
+
+func loadCards(_ filename: String) -> [Card] {
+    let cardData: [Card] = load(filename)
+    return cardData.map({
+        Card(
+            date: Date.init(timeIntervalSince1970: $0.date.timeIntervalSinceReferenceDate),
+            groups: $0.groups
+        )
+    })
 }

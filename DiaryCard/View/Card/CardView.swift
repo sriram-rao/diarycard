@@ -32,5 +32,5 @@ struct CardView: View {
 }
 
 #Preview("Default") {
-    CardView(card: Model().correctedCards()[0])
+    CardView(card: Model().cards[0])
 }
