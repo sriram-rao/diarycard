@@ -6,6 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
+		CADC36262DE1092D00539E69 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361F2DE1092D00539E69 /* Item.swift */; };
+		CADC36282DE1092D00539E69 /* TrailingIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */; };
+		CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADC361A2DE1092D00539E69 /* Assets.xcassets */; };
+		CADC362A2DE1092D00539E69 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = CADC361B2DE1092D00539E69 /* cards.json */; };
+		CADC362D2DE1092D00539E69 /* cards.json in Sources */ = {isa = PBXBuildFile; fileRef = CADC361B2DE1092D00539E69 /* cards.json */; };
+		CADC36382DE1092D00539E69 /* SkillSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36362DE1092D00539E69 /* SkillSection.swift */; };
+		CADC36392DE1092D00539E69 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36372DE1092D00539E69 /* Theme.swift */; };
+		CADC363A2DE1092D00539E69 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36352DE1092D00539E69 /* Model.swift */; };
+		CADC363B2DE1092D00539E69 /* CardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36342DE1092D00539E69 /* CardSection.swift */; };
+		CADC36452DE1099500539E69 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36432DE1099500539E69 /* InputView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		CA72915F2D88D2EB004AF2DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,38 +41,34 @@
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CADC361A2DE1092D00539E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CADC361B2DE1092D00539E69 /* cards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
+		CADC361C2DE1092D00539E69 /* diarycard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diarycard.entitlements; sourceTree = "<group>"; };
+		CADC361D2DE1092D00539E69 /* diarycardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diarycardApp.swift; sourceTree = "<group>"; };
+		CADC361E2DE1092D00539E69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CADC361F2DE1092D00539E69 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingIconLabelStyle.swift; sourceTree = "<group>"; };
+		CADC36342DE1092D00539E69 /* CardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSection.swift; sourceTree = "<group>"; };
+		CADC36352DE1092D00539E69 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CADC36362DE1092D00539E69 /* SkillSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSection.swift; sourceTree = "<group>"; };
+		CADC36372DE1092D00539E69 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		CADC36432DE1099500539E69 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CA7291702D88D2EB004AF2DE /* Exceptions for "diarycard" folder in "diarycard" target */ = {
+		CADC36582DE10D3300539E69 /* Exceptions for "Card" folder in "diarycard" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				CardView.swift,
+				DetailView.swift,
+				DiaryView.swift,
+				MeasureCardView.swift,
 			);
 			target = CA7291492D88D2E8004AF2DE /* diarycard */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		CADC35E42DDFF56C00539E69 /* Exceptions for "diarycard" folder in "Compile Sources" phase from "diarycard" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = CA7291462D88D2E8004AF2DE /* Sources */;
-			membershipExceptions = (
-				cards.json,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		CA72914C2D88D2E8004AF2DE /* diarycard */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CA7291702D88D2EB004AF2DE /* Exceptions for "diarycard" folder in "diarycard" target */,
-				CADC35E42DDFF56C00539E69 /* Exceptions for "diarycard" folder in "Compile Sources" phase from "diarycard" target */,
-			);
-			path = diarycard;
-			sourceTree = "<group>";
-		};
 		CA7291612D88D2EB004AF2DE /* diarycardTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = diarycardTests;
@@ -69,9 +79,17 @@
 			path = diarycardUITests;
 			sourceTree = "<group>";
 		};
-		CA928B522D8913BB00014E17 /* Models */ = {
+		CADC363D2DE1099500539E69 /* Preview Content */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Models;
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CADC36532DE10D3300539E69 /* Card */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CADC36582DE10D3300539E69 /* Exceptions for "Card" folder in "diarycard" target */,
+			);
+			path = Card;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -104,11 +122,9 @@
 		CA7291412D88D2E8004AF2DE = {
 			isa = PBXGroup;
 			children = (
-				CA72914C2D88D2E8004AF2DE /* diarycard */,
-				CA7291612D88D2EB004AF2DE /* diarycardTests */,
-				CA72916B2D88D2EB004AF2DE /* diarycardUITests */,
+				CADC36592DE10D9300539E69 /* DiaryCard */,
+				CADC364C2DE10CF100539E69 /* Tests */,
 				CA72914B2D88D2E8004AF2DE /* Products */,
-				CA928B522D8913BB00014E17 /* Models */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +136,52 @@
 				CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CADC364C2DE10CF100539E69 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CA7291612D88D2EB004AF2DE /* diarycardTests */,
+				CA72916B2D88D2EB004AF2DE /* diarycardUITests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		CADC364D2DE10D1000539E69 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CADC36342DE1092D00539E69 /* CardSection.swift */,
+				CADC36352DE1092D00539E69 /* Model.swift */,
+				CADC36362DE1092D00539E69 /* SkillSection.swift */,
+				CADC36372DE1092D00539E69 /* Theme.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CADC364E2DE10D2A00539E69 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CADC36532DE10D3300539E69 /* Card */,
+				CADC36432DE1099500539E69 /* InputView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CADC36592DE10D9300539E69 /* DiaryCard */ = {
+			isa = PBXGroup;
+			children = (
+				CADC364E2DE10D2A00539E69 /* View */,
+				CADC364D2DE10D1000539E69 /* Model */,
+				CADC363D2DE1099500539E69 /* Preview Content */,
+				CADC361A2DE1092D00539E69 /* Assets.xcassets */,
+				CADC361B2DE1092D00539E69 /* cards.json */,
+				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,
+				CADC361D2DE1092D00539E69 /* diarycardApp.swift */,
+				CADC361E2DE1092D00539E69 /* Info.plist */,
+				CADC361F2DE1092D00539E69 /* Item.swift */,
+				CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */,
+			);
+			path = DiaryCard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +200,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				CA72914C2D88D2E8004AF2DE /* diarycard */,
-				CA928B522D8913BB00014E17 /* Models */,
+				CADC363D2DE1099500539E69 /* Preview Content */,
 			);
 			name = diarycard;
 			packageProductDependencies = (
@@ -243,6 +304,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */,
+				CADC362A2DE1092D00539E69 /* cards.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +330,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CADC36452DE1099500539E69 /* InputView.swift in Sources */,
+				CADC362D2DE1092D00539E69 /* cards.json in Sources */,
+				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
+				CADC36262DE1092D00539E69 /* Item.swift in Sources */,
+				CADC36382DE1092D00539E69 /* SkillSection.swift in Sources */,
+				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
+				CADC363A2DE1092D00539E69 /* Model.swift in Sources */,
+				CADC363B2DE1092D00539E69 /* CardSection.swift in Sources */,
+				CADC36282DE1092D00539E69 /* TrailingIconLabelStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,15 +377,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = diarycard/diarycard.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DiaryCard/diarycard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"diarycard/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 8BJRT6BH24;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = diarycard/Info.plist;
+				INFOPLIST_FILE = DiaryCard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Diary Card";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -348,15 +420,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = diarycard/diarycard.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DiaryCard/diarycard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"diarycard/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 8BJRT6BH24;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = diarycard/Info.plist;
+				INFOPLIST_FILE = DiaryCard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Diary Card";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
