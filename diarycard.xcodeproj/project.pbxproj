@@ -53,6 +53,7 @@
 		CADC36362DE1092D00539E69 /* SkillSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSection.swift; sourceTree = "<group>"; };
 		CADC36372DE1092D00539E69 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		CADC36432DE1099500539E69 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		CADC367A2DE1110700539E69 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -122,6 +123,7 @@
 		CA7291412D88D2E8004AF2DE = {
 			isa = PBXGroup;
 			children = (
+				CADC367A2DE1110700539E69 /* readme.md */,
 				CADC36592DE10D9300539E69 /* DiaryCard */,
 				CADC364C2DE10CF100539E69 /* Tests */,
 				CA72914B2D88D2E8004AF2DE /* Products */,
