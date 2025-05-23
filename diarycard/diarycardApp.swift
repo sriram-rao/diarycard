@@ -25,7 +25,7 @@ struct diarycardApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            InputView()
         }
         .modelContainer(sharedModelContainer)
     }
