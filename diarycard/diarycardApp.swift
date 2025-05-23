@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct diarycardApp: App {
+    @State private var model = Model()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -25,7 +27,8 @@ struct diarycardApp: App {
 
     var body: some Scene {
         WindowGroup {
-            InputView()
+            DiaryView()
+                .environment(model)
         }
         .modelContainer(sharedModelContainer)
     }

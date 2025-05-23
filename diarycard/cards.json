@@ -1,28 +1,65 @@
-//
-//  cardsData.json
-//  diarycard
-//
-//  Created by Sriram Rao on 5/22/25.
-//
-
-{
-    "date": "2025-05-22",
-    "groups": [
-        {
-            "title": "Behaviour",
-            "properties": [
-                "Self Care": 3,
-                "Suicidal Ideation": 1,
-                "Active SI": 0
-            ]
-        },
-        {
-            "title": "Emotions",
-            "properties": [
-                "Anxiety": 3,
-                "Happiness": 1,
-                "Sadness": 2
-            ]
-        }
-    ]
-}
+[
+    {
+        "date": 1747897200,
+        "groups": [
+            {
+                "title": "Behaviour",
+                "properties": {
+                    "Self Care": 3,
+                    "Suicidal Ideation": 1,
+                    "Active SI": 0
+                }
+            },
+            {
+                "title": "Emotions",
+                "properties": {
+                    "Anxiety": 3,
+                    "Happiness": 1,
+                    "Sadness": 2
+                }
+            }
+        ]
+    },
+    {
+        "date": 1747810800,
+        "groups": [
+            {
+                "title": "Behaviour",
+                "properties": {
+                    "Self Care": 3,
+                    "Suicidal Ideation": 1,
+                    "Active SI": 0
+                }
+            },
+            {
+                "title": "Emotions",
+                "properties": {
+                    "Anxiety": 3,
+                    "Happiness": 1,
+                    "Sadness": 2
+                }
+            }
+        ]
+    },
+    {
+        "date": 1747724400,
+        "groups": [
+            {
+                "title": "Behaviour",
+                "properties": {
+                    "Self Care": 3,
+                    "Suicidal Ideation": 1,
+                    "Active SI": 0
+                }
+            },
+            {
+                "title": "Emotions",
+                "properties": {
+                    "Anxiety": 3,
+                    "Happiness": 1,
+                    "Sadness": 2
+                }
+            }
+        ]
+    }
+]

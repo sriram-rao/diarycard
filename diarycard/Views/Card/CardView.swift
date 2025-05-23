@@ -10,8 +10,6 @@ import SwiftUI
 struct CardView: View {
     let card: Card
     
-    @Binding var date: Date
-    
     var body: some View {
         NavigationStack {
             List(card.groups, id: \.self) { card in
@@ -22,7 +20,6 @@ struct CardView: View {
                 .listRowBackground(Theme.sky.mainColor)
             }
             
-            DatePicker("Date", selection: $date)
             .navigationTitle(card.date.formatted(date: .complete, time: .omitted))
             .toolbar {
                 Button(action: {}) {
@@ -35,5 +32,5 @@ struct CardView: View {
 }
 
 #Preview("Default") {
-    CardView(card: Model().correctedCards()[0], date: Model().correctedCards()[0].date)
+    CardView(card: Model().correctedCards()[0])
 }
