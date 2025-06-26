@@ -1,0 +1,3 @@
+ignored/
+.nvim*
+.DS_Store
