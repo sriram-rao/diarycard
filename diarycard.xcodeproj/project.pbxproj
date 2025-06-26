@@ -14,14 +14,10 @@
 		CA5E1D5F2E0D0859000DEAF2 /* MeasureRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5E2E0D0852000DEAF2 /* MeasureRow.swift */; };
 		CA5E1D612E0D1039000DEAF2 /* schema.json in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D602E0D1039000DEAF2 /* schema.json */; };
 		CA5E1D622E0D1039000DEAF2 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = CA5E1D602E0D1039000DEAF2 /* schema.json */; };
-		CA5E1D642E0D1089000DEAF2 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D632E0D107A000DEAF2 /* CardModel.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
-		CADC36262DE1092D00539E69 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361F2DE1092D00539E69 /* Item.swift */; };
-		CADC36282DE1092D00539E69 /* TrailingIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */; };
 		CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADC361A2DE1092D00539E69 /* Assets.xcassets */; };
 		CADC362A2DE1092D00539E69 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = CADC361B2DE1092D00539E69 /* cards.json */; };
 		CADC362D2DE1092D00539E69 /* cards.json in Sources */ = {isa = PBXBuildFile; fileRef = CADC361B2DE1092D00539E69 /* cards.json */; };
-		CADC36382DE1092D00539E69 /* SkillSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36362DE1092D00539E69 /* SkillSection.swift */; };
 		CADC36392DE1092D00539E69 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36372DE1092D00539E69 /* Theme.swift */; };
 		CADC363A2DE1092D00539E69 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36352DE1092D00539E69 /* Model.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +45,6 @@
 		CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		CA5E1D5E2E0D0852000DEAF2 /* MeasureRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureRow.swift; sourceTree = "<group>"; };
 		CA5E1D602E0D1039000DEAF2 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		CA5E1D632E0D107A000DEAF2 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,27 +53,10 @@
 		CADC361C2DE1092D00539E69 /* diarycard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diarycard.entitlements; sourceTree = "<group>"; };
 		CADC361D2DE1092D00539E69 /* diarycardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diarycardApp.swift; sourceTree = "<group>"; };
 		CADC361E2DE1092D00539E69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CADC361F2DE1092D00539E69 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingIconLabelStyle.swift; sourceTree = "<group>"; };
 		CADC36352DE1092D00539E69 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		CADC36362DE1092D00539E69 /* SkillSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSection.swift; sourceTree = "<group>"; };
 		CADC36372DE1092D00539E69 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		CADC367A2DE1110700539E69 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CADC36582DE10D3300539E69 /* Exceptions for "Old Card" folder in "diarycard" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				1DiaryView.swift,
-				CardView2.swift,
-				DetailView.swift,
-				InputView.swift,
-				MeasureCardView.swift,
-			);
-			target = CA7291492D88D2E8004AF2DE /* diarycard */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CA7291612D88D2EB004AF2DE /* diarycardTests */ = {
@@ -94,14 +72,6 @@
 		CADC363D2DE1099500539E69 /* Preview Content */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		CADC36532DE10D3300539E69 /* Old Card */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CADC36582DE10D3300539E69 /* Exceptions for "Old Card" folder in "diarycard" target */,
-			);
-			path = "Old Card";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -163,9 +133,7 @@
 		CADC364D2DE10D1000539E69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CA5E1D632E0D107A000DEAF2 /* CardModel.swift */,
 				CADC36352DE1092D00539E69 /* Model.swift */,
-				CADC36362DE1092D00539E69 /* SkillSection.swift */,
 				CADC36372DE1092D00539E69 /* Theme.swift */,
 			);
 			path = Model;
@@ -176,7 +144,6 @@
 			children = (
 				CA5E1D5E2E0D0852000DEAF2 /* MeasureRow.swift */,
 				CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */,
-				CADC36532DE10D3300539E69 /* Old Card */,
 				CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */,
 			);
 			path = View;
@@ -195,8 +162,6 @@
 				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,
 				CADC361D2DE1092D00539E69 /* diarycardApp.swift */,
 				CADC361E2DE1092D00539E69 /* Info.plist */,
-				CADC361F2DE1092D00539E69 /* Item.swift */,
-				CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */,
 			);
 			path = DiaryCard;
 			sourceTree = "<group>";
@@ -351,17 +316,13 @@
 			files = (
 				CADC362D2DE1092D00539E69 /* cards.json in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
-				CADC36262DE1092D00539E69 /* Item.swift in Sources */,
 				CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */,
-				CA5E1D642E0D1089000DEAF2 /* CardModel.swift in Sources */,
 				CA5E1D5F2E0D0859000DEAF2 /* MeasureRow.swift in Sources */,
 				CA5E1D612E0D1039000DEAF2 /* schema.json in Sources */,
-				CADC36382DE1092D00539E69 /* SkillSection.swift in Sources */,
 				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
 				CA5E1D582E0CE436000DEAF2 /* cards 2.json in Sources */,
 				CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */,
 				CADC363A2DE1092D00539E69 /* Model.swift in Sources */,
-				CADC36282DE1092D00539E69 /* TrailingIconLabelStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

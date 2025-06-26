@@ -12,7 +12,6 @@ class Model{
     static let dateReadFormat: String = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
     var cards: [Dictionary<String, String>] = loadCards("cards 2.json")
     var schema: Dictionary<String, String> = load("schema.json")
-    var cards2: [Card] = []
 }
 
 
