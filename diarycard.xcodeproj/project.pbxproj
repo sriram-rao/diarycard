@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */; };
+		CA5E1D582E0CE436000DEAF2 /* cards 2.json in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D572E0CE436000DEAF2 /* cards 2.json */; };
+		CA5E1D592E0CE436000DEAF2 /* cards 2.json in Resources */ = {isa = PBXBuildFile; fileRef = CA5E1D572E0CE436000DEAF2 /* cards 2.json */; };
+		CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */; };
+		CA5E1D5F2E0D0859000DEAF2 /* MeasureRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5E2E0D0852000DEAF2 /* MeasureRow.swift */; };
+		CA5E1D612E0D1039000DEAF2 /* schema.json in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D602E0D1039000DEAF2 /* schema.json */; };
+		CA5E1D622E0D1039000DEAF2 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = CA5E1D602E0D1039000DEAF2 /* schema.json */; };
+		CA5E1D642E0D1089000DEAF2 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D632E0D107A000DEAF2 /* CardModel.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
 		CADC36262DE1092D00539E69 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361F2DE1092D00539E69 /* Item.swift */; };
 		CADC36282DE1092D00539E69 /* TrailingIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */; };
@@ -16,8 +24,6 @@
 		CADC36382DE1092D00539E69 /* SkillSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36362DE1092D00539E69 /* SkillSection.swift */; };
 		CADC36392DE1092D00539E69 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36372DE1092D00539E69 /* Theme.swift */; };
 		CADC363A2DE1092D00539E69 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36352DE1092D00539E69 /* Model.swift */; };
-		CADC363B2DE1092D00539E69 /* CardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36342DE1092D00539E69 /* CardSection.swift */; };
-		CADC36452DE1099500539E69 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36432DE1099500539E69 /* InputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		CA5E1D572E0CE436000DEAF2 /* cards 2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cards 2.json"; sourceTree = "<group>"; };
+		CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		CA5E1D5E2E0D0852000DEAF2 /* MeasureRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureRow.swift; sourceTree = "<group>"; };
+		CA5E1D602E0D1039000DEAF2 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		CA5E1D632E0D107A000DEAF2 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,21 +60,20 @@
 		CADC361E2DE1092D00539E69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CADC361F2DE1092D00539E69 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CADC36202DE1092D00539E69 /* TrailingIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingIconLabelStyle.swift; sourceTree = "<group>"; };
-		CADC36342DE1092D00539E69 /* CardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSection.swift; sourceTree = "<group>"; };
 		CADC36352DE1092D00539E69 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CADC36362DE1092D00539E69 /* SkillSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSection.swift; sourceTree = "<group>"; };
 		CADC36372DE1092D00539E69 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		CADC36432DE1099500539E69 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		CADC367A2DE1110700539E69 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CADC36582DE10D3300539E69 /* Exceptions for "Card" folder in "diarycard" target */ = {
+		CADC36582DE10D3300539E69 /* Exceptions for "Old Card" folder in "diarycard" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CardView.swift,
+				1DiaryView.swift,
+				CardView2.swift,
 				DetailView.swift,
-				DiaryView.swift,
+				InputView.swift,
 				MeasureCardView.swift,
 			);
 			target = CA7291492D88D2E8004AF2DE /* diarycard */;
@@ -85,12 +96,12 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		CADC36532DE10D3300539E69 /* Card */ = {
+		CADC36532DE10D3300539E69 /* Old Card */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				CADC36582DE10D3300539E69 /* Exceptions for "Card" folder in "diarycard" target */,
+				CADC36582DE10D3300539E69 /* Exceptions for "Old Card" folder in "diarycard" target */,
 			);
-			path = Card;
+			path = "Old Card";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -152,7 +163,7 @@
 		CADC364D2DE10D1000539E69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CADC36342DE1092D00539E69 /* CardSection.swift */,
+				CA5E1D632E0D107A000DEAF2 /* CardModel.swift */,
 				CADC36352DE1092D00539E69 /* Model.swift */,
 				CADC36362DE1092D00539E69 /* SkillSection.swift */,
 				CADC36372DE1092D00539E69 /* Theme.swift */,
@@ -163,8 +174,10 @@
 		CADC364E2DE10D2A00539E69 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CADC36532DE10D3300539E69 /* Card */,
-				CADC36432DE1099500539E69 /* InputView.swift */,
+				CA5E1D5E2E0D0852000DEAF2 /* MeasureRow.swift */,
+				CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */,
+				CADC36532DE10D3300539E69 /* Old Card */,
+				CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -177,6 +190,8 @@
 				CADC363D2DE1099500539E69 /* Preview Content */,
 				CADC361A2DE1092D00539E69 /* Assets.xcassets */,
 				CADC361B2DE1092D00539E69 /* cards.json */,
+				CA5E1D572E0CE436000DEAF2 /* cards 2.json */,
+				CA5E1D602E0D1039000DEAF2 /* schema.json */,
 				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,
 				CADC361D2DE1092D00539E69 /* diarycardApp.swift */,
 				CADC361E2DE1092D00539E69 /* Info.plist */,
@@ -308,6 +323,8 @@
 			files = (
 				CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */,
 				CADC362A2DE1092D00539E69 /* cards.json in Resources */,
+				CA5E1D592E0CE436000DEAF2 /* cards 2.json in Resources */,
+				CA5E1D622E0D1039000DEAF2 /* schema.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,14 +349,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CADC36452DE1099500539E69 /* InputView.swift in Sources */,
 				CADC362D2DE1092D00539E69 /* cards.json in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CADC36262DE1092D00539E69 /* Item.swift in Sources */,
+				CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */,
+				CA5E1D642E0D1089000DEAF2 /* CardModel.swift in Sources */,
+				CA5E1D5F2E0D0859000DEAF2 /* MeasureRow.swift in Sources */,
+				CA5E1D612E0D1039000DEAF2 /* schema.json in Sources */,
 				CADC36382DE1092D00539E69 /* SkillSection.swift in Sources */,
 				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
+				CA5E1D582E0CE436000DEAF2 /* cards 2.json in Sources */,
+				CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */,
 				CADC363A2DE1092D00539E69 /* Model.swift in Sources */,
-				CADC363B2DE1092D00539E69 /* CardSection.swift in Sources */,
 				CADC36282DE1092D00539E69 /* TrailingIconLabelStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +417,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = DiaryView.swift;
+				INFOPLIST_KEY_UILaunchStoryboardName = StartView.swift;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -439,7 +460,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = DiaryView.swift;
+				INFOPLIST_KEY_UILaunchStoryboardName = StartView.swift;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

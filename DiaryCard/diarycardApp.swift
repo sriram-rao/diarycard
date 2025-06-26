@@ -27,7 +27,7 @@ struct diarycardApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DiaryView()
+            StartView()
                 .environment(model)
         }
         .modelContainer(sharedModelContainer)

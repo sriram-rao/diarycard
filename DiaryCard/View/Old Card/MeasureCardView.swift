@@ -32,6 +32,6 @@ public struct MeasureCardView: View {
 }
 
 #Preview {
-    MeasureCardView(section: Model().cards[0].groups[0])
-        .background(Theme.periwinkle.mainColor)
+//    MeasureCardView(section: Model().cards2[0].groups[0])
+//        .background(Theme.periwinkle.mainColor)
 }

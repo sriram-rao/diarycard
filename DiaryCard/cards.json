@@ -1,65 +1,36 @@
 [
     {
-        "date": 1747897200,
-        "groups": [
-            {
-                "title": "Behaviour",
-                "properties": {
-                    "Self Care": 3,
-                    "Suicidal Ideation": 1,
-                    "Active SI": 0
-                }
-            },
-            {
-                "title": "Emotions",
-                "properties": {
-                    "Anxiety": 3,
-                    "Happiness": 1,
-                    "Sadness": 2
-                }
-            }
-        ]
+        "date": 1748674800,
+        "Text.Comment": "Test comment",
+        "Behaviour.Self Care": 3,
+        "Behaviour.Suicidal Ideation": 1,
+        "Behaviour.Active SI": 0,
+        "Emotions.Anxiety": 3,
+        "Emotions.Happiness": 1,
+        "Emotions.Sadness": 2,
+        "Skills.Distress Tolerance": ["ACCEPTS", "IMPROVE", "STOP"]
+        
     },
     {
-        "date": 1747810800,
-        "groups": [
-            {
-                "title": "Behaviour",
-                "properties": {
-                    "Self Care": 3,
-                    "Suicidal Ideation": 1,
-                    "Active SI": 0
-                }
-            },
-            {
-                "title": "Emotions",
-                "properties": {
-                    "Anxiety": 3,
-                    "Happiness": 1,
-                    "Sadness": 2
-                }
-            }
-        ]
+        "date": 1748588400,
+        "Text.Comment": "Test comment2",
+        "Behaviour.Self Care": 3,
+        "Behaviour.Suicidal Ideation": 1,
+        "Behaviour.Active SI": 0,
+        "Emotions.Anxiety": 3,
+        "Emotions.Happiness": 1,
+        "Emotions.Sadness": 2
+        
     },
     {
-        "date": 1747724400,
-        "groups": [
-            {
-                "title": "Behaviour",
-                "properties": {
-                    "Self Care": 3,
-                    "Suicidal Ideation": 1,
-                    "Active SI": 0
-                }
-            },
-            {
-                "title": "Emotions",
-                "properties": {
-                    "Anxiety": 3,
-                    "Happiness": 1,
-                    "Sadness": 2
-                }
-            }
-        ]
+        "date": 1748761200,
+        "Text.Comment": "Test comment3",
+        "Behaviour.Self Care": 3,
+        "Behaviour.Suicidal Ideation": 1,
+        "Behaviour.Active SI": 0,
+        "Emotions.Anxiety": 3,
+        "Emotions.Happiness": 1,
+        "Emotions.Sadness": 2
+        
     }
 ]

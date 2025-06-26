@@ -1,0 +1,12 @@
+    {
+        "date": "date",
+        "Text.Comment": "String",
+        "Behaviour.Self Care": "Number",
+        "Behaviour.Suicidal Ideation": "Number",
+        "Behaviour.Active SI": "Number",
+        "Emotions.Anxiety": "Number",
+        "Emotions.Happiness": "Number",
+        "Emotions.Sadness": "Number",
+        "Skills.Distress Tolerance": "List"
+        
+    }

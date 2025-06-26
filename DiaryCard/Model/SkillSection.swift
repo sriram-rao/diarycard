@@ -32,3 +32,23 @@ extension SkillSection {
         )
     ]
 }
+
+public struct MeasureGroup: Hashable, Codable {
+    var title: String
+    var properties: Dictionary<String, Int>
+    
+    init(title: String, properties: Dictionary<String, Int>) {
+        self.title = title
+        self.properties = properties
+    }
+}
+
+public struct Card2: Hashable, Codable {
+    var date: Date
+    var groups: [MeasureGroup]
+    
+    init(date: Date, groups: [MeasureGroup]) {
+        self.date = date
+        self.groups = groups
+    }
+}

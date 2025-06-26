@@ -10,26 +10,26 @@ import SwiftUI
 public enum Theme: String {
     case bubblegum
     case buttercup
-    case indigo
+    case indigos
     case lavender
-    case magenta
+    case magentas
     case navy
-    case orange
+    case oranges
     case oxblood
     case periwinkle
     case poppy
-    case purple
+    case purples
     case seafoam
     case sky
     case tan
-    case teal
-    case yellow
+    case teals
+    case yellows
     
     var accentColor: Color {
         switch self {
-        case .bubblegum, .buttercup, .lavender, .orange, .periwinkle,
-             .poppy, .seafoam, .sky, .tan, .teal, .yellow: return .black
-        case .indigo, .magenta, .navy, .oxblood, .purple: return .white
+        case .bubblegum, .buttercup, .lavender, .oranges, .periwinkle,
+             .poppy, .seafoam, .sky, .tan, .teals, .yellows: return .black
+        case .indigos, .magentas, .navy, .oxblood, .purples: return .white
         }
     }
     
@@ -42,6 +42,6 @@ public enum Theme: String {
     }
     
     static func parse(themeName: String) -> Theme {
-        return Theme(rawValue: themeName) ?? .indigo
+        return Theme(rawValue: themeName) ?? .indigos
     }
 }
