@@ -1,5 +1,5 @@
     {
-        "date": "date",
+        "Date": "Date",
         "Text.Comment": "String",
         "Behaviour.Self Care": "Number",
         "Behaviour.Suicidal Ideation": "Number",
@@ -7,6 +7,6 @@
         "Emotions.Anxiety": "Number",
         "Emotions.Happiness": "Number",
         "Emotions.Sadness": "Number",
-        "Skills.Distress Tolerance": "List"
+        "Skills.Distress Tolerance": "List:ACCEPTS, IMPROVE, TIPP, STOP"
         
     }

@@ -8,50 +8,54 @@
 import SwiftUI
 
 struct MeasureRow: View {
-    let attribute: String
-    let value: String
-    let type: String
+    let attribute: Attribute
     
     var body: some View {
         HStack {
-            Text(attribute)
+            Text(attribute.name.components(separatedBy: ".").last ?? "")
                 .font(.subheadline.lowercaseSmallCaps())
+                .fixedSize(horizontal: false, vertical: false)
+                .frame(maxWidth: 100, alignment: .leading)
             Spacer()
-            Text(formatValue(value, type))
-                .font(.title3)
+            format(attribute: attribute)
+                .frame(maxWidth: 300, alignment: .leading)
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
+        .padding(.horizontal)
+    }
+}
+
+let formatters: Dictionary<String, (Attribute) -> any View> = [
+    "list" : {attr in
+        SelectView(attribute: attr)
+    },
+    "text": {attr in
+        TextBoxView(attribute: attr)
+    },
+    "number": {attr in
+        TextBoxView(attribute: attr)
+    }
+]
+
+//@ViewBuilder
+func format(attribute: Attribute) -> AnyView {
+    let attributeType: String = attribute.type.lowercased().components(separatedBy: ":").first ?? ""
+    if let formatter = formatters[attributeType]{
+        return AnyView(formatter(attribute))
+    }
+    else {
+        return AnyView(TextBoxView(attribute: attribute))
     }
 }
 
 #Preview("MeasureRow") {
-    MeasureRow(attribute: "Behaviour.Self Care", value: Model().cards[0]["Behaviour.Self Care"] ?? "", type: Model().schema["Behaviour.Self Care"] ?? "String")
+    MeasureRow(attribute: Attribute(name: "Test", value: "Freeform\nFree fallin'", type: "String"))
 }
 
 #Preview("MeasureRow List") {
     var attribute: String = "Skills.Distress Tolerance"
-    MeasureRow(attribute: attribute, value: Model().cards[0][attribute] ?? "", type: Model().schema[attribute] ?? "String")
+    MeasureRow(attribute: Attribute(name: "Skills.Distress Tolerance", value: "List:ACCEPTS", type: "List:ACCEPTS,IMPROVE,TIPP,STOP"))
 }
 
-let formatters: Dictionary<String, (String, String) -> String> = [
-    "number": {(value, type) in
-        value
-    },
-    "date": {(value, type) in
-        var dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Model.dateReadFormat
-        return dateFormatter.date(from: value)!.formatted(date: .long, time: .omitted)
-    },
-    "list": {(value, type) in
-        value.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").joined(separator: "\n")
-    }
-]
-
-func formatValue(_ value: String, _ type: String) -> String {
-    if !formatters.contains(where: { $0.key.lowercased() == type.lowercased() }) {
-        return value
-    }
-
-    return formatters[type.lowercased()]!(value, type)
+#Preview("Date") {
+    MeasureRow(attribute: Attribute(name: "Date", value: "2025-06-26", type: "Date"))
 }

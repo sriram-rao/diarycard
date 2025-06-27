@@ -1,6 +1,6 @@
 [
     {
-        "Date": "2025-06-25T00:00:00-07:00",
+        "Date": "2025-06-25",
         "Text.Comment": "Test comment",
         "Behaviour.Self Care": "3",
         "Behaviour.Suicidal Ideation": "1",
@@ -12,7 +12,7 @@
         
     },
     {
-        "Date": "2025-06-24T00:00:00-07:00",
+        "Date": "2025-06-24",
         "Text.Comment": "Test comment2",
         "Behaviour.Self Care": "3",
         "Behaviour.Suicidal Ideation": "1",
@@ -23,7 +23,7 @@
         
     },
     {
-        "Date": "2025-06-23T00:00:00-07:00",
+        "Date": "2025-06-23",
         "Text.Comment": "Test comment3",
         "Behaviour.Self Care": "3",
         "Behaviour.Suicidal Ideation": "1",

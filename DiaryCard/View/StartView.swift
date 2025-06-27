@@ -4,22 +4,17 @@
 //
 //  Created by Sriram Rao on 6/25/25.
 //
-
+import SwiftData
 import SwiftUI
 
 struct StartView: View {
-    @Environment(Model.self) var model
-    
-    var cards: [Dictionary<String, String>] {
-        model.cards
-    }
+    @Query() var cards: [Card]
 
     var body: some View {
-        CardView(card: model.cards[0], schema: model.schema)
+        CardView(card: cards[0])
     }
 }
 
-#Preview("StartView") {
+#Preview("StartView", traits: .cardSampleData) {
     StartView()
-        .environment(Model())
 }

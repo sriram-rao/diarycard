@@ -6,47 +6,48 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
 
 struct CardView: View {
+    let card: Card
+
+    var orderedAttributes: [Attribute] {
+        let tempCard: [Attribute] = card.attributes.filter({ $0.name.lowercased() != "date" && !$0.name.lowercased().contains("text")})
+        return tempCard.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+    }
     
-    let card: Dictionary<String, String>
-    let schema: Dictionary<String, String>
-    var orderedKeys: [String] {
-        let tempCard: [String] = card.keys.filter({ $0.lowercased() != "date" && !$0.lowercased().contains("text")})
-        return tempCard.sorted(by: { $0.lowercased().components(separatedBy: ".").first! < $1.lowercased().components(separatedBy: ".").first! })
-        }
-    
-    var textKeys: [String] {
-        return card.keys.filter({ $0.lowercased().contains("text")})
+    var textAttributes: [Attribute] {
+        return card.attributes.filter({ $0.name.lowercased().contains("text")})
     }
     
     
     var body: some View {
         
         VStack {
-            Divider()
+            HStack {
+                Text("Date")
+                    .font(.subheadline.lowercaseSmallCaps())
+                Spacer(minLength: 0)
+                DateView(card: card)
+            }
+            .padding(.horizontal)
             
-            MeasureRow(attribute: "Date", value: card["Date"]!, type: "Date")
-            ForEach(textKeys, id: \.hash) {textKey in
-                MeasureRow(attribute: textKey, value: card[textKey]!, type: "text")
+            ForEach(textAttributes) {attribute in
+                MeasureRow(attribute: attribute)
+
             }
             
-            Divider()
-            Spacer()
-            Divider()
-            
-            ForEach(orderedKeys, id: \.hash) {attribute in
-                MeasureRow(attribute: attribute.components(separatedBy: ".").last!,
-                           value: card[attribute]!,
-                           type: schema[attribute] ?? "String")
-                Divider()
+            List {
+                ForEach(orderedAttributes) {attribute in
+                    MeasureRow(attribute: attribute)
+                }
             }
-            Spacer()
         }
     }
 }
 
-#Preview("Default") {
-    CardView(card: Model().cards[0], schema: Model().schema)
+#Preview("Default", traits: .cardSampleData) {
+    @Previewable @Query(sort: \Card.date) var cards: [Card]
+    CardView(card: cards[0])
 }

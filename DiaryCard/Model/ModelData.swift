@@ -8,10 +8,11 @@
 import Foundation
 
 @Observable
-class Model{
-    static let dateReadFormat: String = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+class ModelData{
+    static let dateReadFormat: String = "yyyy-MM-dd"
     var cards: [Dictionary<String, String>] = loadCards("cards 2.json")
     var schema: Dictionary<String, String> = load("schema.json")
+    var test: String = "test"
 }
 
 
@@ -41,7 +42,7 @@ func load<T: Decodable>(_ filename: String) -> T {
 func loadCards(_ filename: String) -> [Dictionary<String, String>] {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "en_US_POSIX")
-    formatter.dateFormat = Model.dateReadFormat
+    formatter.dateFormat = ModelData.dateReadFormat
     var cards: [Dictionary<String, String>] = load(filename)
     cards = cards.sorted { formatter.date(from: $0["Date"] ?? "")! > formatter.date(from: $1["Date"] ?? "")! }
     return cards
