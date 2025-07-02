@@ -3,6 +3,7 @@ import SwiftData
 import SwiftUI
 
 struct CardView: View {
+    @Query() var lists: [ListSchemas]
     let card: Card
     
     var textKeys: [String] {
@@ -65,23 +66,6 @@ struct CardView: View {
 
     }
     
-    func getDateView(key: String = "date") -> some View {
-        let dateBinding: Binding<Date> = "date" == key ?
-            Binding<Date>(
-                get: { card.date },
-                set: { newValue in card.date = newValue }) :
-            Binding(
-                get: { card[key].asDate },
-                set: {newValue in card.getBinding(key: key).wrappedValue = Value.wrap(newValue)!})
-        
-        return
-            DatePicker(selection: dateBinding,
-                       displayedComponents: [.date], label: {Text("")})
-                .labelsHidden()
-                .frame(alignment: .leading)
-        
-    }
-    
     func getNameView(name: String) -> some View {
         return Group {
             Text(name.components(separatedBy: ".").last ?? "")
@@ -99,7 +83,7 @@ struct CardView: View {
         case .date:
             return AnyView(self.getDateView(key: name))
         case .stringArray:
-            return AnyView(self.getListView(key: name))
+            return AnyView(self.getListView(key: name, textLists: lists.first!.schemas[name] ?? []))
         default:
             return AnyView(Text(""))  // Default case if no match
         }
@@ -121,10 +105,4 @@ struct CardView: View {
     @Previewable @Query(sort: \Card.date) var cards: [Card]
     Text("Live: \((cards.first!)["emotions.anxiety"].toString())")
     CardView(card: cards.first!).getNumberView(key: "emotions.anxiety")
-}
-
-#Preview("Date", traits: .cardSampleData) {
-    @Previewable @Query() var cards: [Card]
-    Text("Live: \((cards.first!).date)")
-    CardView(card: cards.first!).getDateView()
 }

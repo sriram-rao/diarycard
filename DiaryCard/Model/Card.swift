@@ -45,9 +45,6 @@ extension Dictionary where Key == String, Value == [String] {
 
 @Model
 class ListSchemas {
-    @MainActor private static let lists: ListSchemas = ListSchemas(schemas: [
-        "skills.distress tolerance": ["ACCEPTS", "IMPROVE", "TIPP", "STOP"]
-    ])
     
     @Transient
     var schemasCache: [String: [String]] = [:]
@@ -64,7 +61,7 @@ class ListSchemas {
         
         set {
             schemasCache = newValue
-            schemasJson = try! JSONDecoder().decode(String.self, from: JSONEncoder().encode(newValue))
+            schemasJson = try! String(data: JSONEncoder().encode(newValue), encoding: .utf8) ?? ""
         }
     }
 

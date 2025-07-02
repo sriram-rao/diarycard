@@ -2,13 +2,16 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-struct CardSampleData: PreviewModifier {
+struct SampleData: PreviewModifier {
+    static func insert(into context: ModelContext) {
+        Card.getSampleData().forEach { context.insert($0) }
+        context.insert(ListSchemas.getSampleData())
+    }
     
     static func makeSharedContext() async throws -> ModelContainer {
         let container = try ModelContainer(for: Schema([Card.self, ListSchemas.self]),
                                            configurations: .init(isStoredInMemoryOnly: true))
-        Card.getSampleData().forEach { container.mainContext.insert($0) }
-        container.mainContext.insert(ListSchemas.getSampleData())
+        insert(into: container.mainContext)
         return container
     }
     
@@ -18,5 +21,5 @@ struct CardSampleData: PreviewModifier {
 }
 
 extension PreviewTrait where T == Preview.ViewTraits {
-    @MainActor static var cardSampleData: Self = .modifier(CardSampleData())
+    @MainActor static var cardSampleData: Self = .modifier(SampleData())
 }

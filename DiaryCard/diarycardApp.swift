@@ -12,12 +12,10 @@ import SwiftData
 struct diarycardApp: App {
     
     var body: some Scene {
+
         WindowGroup {
             StartView()
         }
-        .modelContainer(for: [
-            Card.self,
-            ListSchemas.self
-        ])
+        .modelContainer(for: [Card.self, ListSchemas.self])
     }
 }

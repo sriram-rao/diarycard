@@ -8,21 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */; };
-		CA5E1D582E0CE436000DEAF2 /* cards 2.json in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D572E0CE436000DEAF2 /* cards 2.json */; };
-		CA5E1D592E0CE436000DEAF2 /* cards 2.json in Resources */ = {isa = PBXBuildFile; fileRef = CA5E1D572E0CE436000DEAF2 /* cards 2.json */; };
 		CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */; };
-		CA5E1D612E0D1039000DEAF2 /* schema.json in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D602E0D1039000DEAF2 /* schema.json */; };
-		CA5E1D622E0D1039000DEAF2 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = CA5E1D602E0D1039000DEAF2 /* schema.json */; };
 		CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */; };
 		CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */; };
 		CAD9C4452E11E88100F01584 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* ListView.swift */; };
 		CAD9C45A2E12378700F01584 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4592E12378300F01584 /* Value.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
 		CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADC361A2DE1092D00539E69 /* Assets.xcassets */; };
-		CADC362A2DE1092D00539E69 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = CADC361B2DE1092D00539E69 /* cards.json */; };
-		CADC362D2DE1092D00539E69 /* cards.json in Sources */ = {isa = PBXBuildFile; fileRef = CADC361B2DE1092D00539E69 /* cards.json */; };
 		CADC36392DE1092D00539E69 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36372DE1092D00539E69 /* Theme.swift */; };
-		CADC363A2DE1092D00539E69 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36352DE1092D00539E69 /* ModelData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,9 +37,7 @@
 
 /* Begin PBXFileReference section */
 		CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		CA5E1D572E0CE436000DEAF2 /* cards 2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cards 2.json"; sourceTree = "<group>"; };
 		CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		CA5E1D602E0D1039000DEAF2 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,11 +46,9 @@
 		CAD9C4432E11E88100F01584 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		CADC361A2DE1092D00539E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CADC361B2DE1092D00539E69 /* cards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		CADC361C2DE1092D00539E69 /* diarycard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diarycard.entitlements; sourceTree = "<group>"; };
 		CADC361D2DE1092D00539E69 /* diarycardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diarycardApp.swift; sourceTree = "<group>"; };
 		CADC361E2DE1092D00539E69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CADC36352DE1092D00539E69 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		CADC36372DE1092D00539E69 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		CADC367A2DE1110700539E69 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,7 +130,6 @@
 			children = (
 				CAD9C4592E12378300F01584 /* Value.swift */,
 				CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */,
-				CADC36352DE1092D00539E69 /* ModelData.swift */,
 				CADC36372DE1092D00539E69 /* Theme.swift */,
 			);
 			path = Model;
@@ -165,9 +153,6 @@
 				CADC364D2DE10D1000539E69 /* Model */,
 				CADC363D2DE1099500539E69 /* Preview Content */,
 				CADC361A2DE1092D00539E69 /* Assets.xcassets */,
-				CADC361B2DE1092D00539E69 /* cards.json */,
-				CA5E1D572E0CE436000DEAF2 /* cards 2.json */,
-				CA5E1D602E0D1039000DEAF2 /* schema.json */,
 				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,
 				CADC361D2DE1092D00539E69 /* diarycardApp.swift */,
 				CADC361E2DE1092D00539E69 /* Info.plist */,
@@ -296,9 +281,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */,
-				CADC362A2DE1092D00539E69 /* cards.json in Resources */,
-				CA5E1D592E0CE436000DEAF2 /* cards 2.json in Resources */,
-				CA5E1D622E0D1039000DEAF2 /* schema.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,17 +306,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAD9C45A2E12378700F01584 /* Value.swift in Sources */,
-				CADC362D2DE1092D00539E69 /* cards.json in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
 				CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,
-				CA5E1D612E0D1039000DEAF2 /* schema.json in Sources */,
 				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
 				CAD9C4452E11E88100F01584 /* ListView.swift in Sources */,
-				CA5E1D582E0CE436000DEAF2 /* cards 2.json in Sources */,
 				CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */,
-				CADC363A2DE1092D00539E69 /* ModelData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,11 +352,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DiaryCard/diarycard.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
-				DEVELOPMENT_TEAM = 8BJRT6BH24;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
@@ -402,15 +381,16 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = test.diarycard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 26.0;
-				WATCHOS_DEPLOYMENT_TARGET = 26.0;
-				XROS_DEPLOYMENT_TARGET = 26.0;
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Debug;
 		};
@@ -420,11 +400,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DiaryCard/diarycard.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
-				DEVELOPMENT_TEAM = 8BJRT6BH24;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
@@ -448,15 +429,16 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = test.diarycard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 26.0;
-				WATCHOS_DEPLOYMENT_TARGET = 26.0;
-				XROS_DEPLOYMENT_TARGET = 26.0;
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Release;
 		};
@@ -493,6 +475,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -513,13 +496,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "";
 			};
 			name = Debug;
 		};
@@ -556,6 +542,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -573,8 +560,10 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "";
 			};
 			name = Release;
 		};
