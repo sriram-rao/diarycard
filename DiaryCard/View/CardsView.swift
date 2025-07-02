@@ -20,8 +20,7 @@ struct CardsView: View {
                     } label: {
                         Text(card.date, style: .date)
                         Spacer()
-                        Text(card.attributes.filter({ $0.name.lowercased() == "text.comment" })
-                            .first?.value ?? "Diary Card")
+                        Text(card["text.comment"].asString)
                             .lineLimit(1)
                             .truncationMode(.tail)
                     }

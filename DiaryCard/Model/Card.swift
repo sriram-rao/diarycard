@@ -1,39 +1,91 @@
-//
-//  Card.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 6/26/25.
-//
 import Foundation
+import SwiftUI
 import SwiftData
 
 @Model
-class Attribute: Comparable, Identifiable {
-    var name: String
-    var value: String
-    var type: String
-    var id: String { name }
+class Card {
+    var attributes: Dictionary<String, Value>
+    var date: Date
     
-    init(name: String, value: String, type: String) {
-        self.name = name
-        self.value = value
-        self.type = type
+    init(date: Date, attributes: Dictionary<String, Value> = [:]) {
+        self.attributes = attributes
+        self.date = date
+        self.attributes["date"] = Value.wrap(date)
     }
     
-    static func < (lhs: Attribute, rhs: Attribute) -> Bool {
-        return lhs.name < rhs.name
+    func get(key: String) -> Value {
+        return attributes[key.lowercased()] ?? Value.wrap("")!
+    }
+    
+    subscript(key: String) -> Value {
+        self.get(key: key)
+    }
+    
+    func getAttributeNames() -> [String] {
+        Array(attributes.keys)
     }
 }
 
+extension Card {
+    func getBinding(key: String) -> Binding<Value> {
+        guard attributes[key] != nil else {
+            return Binding(get: {Value.wrap("")!}, set: {_ in})
+        }
+        
+        return Binding(
+            get: { self.attributes[key]! },
+            set: { newValue in self.attributes[key] = newValue }
+        )
+    }
+}
+
+extension Dictionary where Key == String, Value == [String] {
+   
+}
+
 @Model
-class Card: Identifiable {
-    var id: UUID
-    var date: Date
-    var attributes: [Attribute]
+class ListSchemas {
+    @MainActor private static let lists: ListSchemas = ListSchemas(schemas: [
+        "skills.distress tolerance": ["ACCEPTS", "IMPROVE", "TIPP", "STOP"]
+    ])
     
-    init(id: UUID = UUID(), date: Date = Date(), attributes: [Attribute]) {
-        self.id = id
-        self.date = date
-        self.attributes = attributes
+    @Transient
+    var schemasCache: [String: [String]] = [:]
+    
+    var schemasJson: String = ""
+    var schemas: [String: [String]] {
+        get {
+            if !schemasCache.isEmpty {
+                return schemasCache
+            }
+            schemasCache = (try? JSONDecoder().decode([String: [String]].self, from: Data(schemasJson.utf8))) ?? [:]
+            return schemasCache
+        }
+        
+        set {
+            schemasCache = newValue
+            schemasJson = try! JSONDecoder().decode(String.self, from: JSONEncoder().encode(newValue))
+        }
+    }
+
+    init(schemas: [String : [String]] = [:]) {
+        self.schemas = schemas
+    }
+    
+    subscript(listName: String, schemas: [String: [String]] = [:]) -> [String] {
+        get { self.schemas[listName.lowercased()] ?? [] }
+        set { self.schemas[listName.lowercased()] = newValue }
+    }
+    
+    func get(_ listName: String) -> [String] {
+        schemas[listName.lowercased()] ?? []
+    }
+    
+    func toString(listName: String) -> String {
+        get(listName).joined(separator: ", ")
+    }
+    
+    func contains(listName: String, value: String) -> Bool {
+        get(listName).contains(value)
     }
 }

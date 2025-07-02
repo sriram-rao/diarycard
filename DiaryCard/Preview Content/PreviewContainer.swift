@@ -1,9 +1,3 @@
-//
-//  PreviewContainer.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 6/26/25.
-//
 import Foundation
 import SwiftData
 import SwiftUI
@@ -11,8 +5,10 @@ import SwiftUI
 struct CardSampleData: PreviewModifier {
     
     static func makeSharedContext() async throws -> ModelContainer {
-        let container = try ModelContainer(for: Card.self, configurations: .init(isStoredInMemoryOnly: true))
-        Card.sampleData.forEach { container.mainContext.insert($0) }
+        let container = try ModelContainer(for: Schema([Card.self, ListSchemas.self]),
+                                           configurations: .init(isStoredInMemoryOnly: true))
+        Card.getSampleData().forEach { container.mainContext.insert($0) }
+        container.mainContext.insert(ListSchemas.getSampleData())
         return container
     }
     

@@ -1,10 +1,3 @@
-//
-//  Model.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 5/22/25.
-//
-
 import Foundation
 
 @Observable

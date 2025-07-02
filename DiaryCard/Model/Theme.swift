@@ -1,10 +1,3 @@
-//
-//  Theme.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 3/17/25.
-//
-
 import SwiftUI
 
 public enum Theme: String {
