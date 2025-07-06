@@ -149,8 +149,8 @@
 		CADC36592DE10D9300539E69 /* DiaryCard */ = {
 			isa = PBXGroup;
 			children = (
-				CADC364E2DE10D2A00539E69 /* View */,
 				CADC364D2DE10D1000539E69 /* Model */,
+				CADC364E2DE10D2A00539E69 /* View */,
 				CADC363D2DE1099500539E69 /* Preview Content */,
 				CADC361A2DE1092D00539E69 /* Assets.xcassets */,
 				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,

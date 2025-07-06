@@ -6,6 +6,8 @@ struct CardView: View {
     @Query() var lists: [ListSchemas]
     let card: Card
     
+    @State var showPicker: Bool = false
+    
     var textKeys: [String] {
         get { card.attributes.filter({ $0.value.kind == .string }).keys.sorted() }
     }
@@ -14,24 +16,34 @@ struct CardView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            render(name: Text("Date"),
-                   view: getDateView())
-                .padding(.horizontal)
-            
-            ForEach(textKeys, id: \.hash) {key in
-                render(name: getNameView(name: key),
-                       view: getTextKeyView(key: key))
-            }
-            
-            List {
-                ForEach(otherKeys, id: \.self) {key in
+        Form {
+            VStack(alignment: .leading) {
+                //                render(name: Text("Date"),
+                //                       view: getDateView()).padding(.horizontal)
+                Text(showPicker.description)
+                
+                ForEach(textKeys, id: \.hash) {key in
                     render(name: getNameView(name: key),
-                           view: getView(name: key)
-                    )
+                           view: getTextKeyView(key: key))
+                }
+                
+                List {
+                    ForEach(otherKeys, id: \.self) {key in
+                        render(name: getNameView(name: key),
+                               view: getView(name: key)
+                        )
+                    }
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .principal) {
+                DatePicker("", selection: getDateBinding(), displayedComponents: [.date])
+                    .padding(.all, 10)
+                    .backgroundStyle(Color.red)
+            }
+        })
     }
     
     func render(name: some View, view: some View) -> some View {
@@ -40,30 +52,6 @@ struct CardView: View {
             view.frame(maxWidth: 200, alignment: .leading)
                 .contentShape(Rectangle())
         }
-    }
-    
-    func getTextKeyView(key: String) -> some View {
-        let cardText: Binding<Value> = card.getBinding(key: key)
-        let textBinding = Binding<String>(
-            get: { cardText.wrappedValue.asString },
-            set: { newValue in cardText.wrappedValue = Value.wrap(newValue)! }
-        )
-        
-        return TextField(card[key].toString(), text: textBinding, axis: .vertical)
-            .textFieldStyle(.plain)
-    }
-    
-    func getNumberView(key: String) -> some View {
-        
-        return TextField(
-            value: Binding(
-                get: { card.get(key: key).asInt },
-                set: { newVal in
-                    card.attributes[key] = .int(newVal)
-                }),
-            format: IntegerFormatStyle(),
-        ) { Text("Enter number") }
-
     }
     
     func getNameView(name: String) -> some View {
@@ -83,26 +71,28 @@ struct CardView: View {
         case .date:
             return AnyView(self.getDateView(key: name))
         case .stringArray:
-            return AnyView(self.getListView(key: name, textLists: lists.first!.schemas[name] ?? []))
+            return AnyView(self.getSummaryRowView(key: name, textList: lists.first!.schemas[name] ?? []))
         default:
-            return AnyView(Text(""))  // Default case if no match
+            return AnyView(Text(""))
         }
     }
 }
 
 #Preview("Default", traits: .cardSampleData) {
     @Previewable @Query(sort: \Card.date) var cards: [Card]
-    CardView(card: cards.first!)
+    NavigationStack {
+        CardView(card: cards.first!)
+    }
 }
 
-#Preview("Text", traits: .cardSampleData) {
+#Preview("List Summary", traits: .cardSampleData) {
     @Previewable @Query(sort: \Card.date) var cards: [Card]
-    Text("Live: \((cards.first!)["text.comment"].toString())")
-    CardView(card: cards.first!).getTextKeyView(key: "text.comment")
-}
-
-#Preview("Number", traits: .cardSampleData) {
-    @Previewable @Query(sort: \Card.date) var cards: [Card]
-    Text("Live: \((cards.first!)["emotions.anxiety"].toString())")
-    CardView(card: cards.first!).getNumberView(key: "emotions.anxiety")
+    @Previewable @Query(sort: \ListSchemas.schemasJson) var lists: [ListSchemas]
+    let key: String = "skills.distress tolerance"
+    Text("Live Preview: \(cards.first!.get(key: key).toString())")
+    VStack {
+//        Text(lists[0].schemasJson)
+        CardView(card: cards.first!).getSummaryRowView(
+            key: key, textList: lists.first?.schemas[key] ?? [])
+    }
 }
