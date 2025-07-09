@@ -13,6 +13,12 @@ struct CardsView: View {
     
     var body: some View {
         NavigationStack {
+//            Text("Diary Cards")
+//                .font(.largeTitle)
+//                .bold()
+//                .padding()
+            
+            Spacer()
             List{
                 ForEach(cards) { card in
                     NavigationLink {
@@ -26,7 +32,8 @@ struct CardsView: View {
                     }
                 }
             }
-            .navigationTitle(Text("Diary Cards"))
+            .contentMargins(.vertical, 30)
+            .navigationTitle("Diary Cards")
         }
     }
 }

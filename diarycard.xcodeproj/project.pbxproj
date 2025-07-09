@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */; };
 		CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */; };
 		CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */; };
 		CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */; };
-		CAD9C4452E11E88100F01584 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* ListView.swift */; };
+		CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA899EAA2E1B5F5400A46D91 /* CardView.swift */; };
+		CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A38B72E1A250C000945F0 /* PopoverList.swift */; };
+		CAD9C4452E11E88100F01584 /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* ViewHelper.swift */; };
 		CAD9C45A2E12378700F01584 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4592E12378300F01584 /* Value.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
 		CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADC361A2DE1092D00539E69 /* Assets.xcassets */; };
@@ -36,14 +37,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAD9C4432E11E88100F01584 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		CA899EAA2E1B5F5400A46D91 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		CA8A38B72E1A250C000945F0 /* PopoverList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverList.swift; sourceTree = "<group>"; };
+		CAD9C4432E11E88100F01584 /* ViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		CADC361A2DE1092D00539E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CADC361C2DE1092D00539E69 /* diarycard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diarycard.entitlements; sourceTree = "<group>"; };
@@ -138,8 +140,9 @@
 		CADC364E2DE10D2A00539E69 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CAD9C4432E11E88100F01584 /* ListView.swift */,
-				CA5E1D552E0CD6D7000DEAF2 /* CardView.swift */,
+				CAD9C4432E11E88100F01584 /* ViewHelper.swift */,
+				CA8A38B72E1A250C000945F0 /* PopoverList.swift */,
+				CA899EAA2E1B5F5400A46D91 /* CardView.swift */,
 				CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */,
 				CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */,
 			);
@@ -306,12 +309,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAD9C45A2E12378700F01584 /* Value.swift in Sources */,
+				CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
-				CA5E1D562E0CD6F3000DEAF2 /* CardView.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,
 				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
-				CAD9C4452E11E88100F01584 /* ListView.swift in Sources */,
+				CAD9C4452E11E88100F01584 /* ViewHelper.swift in Sources */,
+				CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */,
 				CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +378,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
@@ -422,7 +426,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;

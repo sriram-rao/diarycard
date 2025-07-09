@@ -16,7 +16,7 @@ enum Value: Codable {
     
     func unwrap<T>() -> T? {
         switch self {
-        case .int(let v): return v as? T
+            case .int(let v): return v as? T
             case .string(let v): return v as? T
             case .bool(let v): return v as? T
             case .date(let v): return v as? T

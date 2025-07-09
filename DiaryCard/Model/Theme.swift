@@ -17,11 +17,12 @@ public enum Theme: String {
     case tan
     case teals
     case yellows
+    case offwhite
     
     var accentColor: Color {
         switch self {
         case .bubblegum, .buttercup, .lavender, .oranges, .periwinkle,
-             .poppy, .seafoam, .sky, .tan, .teals, .yellows: return .black
+                .poppy, .seafoam, .sky, .tan, .teals, .yellows, .offwhite: return .black
         case .indigos, .magentas, .navy, .oxblood, .purples: return .white
         }
     }
@@ -36,5 +37,11 @@ public enum Theme: String {
     
     static func parse(themeName: String) -> Theme {
         return Theme(rawValue: themeName) ?? .indigos
+    }
+}
+
+extension Color {
+    static var offwhite: Color {
+        return Color(red: 0xF5, green: 0xF5, blue: 0xF5, opacity: 1)
     }
 }

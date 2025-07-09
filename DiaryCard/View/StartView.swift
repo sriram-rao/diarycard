@@ -1,17 +1,21 @@
-//
-//  BaseView.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 6/25/25.
-//
+import Foundation
 import SwiftData
 import SwiftUI
 
 struct StartView: View {
-    @Query() var cards: [Card]
+    @Query(sort: \Card.date, order: .reverse) var cards: [Card]
 
     var body: some View {
-        CardView(card: cards[0])
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Today")
+                .font(.largeTitle)
+                
+            Spacer()
+            CardView(card: cards[0])
+            Spacer()
+        }
+        .navigationTitle("Title")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
