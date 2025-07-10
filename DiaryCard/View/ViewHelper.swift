@@ -2,10 +2,44 @@ import SwiftUI
 import SwiftData
 
 extension CardView {
+    func getNameView(name: String) -> some View {
+        return Group {
+            Text(name.components(separatedBy: ".").last ?? "")
+                .fixedSize(horizontal: false, vertical: false)
+                .lineLimit(2)
+                .truncationMode(.tail)
+        }
+    }
+    
+    func getBinding<T>(key: String) -> Binding<T> {
+        Binding<T>(
+            get: { card[key].unwrap()! },
+            set: { newValue in card.attributes[key] = Value.wrap(newValue) }
+        )
+    }
+    
     func getDateBinding() -> Binding<Date> {
         return Binding<Date>(
-            get: { card.date },
-            set: { newValue in card.date = newValue })
+            get: {
+                print("Getter: \(card.date)")
+                return card.date
+            },
+            set: { newValue in
+                print("Setter, trying: \(newValue)")
+                card.date = newValue
+                print("Set to: \(card.date)")
+            })
+    }
+    
+    func run_if(_ condition: Bool, _ action: () -> some View) -> AnyView {
+        if condition {
+            return AnyView(action())
+        }
+        return AnyView(EmptyView())
+    }
+    
+    func doNothing(name: String...) -> EmptyView {
+        EmptyView()
     }
     
     func getRelativeDay(date: Date) -> String {
@@ -36,13 +70,9 @@ struct NumberView: View {
     @Binding var value: String
     
     var body: some View {
-        TextField(
-            value,
-            text: $value,
-            axis: .vertical
-        )
-        .keyboardType(.numberPad)
-        .padding(.leading, 40)
+        TextField(value, text: $value, axis: .vertical)
+            .keyboardType(.numberPad)
+            .padding(.leading, 40)
     }
 }
 
@@ -50,7 +80,6 @@ struct TextView : View {
     @Binding var value: String
     
     var body : some View {
-
         TextField(value, text: $value, axis: .vertical)
             .textFieldStyle(.plain)
     }
@@ -78,7 +107,6 @@ struct BooleanView: View {
 }
 
 struct HomeButton: View {
-    @State var buttonActive: Bool = true
     var body: some View {
         NavigationStack {
             NavigationLink {
@@ -88,45 +116,4 @@ struct HomeButton: View {
             }
         }
     }
-}
-
-#Preview("Text") {
-    @Previewable @State var text: String = "text.comment"
-    Text("Live Preview: \(text)")
-    TextView(value: $text)
-}
-
-#Preview("Number") {
-    @Previewable @State var number: Value = .int(10)
-    let binding = Binding<String> (
-        get: { String(number.asInt) },
-        set: { newValue in number = .int(Int(newValue) ?? 0) }
-    )
-    Text("Live Preview: \(number)")
-    NumberView(value: binding)
-}
-
-#Preview("Bool") {
-    @Previewable @State var value: Bool = false
-    Text("Live Preview: \(value)")
-    BooleanView(value: $value)
-}
-
-#Preview("Card", traits: .cardSampleData) {
-    @Previewable @Query(sort: \Card.date) var cards: [Card]
-    NavigationStack {
-        CardView(card: cards.first!)
-    }
-}
-
-#Preview("Home Button") {
-    HomeButton()
-}
-
-#Preview("Date") {
-    @Previewable @State var value: Date = Date()
-    Text("Live Preview: \(value)\n")
-    Spacer()
-    DateView(value: $value)
-    Spacer()
 }

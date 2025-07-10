@@ -4,13 +4,17 @@ import SwiftUI
 
 struct CardView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) var modelContext
     @Query() var lists: [ListSchemas]
     let card: Card
     
     @State var showPicker: Bool = false
     @State var needsPopover: Bool = false
+    @State var timesComputed: Int = 0
+    
     var showTapBackground: Bool {
-        showPicker || needsPopover
+        print("Getting background computed variable \(timesComputed), show background: \(showPicker || needsPopover)")
+        return showPicker || needsPopover
     }
     
     @State var selectedKey: String = ""
@@ -26,43 +30,39 @@ struct CardView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                measures
-                    .zIndex(0)
-                    .blur(radius: 3 * (showTapBackground ? 1 : 0))
+                measures.zIndex(0).blur(radius: 3 * (showTapBackground ? 1 : 0))
             }
-            
-            if showTapBackground {
-                tapBackground.zIndex(1)
-            }
-            
-            if needsPopover {
-                popover.zIndex(2)
-            }
-            
-            if showPicker {
-                picker.zIndex(2)
-            }
+            run_if( showTapBackground, { return tapBackground.zIndex(1)} )
+            run_if( needsPopover, { return popover.zIndex(2)} )
+            run_if( showPicker, { return picker.zIndex(2)} )
         }
         .navigationBarTitleDisplayMode(.inline)
     }
     
     var measures: some View {
         VStack {
-            VStack {
-                Button(action: {
-                    showPicker.toggle()
-                }, label: {
-                    Text(getRelativeDay(date: card.date))
-                        .font(.title)
-                })
-            }
-            
+            Button(
+                action: { showPicker.toggle() },
+                label: { Text(getRelativeDay(date: card.date)).font(.title) }
+            )
             VStack {
                 renderKeys(keys: textKeys)
                 renderKeys(keys: otherKeys)
             }
-            .padding(.top, 10)
+            .padding(.vertical, 20)
         }
+    }
+    
+    var tapBackground: some View {
+        Rectangle()
+            .fill(Color.white.opacity(0.4))
+            .blur(radius: 20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .onTapGesture {
+                needsPopover = false
+                showPicker = false
+                selectedKey = ""
+            }
     }
     
     var popover: some View {
@@ -73,41 +73,27 @@ struct CardView: View {
             Spacer()
             PopoverList(selected: binding, full: lists.first!.schemas[selectedKey] ?? [])
         }
-        
-        
     }
     
     var picker: some View {
         VStack(alignment: .center) {
-            DateView(value: getDateBinding())
+            Text("Chosen date: \(card.date.description)")
+            let binding = getDateBinding()
+            Text("Date binding: \(binding.wrappedValue.description)")
+            DateView(value: binding)
                 .datePickerStyle(.graphical)
-                .background(.ultraThinMaterial.opacity(0.80))
-                .border(Color.offwhite)
+                .padding(.bottom, 15)
+            
                 .background(Color.white.opacity(0.1))
+                .background(.ultraThinMaterial.opacity(0.80))
+            
+                .border(Color.offwhite)
                 .cornerRadius(20)
                 .scaleEffect(0.85)
+            
+            Text("Active si \(card["behaviour.2.suicidal ideation.active"])")
+            Text("SI \(card["behaviour.2.suicidal ideation"])")
             Spacer()
-        }
-    }
-    
-    var tapBackground: some View {
-        Rectangle()
-            .fill(Color.white.opacity(0.4))
-            .blur(radius: 20)
-            .frame(width: .infinity, height: .infinity, alignment: .center)
-            .onTapGesture {
-                needsPopover = false
-                showPicker = false
-                selectedKey = ""
-            }
-    }
-    
-    func getNameView(name: String) -> some View {
-        return Group {
-            Text(name.components(separatedBy: ".").last ?? "")
-                .fixedSize(horizontal: false, vertical: false)
-                .lineLimit(2)
-                .truncationMode(.tail)
         }
     }
     
@@ -125,9 +111,9 @@ struct CardView: View {
                     render(key: key)
                 }
             }
-            .padding(.horizontal, 25)
-            .padding(.vertical, 5)
             .border(Color.gray.opacity(0.2), width: 1)
+            .padding(.horizontal, 50)
+            .padding(.vertical, 5)
         }
     }
     
@@ -135,10 +121,9 @@ struct CardView: View {
         return VStack (alignment: .leading) {
             getNameView(name: key)
                 .font(.system(size: 16).lowercaseSmallCaps())
-                .padding(.leading, 40)
+                .padding(.leading, 10)
             getView(name: key)
                 .font(.system(size: 18))
-                .padding(.leading, 10)
                 .contentShape(Rectangle())
         }
     }
@@ -152,9 +137,17 @@ struct CardView: View {
             ForEach(group, id: \.self) {key in
                 render(key: key)
             }
-            
         })
     }
+    
+    func isSubKey(_ key: String) -> Bool {
+        compoundKeys.contains(where: {compoundKey in
+            key.hasPrefix(compoundKey)
+        })
+    }
+    
+    let compoundKeys: Array<String> = [
+        "behaviour.2.suicidal ideation"]
     
     func getPopoverButton(name: String) -> some View {
         Button(action: {
@@ -196,34 +189,5 @@ struct CardView: View {
             return AnyView(BooleanView(value: binding))
         }
     }
-    
-    func getBinding<T>(key: String) -> Binding<T> {
-        Binding<T>(
-            get: { card[key].unwrap()! },
-            set: { newValue in card.attributes[key] = Value.wrap(newValue) }
-        )
-    }
-    
-    func isSubKey(_ key: String) -> Bool {
-        compoundKeys.contains(where: {compoundKey in
-            key.hasPrefix(compoundKey)
-        })
-    }
-    
-    let compoundKeys: Array<String> = [
-        "behaviour.2.suicidal ideation"]
-}
 
-#Preview("Default", traits: .cardSampleData) {
-    @Previewable @Query(sort: \Card.date) var cards: [Card]
-//    Text("Live Preview: \(cards.first?["behaviour.self care"].toString() ?? "No Data")")
-    NavigationStack {
-        CardView(card: cards.first!)
-    }
-}
-
-#Preview("Number") {
-    @Previewable @State var number: String = "10"
-    Text("Live Preview: \(number)")
-    NumberView(value: $number)
 }

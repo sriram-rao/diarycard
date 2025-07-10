@@ -3,7 +3,7 @@ import SwiftUI
 import SwiftData
 
 @Model
-class Card {
+final class Card {
     var attributes: Dictionary<String, Value>
     var date: Date
     

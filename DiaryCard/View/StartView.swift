@@ -11,14 +11,10 @@ struct StartView: View {
                 .font(.largeTitle)
                 
             Spacer()
-            CardView(card: cards[0])
+            CardView(card: cards.first ?? Card(date: Date()))
             Spacer()
         }
         .navigationTitle("Title")
         .navigationBarTitleDisplayMode(.large)
     }
-}
-
-#Preview("StartView", traits: .cardSampleData) {
-    StartView()
 }

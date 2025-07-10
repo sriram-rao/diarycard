@@ -37,7 +37,3 @@ struct CardsView: View {
         }
     }
 }
-
-#Preview(traits: .cardSampleData) {
-    CardsView()
-}
