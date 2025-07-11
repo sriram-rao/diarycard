@@ -10,7 +10,6 @@ final class Card {
     init(date: Date, attributes: Dictionary<String, Value> = [:]) {
         self.attributes = attributes
         self.date = date
-        self.attributes["date"] = Value.wrap(date)
     }
     
     func get(key: String) -> Value {
@@ -37,10 +36,6 @@ extension Card {
             set: { newValue in self.attributes[key] = newValue }
         )
     }
-}
-
-extension Dictionary where Key == String, Value == [String] {
-   
 }
 
 @Model

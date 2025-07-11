@@ -2,3 +2,4 @@ ignored/
 .nvim*
 .DS_Store
 diarycard.xcodeproj/xcuserdata/sriramrao.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+diarycard.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/*

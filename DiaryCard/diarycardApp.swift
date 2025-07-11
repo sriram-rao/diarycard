@@ -1,10 +1,3 @@
-//
-//  diarycardApp.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 3/17/25.
-//
-
 import SwiftUI
 import SwiftData
 

@@ -9,10 +9,12 @@ import SwiftUI
 }
 
 #Preview("Default Cards Search View", traits: .cardSampleData) {
-    CardsView()
+    NavigationStack { CardsView() }
 }
 
 
 #Preview("App Start View", traits: .cardSampleData) {
-    StartView()
+    NavigationStack {
+        StartView()
+    }
 }

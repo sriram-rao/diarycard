@@ -10,10 +10,8 @@ struct CardView: View {
     
     @State var showPicker: Bool = false
     @State var needsPopover: Bool = false
-    @State var timesComputed: Int = 0
     
     var showTapBackground: Bool {
-        print("Getting background computed variable \(timesComputed), show background: \(showPicker || needsPopover)")
         return showPicker || needsPopover
     }
     
@@ -32,37 +30,27 @@ struct CardView: View {
             ScrollView {
                 measures.zIndex(0).blur(radius: 3 * (showTapBackground ? 1 : 0))
             }
-            run_if( showTapBackground, { return tapBackground.zIndex(1)} )
+            run_if( showTapBackground, {
+                return TapBackground {
+                    needsPopover = false
+                    showPicker = false
+                    selectedKey = ""
+            }.zIndex(1)} )
             run_if( needsPopover, { return popover.zIndex(2)} )
-            run_if( showPicker, { return picker.zIndex(2)} )
         }
         .navigationBarTitleDisplayMode(.inline)
     }
     
     var measures: some View {
         VStack {
-            Button(
-                action: { showPicker.toggle() },
-                label: { Text(getRelativeDay(date: card.date)).font(.title) }
-            )
+            Text(getRelativeDay(date: card.date)).font(.title)
+            
             VStack {
                 renderKeys(keys: textKeys)
                 renderKeys(keys: otherKeys)
             }
             .padding(.vertical, 20)
         }
-    }
-    
-    var tapBackground: some View {
-        Rectangle()
-            .fill(Color.white.opacity(0.4))
-            .blur(radius: 20)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .onTapGesture {
-                needsPopover = false
-                showPicker = false
-                selectedKey = ""
-            }
     }
     
     var popover: some View {
@@ -72,28 +60,6 @@ struct CardView: View {
         return VStack(alignment: .center) {
             Spacer()
             PopoverList(selected: binding, full: lists.first!.schemas[selectedKey] ?? [])
-        }
-    }
-    
-    var picker: some View {
-        VStack(alignment: .center) {
-            Text("Chosen date: \(card.date.description)")
-            let binding = getDateBinding()
-            Text("Date binding: \(binding.wrappedValue.description)")
-            DateView(value: binding)
-                .datePickerStyle(.graphical)
-                .padding(.bottom, 15)
-            
-                .background(Color.white.opacity(0.1))
-                .background(.ultraThinMaterial.opacity(0.80))
-            
-                .border(Color.offwhite)
-                .cornerRadius(20)
-                .scaleEffect(0.85)
-            
-            Text("Active si \(card["behaviour.2.suicidal ideation.active"])")
-            Text("SI \(card["behaviour.2.suicidal ideation"])")
-            Spacer()
         }
     }
     
