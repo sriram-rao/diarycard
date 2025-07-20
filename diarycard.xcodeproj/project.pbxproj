@@ -14,8 +14,19 @@
 		CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */; };
 		CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */; };
 		CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA899EAA2E1B5F5400A46D91 /* CardView.swift */; };
+		CA89CE6B2E21844000086F2C /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA89CE6A2E21843900086F2C /* Schema.swift */; };
 		CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A38B72E1A250C000945F0 /* PopoverList.swift */; };
-		CAD9C4452E11E88100F01584 /* CardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* CardHelper.swift */; };
+		CAA36C462E2B801A002D3802 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C452E2B801A002D3802 /* BitCollections */; };
+		CAA36C482E2B801A002D3802 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C472E2B801A002D3802 /* Collections */; };
+		CAA36C4A2E2B801A002D3802 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C492E2B801A002D3802 /* DequeModule */; };
+		CAA36C4C2E2B801A002D3802 /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C4B2E2B801A002D3802 /* HashTreeCollections */; };
+		CAA36C4E2E2B801A002D3802 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C4D2E2B801A002D3802 /* HeapModule */; };
+		CAA36C502E2B801A002D3802 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C4F2E2B801A002D3802 /* OrderedCollections */; };
+		CAA36C522E2B801A002D3802 /* _RopeModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C512E2B801A002D3802 /* _RopeModule */; };
+		CAA702DB2E29BF770020F83A /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = CAA702DA2E29BF770020F83A /* Neumorphic */; };
+		CAA702DE2E29C07D0020F83A /* SwiftUINavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = CAA702DD2E29C07D0020F83A /* SwiftUINavigationTransitions */; };
+		CAA702E02E29D3FB0020F83A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA702DF2E29D3F70020F83A /* Extensions.swift */; };
+		CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* CardViewHelper.swift */; };
 		CAD9C45A2E12378700F01584 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4592E12378300F01584 /* Value.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
 		CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADC361A2DE1092D00539E69 /* Assets.xcassets */; };
@@ -49,8 +60,10 @@
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA899EAA2E1B5F5400A46D91 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		CA89CE6A2E21843900086F2C /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		CA8A38B72E1A250C000945F0 /* PopoverList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverList.swift; sourceTree = "<group>"; };
-		CAD9C4432E11E88100F01584 /* CardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHelper.swift; sourceTree = "<group>"; };
+		CAA702DF2E29D3F70020F83A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CAD9C4432E11E88100F01584 /* CardViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewHelper.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		CADC361A2DE1092D00539E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CADC361C2DE1092D00539E69 /* diarycard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diarycard.entitlements; sourceTree = "<group>"; };
@@ -83,7 +96,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA36C462E2B801A002D3802 /* BitCollections in Frameworks */,
+				CAA702DB2E29BF770020F83A /* Neumorphic in Frameworks */,
+				CAA36C482E2B801A002D3802 /* Collections in Frameworks */,
+				CAA36C4C2E2B801A002D3802 /* HashTreeCollections in Frameworks */,
 				CA0264C52E1E40DB00FB2C06 /* HorizonCalendar in Frameworks */,
+				CAA36C502E2B801A002D3802 /* OrderedCollections in Frameworks */,
+				CAA702DE2E29C07D0020F83A /* SwiftUINavigationTransitions in Frameworks */,
+				CAA36C4E2E2B801A002D3802 /* HeapModule in Frameworks */,
+				CAA36C522E2B801A002D3802 /* _RopeModule in Frameworks */,
+				CAA36C4A2E2B801A002D3802 /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +166,8 @@
 		CADC364D2DE10D1000539E69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CAA702DF2E29D3F70020F83A /* Extensions.swift */,
+				CA89CE6A2E21843900086F2C /* Schema.swift */,
 				CAD9C4592E12378300F01584 /* Value.swift */,
 				CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */,
 				CADC36372DE1092D00539E69 /* Theme.swift */,
@@ -156,8 +180,8 @@
 			children = (
 				CA0264C82E20C30200FB2C06 /* ViewHelper.swift */,
 				CA0264C62E1E4D3200FB2C06 /* CalendarView.swift */,
-				CAD9C4432E11E88100F01584 /* CardHelper.swift */,
 				CA8A38B72E1A250C000945F0 /* PopoverList.swift */,
+				CAD9C4432E11E88100F01584 /* CardViewHelper.swift */,
 				CA899EAA2E1B5F5400A46D91 /* CardView.swift */,
 				CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */,
 				CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */,
@@ -200,6 +224,15 @@
 			name = diarycard;
 			packageProductDependencies = (
 				CA0264C42E1E40DB00FB2C06 /* HorizonCalendar */,
+				CAA702DA2E29BF770020F83A /* Neumorphic */,
+				CAA702DD2E29C07D0020F83A /* SwiftUINavigationTransitions */,
+				CAA36C452E2B801A002D3802 /* BitCollections */,
+				CAA36C472E2B801A002D3802 /* Collections */,
+				CAA36C492E2B801A002D3802 /* DequeModule */,
+				CAA36C4B2E2B801A002D3802 /* HashTreeCollections */,
+				CAA36C4D2E2B801A002D3802 /* HeapModule */,
+				CAA36C4F2E2B801A002D3802 /* OrderedCollections */,
+				CAA36C512E2B801A002D3802 /* _RopeModule */,
 			);
 			productName = diarycard;
 			productReference = CA72914A2D88D2E8004AF2DE /* diarycard.app */;
@@ -285,6 +318,9 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CA0264C32E1E40DB00FB2C06 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
+				CAA702D92E29BF770020F83A /* XCRemoteSwiftPackageReference "neumorphic" */,
+				CAA702DC2E29C07D0020F83A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
+				CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CA72914B2D88D2E8004AF2DE /* Products */;
@@ -332,11 +368,13 @@
 				CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
+				CA89CE6B2E21844000086F2C /* Schema.swift in Sources */,
 				CA0264C72E1E4D3C00FB2C06 /* CalendarView.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,
 				CA0264C92E20C30700FB2C06 /* ViewHelper.swift in Sources */,
 				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
-				CAD9C4452E11E88100F01584 /* CardHelper.swift in Sources */,
+				CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */,
+				CAA702E02E29D3FB0020F83A /* Extensions.swift in Sources */,
 				CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */,
 				CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */,
 			);
@@ -378,12 +416,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DiaryCard/diarycard.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8BJRT6BH24;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
@@ -426,12 +464,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DiaryCard/diarycard.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8BJRT6BH24;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
@@ -501,7 +539,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -568,7 +606,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -733,6 +771,30 @@
 				kind = branch;
 			};
 		};
+		CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		CAA702D92E29BF770020F83A /* XCRemoteSwiftPackageReference "neumorphic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/costachung/neumorphic/";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		CAA702DC2E29C07D0020F83A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davdroman/swiftui-navigation-transitions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -740,6 +802,51 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA0264C32E1E40DB00FB2C06 /* XCRemoteSwiftPackageReference "HorizonCalendar" */;
 			productName = HorizonCalendar;
+		};
+		CAA36C452E2B801A002D3802 /* BitCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = BitCollections;
+		};
+		CAA36C472E2B801A002D3802 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		CAA36C492E2B801A002D3802 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		CAA36C4B2E2B801A002D3802 /* HashTreeCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HashTreeCollections;
+		};
+		CAA36C4D2E2B801A002D3802 /* HeapModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HeapModule;
+		};
+		CAA36C4F2E2B801A002D3802 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		CAA36C512E2B801A002D3802 /* _RopeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = _RopeModule;
+		};
+		CAA702DA2E29BF770020F83A /* Neumorphic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA702D92E29BF770020F83A /* XCRemoteSwiftPackageReference "neumorphic" */;
+			productName = Neumorphic;
+		};
+		CAA702DD2E29C07D0020F83A /* SwiftUINavigationTransitions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA702DC2E29C07D0020F83A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
+			productName = SwiftUINavigationTransitions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

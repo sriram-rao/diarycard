@@ -1,34 +1,29 @@
 import SwiftUI
 
 struct PopoverList: View {
-    @State private var showPopover: Bool = false
     @Binding var selected: [String]
     let full: [String]
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 1) {
-                ForEach(full, id: \.self) {skill in
-                    let skillSelected = selected.contains(skill)
-                    HStack {
+        VStack(spacing: 1) {
+            ForEach(full, id: \.self) {skill in
+                let skillSelected = selected.contains(skill)
+                HStack {
+                    Button {
+                        skillSelected ? $selected.wrappedValue.removeAll { $0 == skill } :
+                        $selected.wrappedValue.append(skill)
+                    } label: {
                         Text(skill)
+                            .foregroundStyle(.black)
                         Spacer()
-                        Button {
-                            print("Selected: \(selected.description)")
-                            skillSelected ? $selected.wrappedValue.removeAll { $0 == skill } :
-                            $selected.wrappedValue.append(skill)
-                            print("Final: \(selected.description)")
-                        } label: {
-                            showButtonLabel(skillSelected: skillSelected)
-                        }
-                    }.padding(.all, 10)
-                        .background(Rectangle().fill(( skillSelected ? Color.bubblegum : .sky).opacity(0.8)).cornerRadius(10))
-                        .frame(maxWidth: 200)
-                        .zIndex(2)
-                }
+                        showButtonLabel(skillSelected: skillSelected)
+                    }
+                }.padding(.all, 10)
+                    .background(Rectangle().fill(( skillSelected ? Color.bubblegum : .sky).opacity(0.8)).cornerRadius(10))
+                    .frame(maxWidth: 200)
             }
-            .zIndex(1)
-        }.ignoresSafeArea()
+        }
+        .focusable(true, interactions: .activate)
     }
     
     func showButtonLabel(skillSelected: Bool) -> some View {
@@ -37,12 +32,22 @@ struct PopoverList: View {
         .foregroundStyle(skillSelected ? .sky : .bubblegum)
         .padding(.horizontal, 5)
         .frame(width: 30, height: 20)
-        .background(.red)
     }
 }
 
-#Preview {
-    @Previewable @State var selected: [String] = Card.getSampleData().first!.get(key: "skills.distress tolerance").asStringArray
-    Text("Live View: \(selected)")
-    PopoverList(selected: $selected, full: ListSchemas.getSampleData().get("skills.distress tolerance"))
+
+struct PopoverButton: View {
+    let types: [String]
+    let action: () -> Void
+
+    var body : some View {
+        Button(action: action, label: {
+            Text(ListFormatter().string(from: types) ?? "Add skills")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading)
+                .lineLimit(1)
+        })
+        .foregroundStyle(Color.oxblood)
+        .focusable(true, interactions: .activate)
+    }
 }

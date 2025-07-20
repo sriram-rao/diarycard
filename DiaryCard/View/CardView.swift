@@ -1,159 +1,248 @@
 import Foundation
+import OrderedCollections
 import SwiftData
 import SwiftUI
 
 struct CardView: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) var modelContext
-    @Query() var lists: [ListSchemas]
     let card: Card
-    
-    @State var showPicker: Bool = false
-    @State var needsPopover: Bool = false
-    
-    var showTapBackground: Bool {
-        return showPicker || needsPopover
-    }
-    
-    @State var selectedKey: String = ""
-    @ScaledMetric var attributeNameWidth: CGFloat = 120
-    
-    var textKeys: [String] {
-        get { card.attributes.filter({ $0.value.kind == .string }).keys.sorted() }
-    }
-    var otherKeys: [String] {
-        get { card.attributes.keys.filter { !textKeys.contains($0) }.sorted()}
-    }
     
     var body: some View {
         ZStack {
-            ScrollView {
-                measures.zIndex(0).blur(radius: 3 * (showTapBackground ? 1 : 0))
-            }
-            run_if( showTapBackground, {
-                return TapBackground {
-                    needsPopover = false
-                    showPicker = false
-                    selectedKey = ""
-            }.zIndex(1)} )
-            run_if( needsPopover, { return popover.zIndex(2)} )
+            layer_0
+            layer_1
+            layer_2
+        }
+        .toolbar {
+            topBar
+            keyboardBar
         }
         .navigationBarTitleDisplayMode(.inline)
+        .safeAreaInset(edge: .bottom) {
+            debug
+        }
     }
     
-    var measures: some View {
-        VStack {
-            Text(getRelativeDay(date: card.date)).font(.title)
+    var layer_0: some View {
+        ScrollView {VStack {
+            renderKeys(keys: textKeys)
             
-            VStack {
-                renderKeys(keys: textKeys)
-                renderKeys(keys: otherKeys)
+            ForEach(nonTextKeys.keys.sorted(), id: \.hashValue) {key in
+                VStack {
+                    getNameView(name: key).font(.caption.lowercaseSmallCaps())
+                    renderKeys(keys: nonTextKeys[key] ?? [])
+                }
+                .padding(.vertical, 10)
             }
-            .padding(.vertical, 20)
         }
+        .blur(radius: 3 * (showTapBackground ? 1 : 0))
+    }}
+    
+    var layer_1: some View {
+        VStack {
+            run_if(showTapBackground, then: {
+                TapBackground {
+                    needsPopover = false
+                    selectedKey = ""
+                }
+            })
+        }
+    }
+    
+    var layer_2: some View {
+        run_if(needsPopover, then: {
+            VStack {
+                Spacer()
+                Text(selectedKey.field.uppercased())
+                nextButton
+                popover
+            }.padding(.bottom, 25)
+        })
+    }
+    
+    var topBar: some ToolbarContent {
+        ToolbarItemGroup(placement: .principal, content: {
+            Text(getRelativeDay(date: card.date))
+                .font(.title3)
+                .foregroundStyle(.blue)
+                .bold()
+        })
+    }
+    
+    var keyboardBar: some ToolbarContent {
+        ToolbarItemGroup(placement: .keyboard) {
+            Spacer()
+            if  (focusField != allKeys.last) {
+                Button("Next", action: focusNext)
+            }
+            Button("Done", action: clearKeyboard)
+        }
+    }
+    
+    var debug: some View {
+        Text("Current Focus: \(focusField ?? "")")
+            .padding(.bottom, 100)
+            .bold()
     }
     
     var popover: some View {
         let binding = Binding<[String]>(
             get: { self.card[selectedKey].asStringArray },
-            set: { self.card.attributes[selectedKey] = Value.wrap($0) })
-        return VStack(alignment: .center) {
-            Spacer()
-            PopoverList(selected: binding, full: lists.first!.schemas[selectedKey] ?? [])
+            set: { self.card.attributes[selectedKey] = Value.wrap($0) }
+        )
+        return PopoverList(selected: binding, full: Skills[selectedKey] ?? [])
+    }
+    
+    var nextButton: some View {
+        Button("Next") {
+            focusNext()
         }
     }
     
+    @State var needsPopover: Bool = false
+    @State var selectedKey: String = ""
+    @FocusState var focusField: String?
+    @ScaledMetric var attributeNameWidth: CGFloat = 120
+    
+    var showTapBackground: Bool {
+        needsPopover
+    }
+    
+    var textKeys: [String] {
+        CardSchema.attributes.filter({ $0.value.kind == .string }).keys.sorted()
+    }
+    
+    var nonTextKeys: OrderedDictionary<String, [String]> {
+        OrderedDictionary(
+            grouping: CardSchema.attributes.keys.filter { !(textKeys.contains($0)) },
+            by: { $0.getGroup() }
+        )
+    }
+    
+    var allKeys: [String] {
+        textKeys + nonTextKeys.values.flatMap(\.self).filter({ !$0.isSubType() })
+    }
+    
     func renderKeys(keys: [String]) -> some View {
-        ForEach(keys, id: \.capitalized) {key in
+        return ForEach(keys, id: \.capitalized) {key in
             Group {
-                if (compoundKeys.contains(key)) {
+                if key.getSubfields(keys: keys).count > 0 {
                     renderCompound(key: key)
                 }
-                else if compoundKeys.contains(where: {compoundKey in
-                    key.hasPrefix(compoundKey) }) && isSubKey(key) {
+                else if key.isSubType() {
                     EmptyView()
                 }
                 else {
                     render(key: key)
                 }
             }
-            .border(Color.gray.opacity(0.2), width: 1)
-            .padding(.horizontal, 50)
+            .padding(.horizontal, 25)
             .padding(.vertical, 5)
         }
     }
     
     func render(key: String) -> some View {
-        return VStack (alignment: .leading) {
+        VStack (alignment: .leading) {
             getNameView(name: key)
                 .font(.system(size: 16).lowercaseSmallCaps())
                 .padding(.leading, 10)
             getView(name: key)
                 .font(.system(size: 18))
                 .contentShape(Rectangle())
+                .focused($focusField, equals: key)
+                .onSubmit {
+                    focusField = getNextField(after: key, in: allKeys)
+                }
+            Divider()
         }
     }
     
     func renderCompound(key: String) -> some View {
-        let group = card.attributes.keys.filter { cardKey in
-            cardKey.hasPrefix(key) && cardKey != key
-        }
-        return AnyView(HStack {
-            render(key: key)
-            ForEach(group, id: \.self) {key in
-                render(key: key)
+        let group = key.key.getSubfields(keys: card.keys)
+        return AnyView(
+            VStack (alignment: .leading) {
+                HStack {
+                    getNameView(name: key)
+                        .font(.system(size: 16).lowercaseSmallCaps())
+                        .padding(.leading, 10)
+                    
+                    Spacer()
+                    ForEach(group, id: \.self) {key in
+                        render(key: key)
+                    }
+                }
+                
+                getView(name: key)
+                    .font(.system(size: 18))
+                    .contentShape(Rectangle())
+                    .focused($focusField, equals: key)
+                    .onSubmit {
+                        focusField = getNextField(after: key, in: allKeys)
+                    }
             }
-        })
+        )
     }
     
-    func isSubKey(_ key: String) -> Bool {
-        compoundKeys.contains(where: {compoundKey in
-            key.hasPrefix(compoundKey)
-        })
-    }
-    
-    let compoundKeys: Array<String> = [
-        "behaviour.2.suicidal ideation"]
-    
-    func getPopoverButton(name: String) -> some View {
-        Button(action: {
-            selectedKey = name
+    func focusNext() {
+        let nextFocus = getNextField(after: focusField ?? "", in: allKeys)
+        print("Next Focus: \(nextFocus)")
+        if !nextFocus.isEmptyOrWhitespace() {
+            print("Valid string. Before: \(String(describing: focusField))")
+            focusField = nextFocus
+            print("After: \(String(describing: focusField))")
+        }
+        if nextFocus.getGroup() == "skills" {
+            print("Skill: \(nextFocus)")
+            print()
+            selectedKey = nextFocus.key
             needsPopover = true
-        }, label: {
-            Text(ListFormatter().string(from: card[name].asStringArray) ?? "Add skills")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading)
-                .lineLimit(1)
-        })
-        .zIndex(0)
+        }
+        print("After after: \(String(describing: focusField))")
+        
+        print(String(repeating: "-", count: 50))
+    }
+    
+    func focusNextList() {
+        
     }
     
     func getView(name: String) -> some View {
+        let name = name.key
+        if !card.attributes.keys.contains(name) {
+            return AnyView(Text("Not available \(name)"))
+        }
+        
         switch card[name].kind {
         case .int:
-            let binding = Binding<String> (
-                get: { String(card[name].asInt) == "0" ? "" : String(card[name].asInt) },
+            let binding = Binding<Float> (
+                get: { Float(card[name].asInt) },
                 set: { newValue in
-                    card.attributes[name] = .int(Int(newValue) ?? 0)
+                    card.attributes[name] = .int(Int(newValue) )
                 })
+//            return AnyView(EmptyView())
             return AnyView(NumberView(value: binding))
             
         case .string:
             let binding: Binding<String> = getBinding(key: name)
+//            return AnyView(EmptyView())
             return AnyView(TextView(value: binding))
             
         case .date:
             let binding: Binding<Date> = getBinding(key: name)
+//            return AnyView(EmptyView())
             return AnyView(DateView(value: binding))
             
         case .stringArray:
             let _: Binding<[String]> = getBinding(key: name)
-            return AnyView(getPopoverButton(name: name))
+//            return AnyView(EmptyView())
+            return AnyView(PopoverButton(types: card[name].asStringArray, action: {
+                selectedKey = name
+                needsPopover = true
+            }))
             
         case .bool:
             let binding: Binding<Bool> = getBinding(key: name)
+//            return AnyView(EmptyView()=-][\
             return AnyView(BooleanView(value: binding))
         }
     }
-
 }

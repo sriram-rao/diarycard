@@ -4,11 +4,22 @@ import SwiftData
 extension CardView {
     func getNameView(name: String) -> some View {
         return Group {
-            Text(name.components(separatedBy: ".").last ?? "")
+            Text(name.isSubType() ? "" : name.getFieldName())
+                .foregroundStyle(.blue)
                 .fixedSize(horizontal: false, vertical: false)
                 .lineLimit(2)
                 .truncationMode(.tail)
         }
+    }
+    
+    func getNextField(after key: String, in list: [String]) -> String {
+        let index: Int = list.firstIndex(of: key) ?? -1
+        print("Focus on \(key) at (index + 1) \(index + 1) out of \(list.count).")
+        if index < 0 || index >= list.endIndex - 1 {
+            return ""
+        }
+        print("Moving focus to \(list[index + 1])")
+        return list[index + 1]
     }
     
     func getBinding<T>(key: String) -> Binding<T> {
@@ -21,24 +32,48 @@ extension CardView {
     func getDateBinding() -> Binding<Date> {
         return Binding<Date>(
             get: {
-                print("Getter: \(card.date)")
                 return card.date
             },
             set: { newValue in
-                print("Setter, trying: \(newValue)")
                 card.date = newValue
-                print("Set to: \(card.date)")
             })
+    }
+    
+    func clearKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
     }
 }
 
 struct NumberView: View {
-    @Binding var value: String
+    @Binding var value: Float
     
     var body: some View {
-        TextField(value, text: $value, axis: .vertical)
-            .keyboardType(.numberPad)
-            .padding(.leading, 40)
+        let valueString = Binding<String>(
+            get: { String(Int(value)) },
+            set: {newValue in
+                value = Float(newValue) ?? 0
+            }
+        )
+        
+        VStack(alignment: .center) {
+            TextField(valueString.wrappedValue, text: valueString)
+                .keyboardType(.numberPad)
+                .frame(width: 20)
+            
+            Slider(value: $value, in: 0...10, step: 1)
+            {  }
+            minimumValueLabel: {
+                Text("0")
+            } maximumValueLabel: {
+                Text("10")
+            }
+            .tint(
+                value >= 0 && value <= 3 ? .secondary :
+                    value >= 4 && value <= 7 ? .bubblegum : .red
+            )
+        }
+        .padding(.horizontal, 20)
     }
 }
 
@@ -48,6 +83,7 @@ struct TextView : View {
     var body : some View {
         TextField(value, text: $value, axis: .vertical)
             .textFieldStyle(.plain)
+            .padding(6)
     }
 }
 
@@ -67,8 +103,11 @@ struct BooleanView: View {
     @Binding var value: Bool
     
     var body: some View {
-        Toggle(value ? "Yes" : "No", isOn: $value)
-                .frame(maxWidth: 100, maxHeight: 50)
+        Toggle(value ? "Active" : "Inactive", isOn: $value)
+            .font(.callout)
+            .toggleStyle(.button)
+            .buttonStyle(.borderedProminent)
+            .tint(value ? .oxblood : .blue)
     }
 }
 
@@ -89,7 +128,7 @@ struct TapBackground: View {
     
     var body: some View {
         Rectangle()
-            .fill(Color.white.opacity(0.4))
+            .fill(Color(.systemBackground).opacity(0.4))
             .blur(radius: 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .onTapGesture {

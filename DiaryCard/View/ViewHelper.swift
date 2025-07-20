@@ -1,15 +1,8 @@
 import SwiftUI
 
 extension View {
-    func run_if(_ condition: Bool, _ action: () -> some View) -> AnyView {
-        if condition {
-            return AnyView(action())
-        }
-        return AnyView(EmptyView())
-    }
-    
-    func doNothing(name: String...) -> EmptyView {
-        EmptyView()
+    func run_if(_ condition: Bool, then action: () -> some View) -> AnyView {
+        condition ? AnyView(action()) : AnyView(EmptyView())
     }
     
     func getRelativeDay(date: Date) -> String {
