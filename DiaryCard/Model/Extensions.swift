@@ -1,3 +1,6 @@
+import os.log
+import Foundation
+
 extension String {
     func isEmptyOrWhitespace() -> Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -11,4 +14,8 @@ extension String? {
         }
         return self.isEmptyOrWhitespace()
     }
+}
+
+extension Logger {
+    static let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.srao.diarycard", category: "MyApp")
 }

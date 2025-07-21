@@ -43,9 +43,10 @@ public class CardSchema {
 }
 
 let Skills = [
-        "skills.distress tolerance": ["ACCEPTS", "IMPROVE", "TIPP", "STOP"],
-        "skills.core mindfulness": ["Observe", "Wise Mind", "Describe", "Participate"],
-        "skills.emotion regulation": ["Positives", "Check the facts", "Opposite Action"],
+        "skills.distress tolerance": ["ACCEPTS", "IMPROVE", "STOP", "Pros & Cons", "TIPP", "GRACE", "Radical Acceptance"],
+        "skills.core mindfulness": ["Wise Mind", "Observe", "Describe", "Participate", "Non-Judgemental Stance", "One Mindful", "Effective"],
+        "skills.emotion regulation": ["Accumulate Short-Term Positives","Accumulate Long-Term Positives", "Build Mastery",
+                                      "Cope Ahead", "PLEASE", "Check The Facts", "Opposite Action", "Let Go of Suffering"],
         "skills.inter-personal effectiveness": ["Clarify Priorities", "DEAR MAN", "GIVE", "FAST",
                                                "Validate Me", "Validate Others", "Challenge Self-Judgement"]
     ]

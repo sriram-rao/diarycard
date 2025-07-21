@@ -17,9 +17,6 @@ struct CardView: View {
             keyboardBar
         }
         .navigationBarTitleDisplayMode(.inline)
-        .safeAreaInset(edge: .bottom) {
-            debug
-        }
     }
     
     var layer_0: some View {
@@ -184,25 +181,15 @@ struct CardView: View {
     
     func focusNext() {
         let nextFocus = getNextField(after: focusField ?? "", in: allKeys)
-        print("Next Focus: \(nextFocus)")
         if !nextFocus.isEmptyOrWhitespace() {
-            print("Valid string. Before: \(String(describing: focusField))")
             focusField = nextFocus
-            print("After: \(String(describing: focusField))")
         }
         if nextFocus.getGroup() == "skills" {
-            print("Skill: \(nextFocus)")
-            print()
             selectedKey = nextFocus.key
             needsPopover = true
         }
-        print("After after: \(String(describing: focusField))")
         
         print(String(repeating: "-", count: 50))
-    }
-    
-    func focusNextList() {
-        
     }
     
     func getView(name: String) -> some View {
@@ -218,22 +205,18 @@ struct CardView: View {
                 set: { newValue in
                     card.attributes[name] = .int(Int(newValue) )
                 })
-//            return AnyView(EmptyView())
             return AnyView(NumberView(value: binding))
             
         case .string:
             let binding: Binding<String> = getBinding(key: name)
-//            return AnyView(EmptyView())
             return AnyView(TextView(value: binding))
             
         case .date:
             let binding: Binding<Date> = getBinding(key: name)
-//            return AnyView(EmptyView())
             return AnyView(DateView(value: binding))
             
         case .stringArray:
             let _: Binding<[String]> = getBinding(key: name)
-//            return AnyView(EmptyView())
             return AnyView(PopoverButton(types: card[name].asStringArray, action: {
                 selectedKey = name
                 needsPopover = true
@@ -241,7 +224,6 @@ struct CardView: View {
             
         case .bool:
             let binding: Binding<Bool> = getBinding(key: name)
-//            return AnyView(EmptyView()=-][\
             return AnyView(BooleanView(value: binding))
         }
     }
