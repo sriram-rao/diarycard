@@ -5,80 +5,78 @@ import SwiftUI
 struct CardsView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.colorScheme) var colorScheme
-    @Query(sort: \Card.date, order: .reverse) var cards: [Card]
+    @State var cards: [Card] = []
     
-    @State var showPicker: Bool = false
+    @State var showPicker = false
     @State var path = NavigationPath()
     
-    @State var insertedToday: Bool = false
-    @State private var todayCard: Card?
-    @State var dateRange: DateInterval?
+    @State var start = Date().addingTimeInterval(-86400 * 30)
+    @State var end = Date()
     
     @State var today: Date = Calendar.current.startOfDay(for: Date())
+    @State var selectedDate: Binding<Date>? = nil
     
     var body: some View {
         ZStack {
             NavigationStack(path: $path) {
-                topBar.padding()
+                topBar
                 Spacer()
                 
-                List{
-                    ForEach(cards) { card in
-                        NavigationLink {
-                            CardView(card: card)
-                        } label: {
-                            createLabel(for: card)
-                        }
-                    }
-                    .onDelete(perform: deleteCard)
-                }
-                .blur(radius: 3 * (showPicker ? 1 : 0))
+                cardList
                 .navigationDestination(for: Card.self) { card in
                     CardView(card: card)
                 }
-                .task {
-                    guard !insertedToday else { return }
-                    insertedToday.toggle()
-                    todayCard = getCard(for: today)
-                }
             }
-            
-            run_if(showPicker, then: {
-                Group {
-                    TapBackground { showPicker = false }.zIndex(1)
-                    picker.zIndex(2)
-                }
-            })
+            pickerView.zIndex(1)
         }
+        .onChange(anyOf: start, end) { fetch() }
     }
     
     var topBar: some View {
-        HStack {
-            Spacer()
-            Text("Diary Cards")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
-            Button(action: {
-                showPicker.toggle()
-            }, label: {
-                Image(systemName: "calendar")
-                    .font(.title)
-                    .foregroundStyle((colorScheme == .light ? Color.black : .white).opacity(0.75))
-            })
+        VStack {
+            HStack {
+                Text("Diary Cards")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+            }
+            
+            HStack {
+                getRangeButton(for: $start).padding(.leading, 20)
+                getRangeButton(for: $end)
+                Spacer()
+                pickerButton.padding(.trailing, 20)
+            }
         }
     }
     
-    var picker: some View {
+    var cardList: some View {
+        List{
+            ForEach(cards) { card in
+                NavigationLink {
+                    CardView(card: card)
+                } label: {
+                    createLabel(for: card)
+                }
+            }
+            .onDelete(perform: deleteCard)
+        }
+        .blurIf(showPicker)
+        .task { _ = getCard(for: today) }
+    }
+    
+    var pickerView: some View {
+        run_if(showPicker, then: {
+            Group {
+                TapBackground { showPicker = false }
+                getPicker(for: selectedDate ?? $today)
+            }
+        })
+    }
+    
+    func getPicker(for date: Binding<Date>) -> some View {
         VStack(alignment: .center) {
-            DateView(value: $today)
-                .datePickerStyle(.graphical)
-                .padding(.vertical, 30)
-
-                .background(Color(.systemBackground).opacity(0.1))
-                .background(.ultraThinMaterial.opacity(0.80))
-                .cornerRadius(20)
-                .scaleEffect(0.85)
+            DateView(value: date)
+                .pickerStyle()
                 .onChange(of: today) {
                     let date = Calendar.current.startOfDay(for: today)
                     path.append(getCard(for: date))
@@ -87,11 +85,36 @@ struct CardsView: View {
         }
     }
     
+    var pickerButton: some View {
+        Button(action: {
+            showPicker = true
+            selectedDate = $today
+        }, label: {
+            Text("Date")
+                .font(.headline)
+                .blackAndWhite(theme: colorScheme)
+            Image(systemName: "calendar")
+                .font(.headline)
+                .blackAndWhite(theme: colorScheme)
+        })
+    }
+    
+    func getRangeButton(for date: Binding<Date>) -> some View {
+        Button(action: {
+            showPicker = true
+            selectedDate = date
+        }, label: {
+            Text(date.wrappedValue == start ? "From" : "To")
+                .blackAndWhite(theme: colorScheme)
+            Text(date.wrappedValue.getRelativeDay())
+                .font(.headline)
+                .foregroundStyle(.blue)
+        })
+    }
+    
     func createLabel(for card: Card) -> some View {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE"
-        return Group {
-            Text(getRelativeDay(date: card.date))
+        Group {
+            Text(card.date.getRelativeDay())
                 .foregroundStyle(.secondary)
             Text(card["text.comment"].asString)
                 .lineLimit(1)
@@ -106,6 +129,7 @@ struct CardsView: View {
         }
         let newCard = Card(date: date, attributes: CardSchema.get())
         modelContext.insert(newCard)
+        fetch()
         return newCard
     }
     
@@ -113,5 +137,13 @@ struct CardsView: View {
         for index in indices {
             modelContext.delete(cards[index])
         }
+    }
+    
+    func fetch() {
+        let fetcher = FetchDescriptor<Card>(
+            predicate: #Predicate { $0.date >= start && $0.date <= end },
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        )
+        cards = (try? modelContext.fetch(fetcher)) ?? []
     }
 }

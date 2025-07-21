@@ -125,3 +125,8 @@ extension String {
         return self.split(separator: ".").dropLast().joined(separator: ".")
     }
 }
+
+class DateRange: ObservableObject {
+    @Published var startDate: Date = .now
+    @Published var endDate: Date = .now
+}

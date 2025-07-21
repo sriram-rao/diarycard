@@ -31,7 +31,7 @@ struct CardView: View {
                 .padding(.vertical, 10)
             }
         }
-        .blur(radius: 3 * (showTapBackground ? 1 : 0))
+        .blurIf(showTapBackground)
     }}
     
     var layer_1: some View {
@@ -50,7 +50,6 @@ struct CardView: View {
             VStack {
                 Spacer()
                 Text(selectedKey.field.uppercased())
-                nextButton
                 popover
             }.padding(.bottom, 25)
         })
@@ -58,7 +57,7 @@ struct CardView: View {
     
     var topBar: some ToolbarContent {
         ToolbarItemGroup(placement: .principal, content: {
-            Text(getRelativeDay(date: card.date))
+            Text(card.date.getRelativeDay())
                 .font(.title3)
                 .foregroundStyle(.blue)
                 .bold()
@@ -87,12 +86,6 @@ struct CardView: View {
             set: { self.card.attributes[selectedKey] = Value.wrap($0) }
         )
         return PopoverList(selected: binding, full: Skills[selectedKey] ?? [])
-    }
-    
-    var nextButton: some View {
-        Button("Next") {
-            focusNext()
-        }
     }
     
     @State var needsPopover: Bool = false

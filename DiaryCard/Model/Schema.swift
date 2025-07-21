@@ -51,7 +51,6 @@ let Skills = [
                                                "Validate Me", "Validate Others", "Challenge Self-Judgement"]
     ]
 
-
 @Model
 class ListSchemas {
     

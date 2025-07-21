@@ -40,7 +40,7 @@ import SwiftData
     @Previewable @State var value: Date = Date()
     Text("Live Preview: \(value)\n")
     Spacer()
-    CardsView().picker
+    CardsView().getPicker(for: $value)
     Spacer()
 }
 

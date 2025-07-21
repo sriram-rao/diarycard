@@ -97,6 +97,17 @@ struct DateView: View {
             .labelsHidden()
         }
     }
+    
+    func pickerStyle() -> some View {
+        self
+            .datePickerStyle(.graphical)
+            .padding(.vertical, 30)
+        
+            .background(Color(.systemBackground).opacity(0.1))
+            .background(.ultraThinMaterial.opacity(0.80))
+            .cornerRadius(20)
+            .scaleEffect(0.85)
+    }
 }
 
 struct BooleanView: View {
