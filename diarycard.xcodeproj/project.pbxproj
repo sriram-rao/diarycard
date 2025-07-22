@@ -15,7 +15,7 @@
 		CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA899EAA2E1B5F5400A46D91 /* CardView.swift */; };
 		CA89CE6B2E21844000086F2C /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA89CE6A2E21843900086F2C /* Schema.swift */; };
 		CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A38B72E1A250C000945F0 /* PopoverList.swift */; };
-		CA9B21F62E2F20D600AB715A /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B21F52E2F20D200AB715A /* ExportView.swift */; };
+		CA9B21F62E2F20D600AB715A /* SummariseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B21F52E2F20D200AB715A /* SummariseView.swift */; };
 		CAA36C462E2B801A002D3802 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C452E2B801A002D3802 /* BitCollections */; };
 		CAA36C482E2B801A002D3802 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C472E2B801A002D3802 /* Collections */; };
 		CAA36C4A2E2B801A002D3802 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C492E2B801A002D3802 /* DequeModule */; };
@@ -62,7 +62,7 @@
 		CA89CE6A2E21843900086F2C /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		CA8A38B72E1A250C000945F0 /* PopoverList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverList.swift; sourceTree = "<group>"; };
 		CA9B21F42E2F1E7F00AB715A /* story.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = story.md; sourceTree = "<group>"; };
-		CA9B21F52E2F20D200AB715A /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		CA9B21F52E2F20D200AB715A /* SummariseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummariseView.swift; sourceTree = "<group>"; };
 		CAA702DF2E29D3F70020F83A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CAD9C4432E11E88100F01584 /* CardViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewHelper.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 		CADC364E2DE10D2A00539E69 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CA9B21F52E2F20D200AB715A /* ExportView.swift */,
+				CA9B21F52E2F20D200AB715A /* SummariseView.swift */,
 				CA0264C62E1E4D3200FB2C06 /* CalendarView.swift */,
 				CA8A38B72E1A250C000945F0 /* PopoverList.swift */,
 				CAD9C4432E11E88100F01584 /* CardViewHelper.swift */,
@@ -372,7 +372,7 @@
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
 				CA89CE6B2E21844000086F2C /* Schema.swift in Sources */,
 				CA0264C72E1E4D3C00FB2C06 /* CalendarView.swift in Sources */,
-				CA9B21F62E2F20D600AB715A /* ExportView.swift in Sources */,
+				CA9B21F62E2F20D600AB715A /* SummariseView.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,
 				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
 				CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */,

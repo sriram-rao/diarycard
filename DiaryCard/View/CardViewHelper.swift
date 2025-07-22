@@ -15,7 +15,7 @@ extension CardView {
     }
     
     func getNextField(after key: String, in list: [String]) -> String {
-        let index: Int = list.firstIndex(of: key).orDefault(-1)
+        let index: Int = list.firstIndex(of: key).orDefaultTo(-1)
         if index.between(0, and: list.endIndex - 1) {
             return list[index + 1]
         }
@@ -52,7 +52,7 @@ struct NumberView: View {
         let valueString = Binding<String>(
             get: { String(value) },
             set: {newValue in
-                value = Int(newValue).orDefault(0)
+                value = Int(newValue).orDefaultTo(0)
             }
         )
         

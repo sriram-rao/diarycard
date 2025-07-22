@@ -32,11 +32,14 @@ import SwiftData
     Spacer()
 }
 
-#Preview("Date Picker") {
-    @Previewable @State var value: Date = Date()
+#Preview("Date Picker", traits: .cardSampleData) {
+    @Previewable @State var value: Date = Date().goBack(1 * .week)
+    @Previewable @State var path = NavigationPath()
     Text("Live Preview: \(value)\n")
     Spacer()
-    CardsView().getPicker(for: $value)
+    NavigationStack(path: $path) {
+        CardsView().getPicker(for: $value)
+    }
     Spacer()
 }
 

@@ -1,8 +1,8 @@
 import SwiftData
 import SwiftUI
 
-#Preview("Export View") {
-    ExportView()
+#Preview("Summarise View", traits: .cardSampleData) {
+    SummariseView()
 }
 
 #Preview("Default Card", traits: .cardSampleData) {

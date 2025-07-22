@@ -1,4 +1,5 @@
 import os.log
+import SwiftData
 import Foundation
 import SwiftUI
 
@@ -22,7 +23,7 @@ extension String {
 }
 
 extension Optional {
-    func orDefault(_ defaultValue: Wrapped) -> Wrapped {
+    func orDefaultTo(_ defaultValue: Wrapped) -> Wrapped {
         self ?? defaultValue
     }
 }
@@ -32,6 +33,14 @@ extension Logger {
 }
 
 extension Date {
+    static var today: Date {
+        Calendar.current.startOfDay(for: Date.now)
+    }
+    
+    var startOfDay: Date {
+        Calendar.current.startOfDay(for: self)
+    }
+    
     func addDays(_ days: Int) -> Date {
         return addDuration(days, .day)
     }
@@ -67,21 +76,20 @@ extension Date {
         let currentWeek = Calendar.current.component(.weekOfYear, from: reference)
         let dayWeek = Calendar.current.component(.weekOfYear, from: self)
         
-        return [ -1: "Last", 0: "",
-                  1: "Next"][currentWeek - dayWeek] ?? ""
+        return [ -1: "Next", 0: .nothing,
+                  1: "Last"][currentWeek - dayWeek].orDefaultTo(.nothing)
     }
     
     func getDay() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
-        formatter.dateStyle = .medium
         formatter.locale = .current
         return formatter.string(from: self)
     }
 }
 
 extension View {
-    func seeIf(_ condition: Bool, then showView: () -> some View,
+    func checkIf(_ condition: Bool, then showView: () -> some View,
                otherwise showDefault: () -> some View = { EmptyView() }) -> AnyView {
         condition ? AnyView(showView()) : AnyView(showDefault())
     }
@@ -98,7 +106,7 @@ extension View {
         self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
     }
     
-    func onChange<V>(anyOf values: V..., perform action: @escaping () -> Void) -> some View where V : Equatable {
+    func onAppearOrChange<V>(anyOf values: V..., perform action: @escaping () -> Void) -> some View where V : Equatable {
         for value in values {
             _ = self.onChange(of: value) { action() }
         }
@@ -107,6 +115,14 @@ extension View {
     
     func blurIf(_ condition: Bool) -> some View {
         self.blur(radius: 3 * (condition ? 1 : 0))
+    }
+    
+    func fetch(start: Date, end: Date, context: ModelContext) -> [Card] {
+        let fetcher = FetchDescriptor<Card>(
+            predicate: #Predicate { $0.date >= start && $0.date <= end },
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        )
+        return (try? context.fetch(fetcher)).orDefaultTo([])
     }
 }
 

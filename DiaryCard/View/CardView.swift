@@ -26,7 +26,7 @@ struct CardView: View {
             ForEach(nonTextKeys.keys.sorted(), id: \.hashValue) {key in
                 VStack {
                     getNameView(name: key).font(.caption.lowercaseSmallCaps())
-                    renderKeys(keys: nonTextKeys[key].orDefault([]))
+                    renderKeys(keys: nonTextKeys[key].orDefaultTo( [] ))
                 }
                 .padding(.vertical, 10)
             }
@@ -36,7 +36,7 @@ struct CardView: View {
     
     var layer_1: some View {
         VStack {
-            seeIf(needsTapBackground, then: {
+            checkIf(needsTapBackground, then: {
                 TapBackground {
                     needsPopover = false
                     selectedKey = .nothing
@@ -46,7 +46,7 @@ struct CardView: View {
     }
     
     var layer_2: some View {
-        seeIf(needsPopover, then: {
+        checkIf(needsPopover, then: {
             VStack {
                 Spacer()
                 Text(selectedKey.field.uppercased())
@@ -67,7 +67,7 @@ struct CardView: View {
     var keyboardBar: some ToolbarContent {
         ToolbarItemGroup(placement: .keyboard) {
             Spacer()
-            seeIf(not(focusField == allKeys.last), then: {
+            checkIf(not(focusField == allKeys.last), then: {
                 Button("Next", action: focusNext)
             })
             Button("Done", action: dismissKeyboard)
@@ -79,7 +79,7 @@ struct CardView: View {
             get: { self.card[selectedKey].asStringArray },
             set: { self.card.attributes[selectedKey] = Value.wrap($0) }
         )
-        return PopoverList(selected: binding, full: Skills[selectedKey].orDefault([]))
+        return PopoverList(selected: binding, full: Skills[selectedKey].orDefaultTo([]))
     }
     
     @State var needsPopover: Bool = false
@@ -109,10 +109,10 @@ struct CardView: View {
     func renderKeys(keys: [String]) -> some View {
         return ForEach(keys, id: \.capitalized) {key in
             Group {
-                seeIf(not(key.getSubfields(keys: keys).isEmpty),
+                checkIf(not(key.getSubfields(keys: keys).isEmpty),
                       then: { renderCompound(key: key) },
                       otherwise: {
-                    seeIf(not(key.isSubType()), then: { render(key: key) })
+                    checkIf(not(key.isSubType()), then: { render(key: key) })
                 })
             }
             .padding(.horizontal, 25)
@@ -144,7 +144,7 @@ struct CardView: View {
     
     // Kept to experiment with autofocusing skills section
     func focusNext() {
-        let nextFocus = getNextField(after: focusField.orDefault(.nothing), in: allKeys)
+        let nextFocus = getNextField(after: focusField.orDefaultTo(.nothing), in: allKeys)
         if !nextFocus.isEmptyOrWhitespace() {
             focusField = nextFocus
         }

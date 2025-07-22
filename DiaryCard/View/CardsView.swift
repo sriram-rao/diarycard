@@ -13,7 +13,7 @@ struct CardsView: View {
     @State var start = Date().goBack(30 * .day)
     @State var end = Date()
     
-    @State var today: Date = Calendar.current.startOfDay(for: Date())
+    @State var pickerDate: Date = .today
     @State var selectedDate: Binding<Date>? = nil
     
     var body: some View {
@@ -28,7 +28,7 @@ struct CardsView: View {
             }
             pickerView.zIndex(1)
         }
-        .onChange(anyOf: start, end) { fetch() }
+        .onAppearOrChange(anyOf: start, end) { fetch() }
     }
     
     var topBar: some View {
@@ -55,14 +55,14 @@ struct CardsView: View {
             .onDelete(perform: deleteCard)
         }
         .blurIf(showPicker)
-        .task { _ = getCard(for: today) }
+        .task { _ = getCard(for: .today) }
     }
     
     var pickerView: some View {
-        seeIf(showPicker, then: {
+        checkIf(showPicker, then: {
             Group {
                 TapBackground { showPicker = false }
-                getPicker(for: selectedDate ?? $today)
+                getPicker(for: selectedDate.orDefaultTo($end))
             }
         })
     }
@@ -71,9 +71,9 @@ struct CardsView: View {
         VStack(alignment: .center) {
             DateView(value: date)
                 .pickerStyle()
-                .onChange(of: today) {
-                    let date = Calendar.current.startOfDay(for: today)
-                    path.append(getCard(for: date))
+                .onChange(of: date.wrappedValue) {
+                    print("Date: \(date.wrappedValue)")
+                    path.append(getCard(for: date.wrappedValue.startOfDay))
                 }
             Spacer()
         }
@@ -82,7 +82,7 @@ struct CardsView: View {
     var pickerButton: some View {
         Button(action: {
             showPicker = true
-            selectedDate = $today
+            selectedDate = $pickerDate
         }, label: {
             Text("Date")
                 .font(.headline)
@@ -98,7 +98,7 @@ struct CardsView: View {
             showPicker = true
             selectedDate = date
         }, label: {
-            Text(date.wrappedValue == start ? "From" : "To")
+            Text(date.wrappedValue == end ? "To" : .nothing)
                 .blackAndWhite(theme: colorScheme)
             Text(date.wrappedValue.getRelativeDay())
                 .font(.headline)
@@ -134,10 +134,7 @@ struct CardsView: View {
     }
     
     func fetch() {
-        let fetcher = FetchDescriptor<Card>(
-            predicate: #Predicate { $0.date >= start && $0.date <= end },
-            sortBy: [SortDescriptor(\.date, order: .reverse)]
-        )
-        cards = (try? modelContext.fetch(fetcher)) ?? []
+        self.cards = fetch(start: start, end: end, context: modelContext)
+        print("Fetched \(cards.count) cards")
     }
 }
