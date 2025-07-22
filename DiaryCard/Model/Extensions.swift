@@ -17,11 +17,37 @@ extension String? {
     }
 }
 
+extension String {
+    static var nothing: String { "" }
+}
+
+extension Optional {
+    func orDefault(_ defaultValue: Wrapped) -> Wrapped {
+        self ?? defaultValue
+    }
+}
+
 extension Logger {
     static let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.srao.diarycard", category: "App")
 }
 
 extension Date {
+    func addDays(_ days: Int) -> Date {
+        return addDuration(days, .day)
+    }
+    
+    func addDuration(_ number: Int, _ blockSize: Calendar.Component) -> Date {
+        return Calendar.current.date(byAdding: blockSize, value: number, to: self)!
+    }
+    
+    func goForward(_ duration: Int) -> Date {
+        return Date().addDuration(duration, .second)
+    }
+    
+    func goBack(_ duration: Int) -> Date {
+        return goForward(-duration)
+    }
+    
     func getRelativeDay() -> String {
         let day = Calendar.current.startOfDay(for: self)
         let today = Calendar.current.startOfDay(for: Date())
@@ -55,8 +81,9 @@ extension Date {
 }
 
 extension View {
-    func run_if(_ condition: Bool, then action: () -> some View) -> AnyView {
-        condition ? AnyView(action()) : AnyView(EmptyView())
+    func seeIf(_ condition: Bool, then showView: () -> some View,
+               otherwise showDefault: () -> some View = { EmptyView() }) -> AnyView {
+        condition ? AnyView(showView()) : AnyView(showDefault())
     }
     
     func getBinding(for keyPath: WritableKeyPath<DateInterval, Date>,
@@ -87,5 +114,29 @@ extension View {
 extension Text {
     func blackAndWhite(theme: ColorScheme) -> some View {
         self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
+    }
+}
+
+extension Int {
+    static var week: Int { 7 * day }
+    static var day: Int { 24 * hour }
+    static var hour: Int { 3_600 }
+}
+
+
+// Section: Globals
+func not(_ condition: Bool) -> Bool {
+    !condition
+}
+
+extension Comparable {
+    func between(_ lhs: Self, and rhs: Self) -> Bool {
+        return self >= lhs && self <= rhs
+    }
+}
+
+extension Equatable {
+    func checkIf(_ condition: Bool, then trueValue: Self, otherwise falseValue: Self) -> Self {
+        return condition ? trueValue : falseValue
     }
 }

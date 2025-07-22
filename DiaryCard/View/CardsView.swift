@@ -10,7 +10,7 @@ struct CardsView: View {
     @State var showPicker = false
     @State var path = NavigationPath()
     
-    @State var start = Date().addingTimeInterval(-86400 * 30)
+    @State var start = Date().goBack(30 * .day)
     @State var end = Date()
     
     @State var today: Date = Calendar.current.startOfDay(for: Date())
@@ -21,7 +21,6 @@ struct CardsView: View {
             NavigationStack(path: $path) {
                 topBar
                 Spacer()
-                
                 cardList
                 .navigationDestination(for: Card.self) { card in
                     CardView(card: card)
@@ -34,11 +33,9 @@ struct CardsView: View {
     
     var topBar: some View {
         VStack {
-            HStack {
-                Text("Diary Cards")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-            }
+            Text("Diary Cards")
+                .font(.largeTitle)
+                .fontWeight(.bold)
             
             HStack {
                 getRangeButton(for: $start).padding(.leading, 20)
@@ -52,11 +49,8 @@ struct CardsView: View {
     var cardList: some View {
         List{
             ForEach(cards) { card in
-                NavigationLink {
-                    CardView(card: card)
-                } label: {
-                    createLabel(for: card)
-                }
+                NavigationLink(destination: CardView(card: card),
+                               label: { createLabel(for: card) })
             }
             .onDelete(perform: deleteCard)
         }
@@ -65,7 +59,7 @@ struct CardsView: View {
     }
     
     var pickerView: some View {
-        run_if(showPicker, then: {
+        seeIf(showPicker, then: {
             Group {
                 TapBackground { showPicker = false }
                 getPicker(for: selectedDate ?? $today)

@@ -1,6 +1,10 @@
 import SwiftData
 import SwiftUI
 
+#Preview("Export View") {
+    ExportView()
+}
+
 #Preview("Default Card", traits: .cardSampleData) {
     @Previewable @Query(sort: \Card.date) var cards: [Card]
     NavigationStack {

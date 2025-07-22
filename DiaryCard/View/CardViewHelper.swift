@@ -4,25 +4,25 @@ import SwiftData
 extension CardView {
     func getNameView(name: String) -> some View {
         return Group {
-            Text(name.isSubType() ? "" : name.getFieldName())
+            Text(name.isSubType() ? .nothing : name.getFieldName())
+                .font(.system(size: 14).lowercaseSmallCaps())
                 .foregroundStyle(.blue)
                 .fixedSize(horizontal: false, vertical: false)
                 .lineLimit(2)
                 .truncationMode(.tail)
+                .padding(.leading, 10)
         }
     }
     
     func getNextField(after key: String, in list: [String]) -> String {
-        let index: Int = list.firstIndex(of: key) ?? -1
-        print("Focus on \(key) at (index + 1) \(index + 1) out of \(list.count).")
-        if index < 0 || index >= list.endIndex - 1 {
-            return ""
+        let index: Int = list.firstIndex(of: key).orDefault(-1)
+        if index.between(0, and: list.endIndex - 1) {
+            return list[index + 1]
         }
-        print("Moving focus to \(list[index + 1])")
-        return list[index + 1]
+        return .nothing
     }
     
-    func getBinding<T>(key: String) -> Binding<T> {
+    func getBinding<T>(for key: String) -> Binding<T> {
         Binding<T>(
             get: { card[key].unwrap()! },
             set: { newValue in card.attributes[key] = Value.wrap(newValue) }
@@ -39,20 +39,20 @@ extension CardView {
             })
     }
     
-    func clearKeyboard() {
+    func dismissKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                         to: nil, from: nil, for: nil)
     }
 }
 
 struct NumberView: View {
-    @Binding var value: Float
+    @Binding var value: Int
     
     var body: some View {
         let valueString = Binding<String>(
-            get: { String(Int(value)) },
+            get: { String(value) },
             set: {newValue in
-                value = Float(newValue) ?? 0
+                value = Int(newValue).orDefault(0)
             }
         )
         
@@ -61,19 +61,23 @@ struct NumberView: View {
                 .keyboardType(.numberPad)
                 .frame(width: 20)
             
-            Slider(value: $value, in: 0...10, step: 1)
-            {  }
-            minimumValueLabel: {
-                Text("0")
-            } maximumValueLabel: {
-                Text("10")
-            }
-            .tint(
-                value >= 0 && value <= 3 ? .secondary :
-                    value >= 4 && value <= 7 ? .bubblegum : .red
+            Slider(value: getFloatBinding(), in: 0...10, step: 1) {  }
+            minimumValueLabel: { Text("Low") }
+            maximumValueLabel: { Text("High") }
+                .tint(value.between(4, and: 7) ? .buttercup
+                    : value < 4 ? .secondary : .poppy
             )
         }
         .padding(.horizontal, 20)
+    }
+    
+    func getFloatBinding() -> Binding<Float> {
+        .init(
+            get: { Float(value) },
+            set: { newValue in
+                value = Int(newValue.rounded())
+            }
+        )
     }
 }
 
@@ -99,11 +103,8 @@ struct DateView: View {
     }
     
     func pickerStyle() -> some View {
-        self
-            .datePickerStyle(.graphical)
+        self.datePickerStyle(.graphical)
             .padding(.vertical, 30)
-        
-            .background(Color(.systemBackground).opacity(0.1))
             .background(.ultraThinMaterial.opacity(0.80))
             .cornerRadius(20)
             .scaleEffect(0.85)
@@ -118,18 +119,14 @@ struct BooleanView: View {
             .font(.callout)
             .toggleStyle(.button)
             .buttonStyle(.borderedProminent)
-            .tint(value ? .oxblood : .blue)
+            .tint(value ? .poppy : .blue)
     }
 }
 
 struct HomeButton: View {
     var body: some View {
         NavigationStack {
-            NavigationLink {
-                CardsView()
-            } label: {
-                Text("Cards")
-            }
+            NavigationLink(destination: CardsView(), label: { Text("Cards") })
         }
     }
 }
@@ -138,8 +135,7 @@ struct TapBackground: View {
     let tapAction: () -> Void
     
     var body: some View {
-        Rectangle()
-            .fill(Color(.systemBackground).opacity(0.4))
+        Rectangle().fill(Color(.systemBackground).opacity(0.4))
             .blur(radius: 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .onTapGesture {

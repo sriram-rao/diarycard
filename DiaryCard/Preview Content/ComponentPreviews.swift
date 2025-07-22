@@ -9,13 +9,9 @@ import SwiftData
 }
 
 #Preview("Number") {
-    @Previewable @State var number: Value = .int(10)
-    let binding = Binding<Float> (
-        get: { Float(number.asInt) },
-        set: { newValue in number = .int(Int(newValue)) }
-    )
+    @Previewable @State var number: Int = 10
     Text("Live Preview: \(number)")
-    NumberView(value: binding)
+    NumberView(value: $number)
 }
 
 #Preview("Bool") {
