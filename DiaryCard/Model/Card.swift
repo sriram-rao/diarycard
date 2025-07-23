@@ -33,6 +33,7 @@ final class Card {
     }
 }
 
+
 extension Card {
     func getBinding(key: String) -> Binding<Value> {
         guard attributes[key] != nil else {

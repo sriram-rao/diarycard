@@ -106,18 +106,17 @@ extension View {
         self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
     }
     
-    func onAppearOrChange<V>(anyOf values: V..., perform action: @escaping () -> Void) -> some View where V : Equatable {
-        for value in values {
-            _ = self.onChange(of: value) { action() }
-        }
+    func onAppearOrChange<V>(of first: V, or second: V, _ action: @escaping () -> Void) -> some View where V : Equatable {
         return self.onAppear { action() }
+            .onChange(of: first) { action() }
+            .onChange(of: second) { action() }
     }
     
     func blurIf(_ condition: Bool) -> some View {
         self.blur(radius: 3 * (condition ? 1 : 0))
     }
     
-    func fetch(start: Date, end: Date, context: ModelContext) -> [Card] {
+    func fetch(from start: Date, to end: Date, in context: ModelContext) -> [Card] {
         let fetcher = FetchDescriptor<Card>(
             predicate: #Predicate { $0.date >= start && $0.date <= end },
             sortBy: [SortDescriptor(\.date, order: .reverse)]

@@ -16,6 +16,7 @@
 		CA89CE6B2E21844000086F2C /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA89CE6A2E21843900086F2C /* Schema.swift */; };
 		CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A38B72E1A250C000945F0 /* PopoverList.swift */; };
 		CA9B21F62E2F20D600AB715A /* SummariseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B21F52E2F20D200AB715A /* SummariseView.swift */; };
+		CA9B21F82E30606500AB715A /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = CA9B21F72E30605900AB715A /* template.html */; };
 		CAA36C462E2B801A002D3802 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C452E2B801A002D3802 /* BitCollections */; };
 		CAA36C482E2B801A002D3802 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C472E2B801A002D3802 /* Collections */; };
 		CAA36C4A2E2B801A002D3802 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C492E2B801A002D3802 /* DequeModule */; };
@@ -63,6 +64,7 @@
 		CA8A38B72E1A250C000945F0 /* PopoverList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverList.swift; sourceTree = "<group>"; };
 		CA9B21F42E2F1E7F00AB715A /* story.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = story.md; sourceTree = "<group>"; };
 		CA9B21F52E2F20D200AB715A /* SummariseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummariseView.swift; sourceTree = "<group>"; };
+		CA9B21F72E30605900AB715A /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		CAA702DF2E29D3F70020F83A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CAD9C4432E11E88100F01584 /* CardViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewHelper.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				CADC361A2DE1092D00539E69 /* Assets.xcassets */,
 				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,
 				CADC361D2DE1092D00539E69 /* diarycardApp.swift */,
+				CA9B21F72E30605900AB715A /* template.html */,
 				CADC361E2DE1092D00539E69 /* Info.plist */,
 			);
 			path = DiaryCard;
@@ -323,6 +326,7 @@
 				CAA702D92E29BF770020F83A /* XCRemoteSwiftPackageReference "neumorphic" */,
 				CAA702DC2E29C07D0020F83A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
 				CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				CA9B21F92E30683000AB715A /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CA72914B2D88D2E8004AF2DE /* Products */;
@@ -341,6 +345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA9B21F82E30606500AB715A /* template.html in Resources */,
 				CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -771,6 +776,14 @@
 			requirement = {
 				branch = master;
 				kind = branch;
+			};
+		};
+		CA9B21F92E30683000AB715A /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PSPDFKit/PSPDFKit-SP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.10.0;
 			};
 		};
 		CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */ = {

@@ -12,21 +12,22 @@ struct SummariseView: View {
                 Text(card.date.description)
             }
         }
-        .onAppearOrChange(anyOf: start, end) { fetch() }
+        .onAppearOrChange(of: start, or: end, refreshCards)
     }
     
     var topBar: some View {
         Text("Top Bar")
     }
     
-    func fetch() {
-        cards = fetch(start: start, end: end, context: modelContext)
-        print("Fetched \(cards.count) cards")
+    func getTemplate() -> String {
+        guard let template = Bundle.main.url(forResource: "template", withExtension: "html"),
+              let html = try? String(contentsOf: template, encoding: .utf8) else {
+            return .nothing
+        }
+        return html
     }
     
-    func fetchCards() {
-        print("Fetching cards...")
-        cards = fetch(start: start, end: end, context: modelContext)
-        print("Fetched \(cards.count) cards")
+    func refreshCards() {
+        cards = fetch(from: start, to: end, in: modelContext)
     }
 }

@@ -28,7 +28,7 @@ struct CardsView: View {
             }
             pickerView.zIndex(1)
         }
-        .onAppearOrChange(anyOf: start, end) { fetch() }
+        .onAppearOrChange(of: start, or: end, refreshCards)
     }
     
     var topBar: some View {
@@ -62,7 +62,7 @@ struct CardsView: View {
         checkIf(showPicker, then: {
             Group {
                 TapBackground { showPicker = false }
-                getPicker(for: selectedDate.orDefaultTo($end))
+                getPicker(for: selectedDate.orDefaultTo($pickerDate))
             }
         })
     }
@@ -123,7 +123,7 @@ struct CardsView: View {
         }
         let newCard = Card(date: date, attributes: CardSchema.get())
         modelContext.insert(newCard)
-        fetch()
+        refreshCards()
         return newCard
     }
     
@@ -133,8 +133,7 @@ struct CardsView: View {
         }
     }
     
-    func fetch() {
-        self.cards = fetch(start: start, end: end, context: modelContext)
-        print("Fetched \(cards.count) cards")
+    func refreshCards() {
+        self.cards = fetch(from: start, to: end, in: modelContext)
     }
 }
