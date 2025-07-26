@@ -43,6 +43,10 @@ struct CardsView: View {
                 Spacer()
                 pickerButton.padding(.trailing, 20)
             }
+            
+            NavigationLink(destination: SummaryView(start: start, end: end)) {
+                Text("Summary")
+            }
         }
     }
     
@@ -121,7 +125,7 @@ struct CardsView: View {
         if let card = cards.first(where: { $0.date == date }) {
             return card
         }
-        let newCard = Card(date: date, attributes: CardSchema.get())
+        let newCard = Card(date: date, attributes: Schema.get())
         modelContext.insert(newCard)
         refreshCards()
         return newCard

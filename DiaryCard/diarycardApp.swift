@@ -9,6 +9,6 @@ struct diarycardApp: App {
         WindowGroup {
             StartView()
         }
-        .modelContainer(for: [Card.self, ListSchemas.self])
+        .modelContainer(for: [Card.self])
     }
 }

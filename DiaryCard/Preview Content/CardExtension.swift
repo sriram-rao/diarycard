@@ -19,9 +19,9 @@ extension Card {
     //            "date": .date(getDate(from: "2025-06-25")),
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
-                "text.5-minute journal.fuck yeahs": .string("Fuck yeah!"),
-                "text.5-minute journal.stressors": .string("Job"),
-                "text.5-minute journal.gratitude": .string("Thanks Snowball <3"),
+                "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
+                "text.5-minute journal:stressors": .string("Job"),
+                "text.5-minute journal:gratitude": .string("Thanks Snowball <3"),
                 
                 "behaviour.self care": .int(3),
                 "behaviour.suicidal ideation": .int(1),
@@ -50,9 +50,9 @@ extension Card {
     //            "date": .date(getDate(from: "2025-06-24")),
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
-                "text.5-minute journal.fuck yeahs": .string("Fuck yeah!"),
-                "text.5-minute journal.stressors": .string("Job"),
-                "text.5-minute journal.gratitude": .string("Thanks Snowball <3"),
+                "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
+                "text.5-minute journal:stressors": .string("Job"),
+                "text.5-minute journal:gratitude": .string("Thanks Snowball <3"),
                 
                 "behaviour.self care": .int(3),
                 "behaviour.suicidal ideation": .int(1),
@@ -81,9 +81,9 @@ extension Card {
     //            "date": .date(getDate(from: "2025-06-23")),
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
-                "text.5-minute journal.fuck yeahs": .string("Fuck yeah!"),
-                "text.5-minute journal.stressors": .string("Job"),
-                "text.5-minute journal.gratitude": .string("Thanks Snowball <3"),
+                "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
+                "text.5-minute journal:stressors": .string("Job"),
+                "text.5-minute journal:gratitude": .string("Thanks Snowball <3"),
                 
                 "behaviour.self care": .int(3),
                 "behaviour.suicidal ideation": .int(1),
@@ -108,17 +108,5 @@ extension Card {
                 "skills.inter-personal effectiveness": .stringArray(["Clarify Priorities", "Validate Me", "DEAR MAN"])
             ])
         ]
-    }
-}
-
-extension ListSchemas {
-    static func getSampleData() -> ListSchemas {
-        return ListSchemas(schemas: [
-            "skills.distress tolerance": ["ACCEPTS", "IMPROVE", "TIPP", "STOP"],
-            "skills.core mindfulness": ["Observe", "Wise Mind", "Describe", "Participate"],
-            "skills.emotion regulation": ["Positives", "Check the facts", "Opposite Action"],
-            "skills.inter-personal effectiveness": ["Clarify Priorities", "DEAR MAN", "GIVE", "FAST",
-                                                   "Validate Me", "Validate Others", "Challenge Self-Judgement"]
-        ])
     }
 }

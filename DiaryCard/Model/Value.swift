@@ -1,13 +1,7 @@
 import Foundation
 import SwiftUI
 
-extension Binding where Value == diarycard.Value {
-    func toString() -> String {
-        return wrappedValue.toString()
-    }
-}
-
-enum Value: Codable {
+enum Value: Codable, Hashable {
     case int(Int)
     case string(String)
     case bool(Bool)
@@ -33,6 +27,10 @@ enum Value: Codable {
             case let v as [String]: return .stringArray(v)
             default: return Value.wrap(String(describing: value))
         }
+    }
+    
+    static func wrapOrDefault<T>(_ value: T) -> Value {
+        return wrap(value).orDefaultTo(.nothing)
     }
     
     var kind: Kind {

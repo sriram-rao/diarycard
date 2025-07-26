@@ -92,18 +92,18 @@ struct CardView: View {
     }
     
     var textKeys: [String] {
-        CardSchema.attributes.filter({ $0.value.kind == .string }).keys.sorted()
+        Schema.attributes.filter({ $0.value.kind == .string }).keys.sorted()
     }
     
     var nonTextKeys: OrderedDictionary<String, [String]> {
         OrderedDictionary(
-            grouping: CardSchema.attributes.keys.filter { !(textKeys.contains($0)) },
-            by: { $0.getGroup() }
+            grouping: Schema.attributes.keys.filter { !(textKeys.contains($0)) },
+            by: { $0.group }
         )
     }
     
     var allKeys: [String] {
-        textKeys + nonTextKeys.values.flatMap(\.self).filter({ not($0.isSubType()) })
+        textKeys + nonTextKeys.values.flatMap(\.self).filter({ not($0.isSubfield) })
     }
     
     func renderKeys(keys: [String]) -> some View {
@@ -112,7 +112,7 @@ struct CardView: View {
                 checkIf(not(key.getSubfields(keys: keys).isEmpty),
                       then: { renderCompound(key: key) },
                       otherwise: {
-                    checkIf(not(key.isSubType()), then: { render(key: key) })
+                    checkIf(not(key.isSubfield), then: { render(key: key) })
                 })
             }
             .padding(.horizontal, 25)
@@ -148,7 +148,7 @@ struct CardView: View {
         if !nextFocus.isEmptyOrWhitespace() {
             focusField = nextFocus
         }
-        if nextFocus.getGroup() == "skills" {
+        if nextFocus.group.equals("skills") {
             selectedKey = nextFocus.key
             needsPopover = true
         }

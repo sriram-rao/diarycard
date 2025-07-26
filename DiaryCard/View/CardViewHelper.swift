@@ -4,7 +4,7 @@ import SwiftData
 extension CardView {
     func getNameView(name: String) -> some View {
         return Group {
-            Text(name.isSubType() ? .nothing : name.getFieldName())
+            Text(name.isSubfield ? .nothing : name.field)
                 .font(.system(size: 14).lowercaseSmallCaps())
                 .foregroundStyle(.blue)
                 .fixedSize(horizontal: false, vertical: false)

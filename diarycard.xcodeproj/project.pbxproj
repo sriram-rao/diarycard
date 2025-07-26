@@ -12,11 +12,13 @@
 		CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */; };
 		CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */; };
 		CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */; };
+		CA745C172E34F51B0041598D /* default.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA745C162E34F51B0041598D /* default.pdf */; };
 		CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA899EAA2E1B5F5400A46D91 /* CardView.swift */; };
 		CA89CE6B2E21844000086F2C /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA89CE6A2E21843900086F2C /* Schema.swift */; };
 		CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A38B72E1A250C000945F0 /* PopoverList.swift */; };
-		CA9B21F62E2F20D600AB715A /* SummariseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B21F52E2F20D200AB715A /* SummariseView.swift */; };
-		CA9B21F82E30606500AB715A /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = CA9B21F72E30605900AB715A /* template.html */; };
+		CA9B21F62E2F20D600AB715A /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B21F52E2F20D200AB715A /* SummaryView.swift */; };
+		CA9B21FB2E318D1200AB715A /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B21FA2E318D0400AB715A /* Summary.swift */; };
+		CA9B22092E3216A500AB715A /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = CA9B22082E3216A500AB715A /* template.html */; };
 		CAA36C462E2B801A002D3802 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C452E2B801A002D3802 /* BitCollections */; };
 		CAA36C482E2B801A002D3802 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C472E2B801A002D3802 /* Collections */; };
 		CAA36C4A2E2B801A002D3802 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C492E2B801A002D3802 /* DequeModule */; };
@@ -26,12 +28,12 @@
 		CAA36C522E2B801A002D3802 /* _RopeModule in Frameworks */ = {isa = PBXBuildFile; productRef = CAA36C512E2B801A002D3802 /* _RopeModule */; };
 		CAA702DB2E29BF770020F83A /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = CAA702DA2E29BF770020F83A /* Neumorphic */; };
 		CAA702DE2E29C07D0020F83A /* SwiftUINavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = CAA702DD2E29C07D0020F83A /* SwiftUINavigationTransitions */; };
-		CAA702E02E29D3FB0020F83A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA702DF2E29D3F70020F83A /* Extensions.swift */; };
+		CAA98A252E3418060041F02B /* PDFDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA98A242E3417FC0041F02B /* PDFDisplay.swift */; };
+		CAA98A282E342AFF0041F02B /* HtmlToPdf in Frameworks */ = {isa = PBXBuildFile; productRef = CAA98A272E342AFF0041F02B /* HtmlToPdf */; };
 		CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* CardViewHelper.swift */; };
 		CAD9C45A2E12378700F01584 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4592E12378300F01584 /* Value.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
 		CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADC361A2DE1092D00539E69 /* Assets.xcassets */; };
-		CADC36392DE1092D00539E69 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC36372DE1092D00539E69 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,20 +61,21 @@
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA745C162E34F51B0041598D /* default.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = default.pdf; sourceTree = "<group>"; };
 		CA899EAA2E1B5F5400A46D91 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA89CE6A2E21843900086F2C /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		CA8A38B72E1A250C000945F0 /* PopoverList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverList.swift; sourceTree = "<group>"; };
 		CA9B21F42E2F1E7F00AB715A /* story.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = story.md; sourceTree = "<group>"; };
-		CA9B21F52E2F20D200AB715A /* SummariseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummariseView.swift; sourceTree = "<group>"; };
-		CA9B21F72E30605900AB715A /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
-		CAA702DF2E29D3F70020F83A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CA9B21F52E2F20D200AB715A /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		CA9B21FA2E318D0400AB715A /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
+		CA9B22082E3216A500AB715A /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
+		CAA98A242E3417FC0041F02B /* PDFDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDisplay.swift; sourceTree = "<group>"; };
 		CAD9C4432E11E88100F01584 /* CardViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewHelper.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		CADC361A2DE1092D00539E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CADC361C2DE1092D00539E69 /* diarycard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diarycard.entitlements; sourceTree = "<group>"; };
 		CADC361D2DE1092D00539E69 /* diarycardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diarycardApp.swift; sourceTree = "<group>"; };
 		CADC361E2DE1092D00539E69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CADC36372DE1092D00539E69 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		CADC367A2DE1110700539E69 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +88,11 @@
 		CA72916B2D88D2EB004AF2DE /* diarycardUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = diarycardUITests;
+			sourceTree = "<group>";
+		};
+		CA9B21FC2E31950D00AB715A /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CADC363D2DE1099500539E69 /* Preview Content */ = {
@@ -107,6 +115,7 @@
 				CAA36C502E2B801A002D3802 /* OrderedCollections in Frameworks */,
 				CAA702DE2E29C07D0020F83A /* SwiftUINavigationTransitions in Frameworks */,
 				CAA36C4E2E2B801A002D3802 /* HeapModule in Frameworks */,
+				CAA98A282E342AFF0041F02B /* HtmlToPdf in Frameworks */,
 				CAA36C522E2B801A002D3802 /* _RopeModule in Frameworks */,
 				CAA36C4A2E2B801A002D3802 /* DequeModule in Frameworks */,
 			);
@@ -170,11 +179,11 @@
 		CADC364D2DE10D1000539E69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CAA702DF2E29D3F70020F83A /* Extensions.swift */,
+				CA9B21FC2E31950D00AB715A /* Extensions */,
+				CA9B21FA2E318D0400AB715A /* Summary.swift */,
 				CA89CE6A2E21843900086F2C /* Schema.swift */,
 				CAD9C4592E12378300F01584 /* Value.swift */,
 				CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */,
-				CADC36372DE1092D00539E69 /* Theme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -182,7 +191,8 @@
 		CADC364E2DE10D2A00539E69 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CA9B21F52E2F20D200AB715A /* SummariseView.swift */,
+				CAA98A242E3417FC0041F02B /* PDFDisplay.swift */,
+				CA9B21F52E2F20D200AB715A /* SummaryView.swift */,
 				CA0264C62E1E4D3200FB2C06 /* CalendarView.swift */,
 				CA8A38B72E1A250C000945F0 /* PopoverList.swift */,
 				CAD9C4432E11E88100F01584 /* CardViewHelper.swift */,
@@ -200,9 +210,10 @@
 				CADC364E2DE10D2A00539E69 /* View */,
 				CADC363D2DE1099500539E69 /* Preview Content */,
 				CADC361A2DE1092D00539E69 /* Assets.xcassets */,
+				CA9B22082E3216A500AB715A /* template.html */,
+				CA745C162E34F51B0041598D /* default.pdf */,
 				CADC361C2DE1092D00539E69 /* diarycard.entitlements */,
 				CADC361D2DE1092D00539E69 /* diarycardApp.swift */,
-				CA9B21F72E30605900AB715A /* template.html */,
 				CADC361E2DE1092D00539E69 /* Info.plist */,
 			);
 			path = DiaryCard;
@@ -224,6 +235,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				CA9B21FC2E31950D00AB715A /* Extensions */,
 				CADC363D2DE1099500539E69 /* Preview Content */,
 			);
 			name = diarycard;
@@ -238,6 +250,7 @@
 				CAA36C4D2E2B801A002D3802 /* HeapModule */,
 				CAA36C4F2E2B801A002D3802 /* OrderedCollections */,
 				CAA36C512E2B801A002D3802 /* _RopeModule */,
+				CAA98A272E342AFF0041F02B /* HtmlToPdf */,
 			);
 			productName = diarycard;
 			productReference = CA72914A2D88D2E8004AF2DE /* diarycard.app */;
@@ -326,7 +339,7 @@
 				CAA702D92E29BF770020F83A /* XCRemoteSwiftPackageReference "neumorphic" */,
 				CAA702DC2E29C07D0020F83A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
 				CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */,
-				CA9B21F92E30683000AB715A /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */,
+				CAA98A262E342AFF0041F02B /* XCRemoteSwiftPackageReference "swift-html-to-pdf" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CA72914B2D88D2E8004AF2DE /* Products */;
@@ -345,7 +358,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA9B21F82E30606500AB715A /* template.html in Resources */,
+				CA745C172E34F51B0041598D /* default.pdf in Resources */,
+				CA9B22092E3216A500AB715A /* template.html in Resources */,
 				CADC36292DE1092D00539E69 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,17 +385,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA98A252E3418060041F02B /* PDFDisplay.swift in Sources */,
 				CAD9C45A2E12378700F01584 /* Value.swift in Sources */,
 				CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
 				CA89CE6B2E21844000086F2C /* Schema.swift in Sources */,
 				CA0264C72E1E4D3C00FB2C06 /* CalendarView.swift in Sources */,
-				CA9B21F62E2F20D600AB715A /* SummariseView.swift in Sources */,
+				CA9B21F62E2F20D600AB715A /* SummaryView.swift in Sources */,
+				CA9B21FB2E318D1200AB715A /* Summary.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,
-				CADC36392DE1092D00539E69 /* Theme.swift in Sources */,
 				CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */,
-				CAA702E02E29D3FB0020F83A /* Extensions.swift in Sources */,
 				CA899EAB2E1B5F5400A46D91 /* CardView.swift in Sources */,
 				CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */,
 			);
@@ -429,6 +443,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 8BJRT6BH24;
+				ENABLE_ONLY_ACTIVE_RESOURCES = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
@@ -450,6 +465,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.srao.diarycard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -477,6 +493,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 8BJRT6BH24;
+				ENABLE_ONLY_ACTIVE_RESOURCES = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
@@ -498,6 +515,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.srao.diarycard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -550,6 +568,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				ENABLE_ONLY_ACTIVE_RESOURCES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -572,6 +592,8 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "";
+				ON_DEMAND_RESOURCES_PREFETCH_ORDER = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -617,7 +639,9 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_ONLY_ACTIVE_RESOURCES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -631,6 +655,8 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "";
+				ON_DEMAND_RESOURCES_PREFETCH_ORDER = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 6.0;
@@ -778,14 +804,6 @@
 				kind = branch;
 			};
 		};
-		CA9B21F92E30683000AB715A /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/PSPDFKit/PSPDFKit-SP";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 14.10.0;
-			};
-		};
 		CAA36C442E2B801A002D3802 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -808,6 +826,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.15.1;
+			};
+		};
+		CAA98A262E342AFF0041F02B /* XCRemoteSwiftPackageReference "swift-html-to-pdf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/coenttb/swift-html-to-pdf";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -862,6 +888,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CAA702DC2E29C07D0020F83A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
 			productName = SwiftUINavigationTransitions;
+		};
+		CAA98A272E342AFF0041F02B /* HtmlToPdf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAA98A262E342AFF0041F02B /* XCRemoteSwiftPackageReference "swift-html-to-pdf" */;
+			productName = HtmlToPdf;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

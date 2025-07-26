@@ -5,11 +5,10 @@ import SwiftUI
 struct SampleData: PreviewModifier {
     static func insert(into context: ModelContext) {
         Card.getSampleData().forEach { context.insert($0) }
-        context.insert(ListSchemas.getSampleData())
     }
     
     static func makeSharedContext() async throws -> ModelContainer {
-        let container = try ModelContainer(for: Schema([Card.self, ListSchemas.self]),
+        let container = try ModelContainer(for: SwiftData.Schema([Card.self]),
                                            configurations: .init(isStoredInMemoryOnly: true))
         insert(into: container.mainContext)
         return container

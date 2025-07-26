@@ -2,13 +2,13 @@ import Foundation
 import SwiftData
 import OrderedCollections
 
-public class CardSchema {
+public class Schema {
     static let attributes: OrderedDictionary<String, Value> = [
         "text.1.comment": .string("Placeholder"),
         
-        "text.2.5-minute journal.fuck yeahs": .string(""),
-        "text.3.5-minute journal.stressors": .string("Job"),
-        "text.4.5-minute journal.gratitude": .string("Thanks Snowball <3"),
+        "text.2.5-minute journal:fuck yeahs": .string(""),
+        "text.3.5-minute journal:stressors": .string("Job"),
+        "text.4.5-minute journal:gratitude": .string("Thanks Snowball <3"),
         
         "behaviour.1.energy": .int(1),
         "behaviour.2.self care": .int(4),
@@ -33,12 +33,26 @@ public class CardSchema {
         "skills.4.inter-personal effectiveness": .stringArray(["Clarify Priorities", "Validate Me", "DEAR MAN"])
     ]
     
+    static var card: Card {
+        Card(date: Date.today, attributes: Schema.get())
+    }
+    
     static func get() -> Dictionary<String, Value> {
         return attributes.reduce([:], {dict, pair in
             var dict = dict
             dict[pair.key.key] = pair.value
             return dict
         })
+    }
+    
+    static var attributeNames: Array<String> { getAttributeNames() }
+    
+    static func getAttributeNames() -> [String] {
+        Array(attributes.keys.sorted())
+    }
+    
+    static func getKeysOf(group: String, excluded: Bool = false) -> [String] {
+        attributeNames.filter { $0.belongsTo(group) == not(excluded) }
     }
 }
 
@@ -50,47 +64,3 @@ let Skills = [
         "skills.inter-personal effectiveness": ["Clarify Priorities", "DEAR MAN", "GIVE", "FAST",
                                                "Validate Me", "Validate Others", "Challenge Self-Judgement"]
     ]
-
-@Model
-class ListSchemas {
-    
-    @Transient
-    var schemasCache: [String: [String]] = [:]
-    
-    var schemasJson: String = ""
-    var schemas: [String: [String]] {
-        get {
-            if !schemasCache.isEmpty {
-                return schemasCache
-            }
-            schemasCache = (try? JSONDecoder().decode([String: [String]].self, from: Data(schemasJson.utf8))) ?? [:]
-            return schemasCache
-        }
-        
-        set {
-            schemasCache = newValue
-            schemasJson = try! String(data: JSONEncoder().encode(newValue), encoding: .utf8) ?? ""
-        }
-    }
-
-    init(schemas: [String : [String]] = [:]) {
-        self.schemas = schemas
-    }
-    
-    subscript(listName: String, schemas: [String: [String]] = [:]) -> [String] {
-        get { self.schemas[listName.lowercased()] ?? [] }
-        set { self.schemas[listName.lowercased()] = newValue }
-    }
-    
-    func get(_ listName: String) -> [String] {
-        schemas[listName.lowercased()] ?? []
-    }
-    
-    func toString(listName: String) -> String {
-        get(listName).joined(separator: ", ")
-    }
-    
-    func contains(listName: String, value: String) -> Bool {
-        get(listName).contains(value)
-    }
-}

@@ -1,10 +1,6 @@
 import SwiftData
 import SwiftUI
 
-#Preview("Summarise View", traits: .cardSampleData) {
-    SummariseView()
-}
-
 #Preview("Default Card", traits: .cardSampleData) {
     @Previewable @Query(sort: \Card.date) var cards: [Card]
     NavigationStack {

@@ -58,7 +58,7 @@ import SwiftData
 #Preview("Popover List") {
     @Previewable @State var selected: [String] = Card.getSampleData().first!.get(key: "skills.distress tolerance").asStringArray
     Text("Live View: \(selected)")
-    PopoverList(selected: $selected, full: ListSchemas.getSampleData().get("skills.distress tolerance"))
+    PopoverList(selected: $selected, full: Skills["skills.distress tolerance"]! )
 }
 
 
@@ -71,21 +71,21 @@ import SwiftData
 #Preview("Get on submit test") {
 //    let list: [String] = CardSchema.attributes.keys.sorted()
     var textKeys: [String] {
-        get { CardSchema.attributes.filter({ $0.value.kind == .string }).keys.sorted() }
+        get { Schema.attributes.filter({ $0.value.kind == .string }).keys.sorted() }
     }
     
     var nonTextKeys: OrderedDictionary<String, [String]> {
         get {
             OrderedDictionary(
-                grouping: CardSchema.attributes.keys
+                grouping: Schema.attributes.keys
                     .filter { !(textKeys.contains($0)) },
-                by: { $0.getGroup() }
+                by: { $0.group }
             )
         }
     }
     
     var allKeys: [String] {
-        textKeys + nonTextKeys.values.flatMap(\.self).filter({ !$0.isSubType() })
+        textKeys + nonTextKeys.values.flatMap(\.self).filter({ !$0.isSubfield })
     }
     
     let currentKey: String = "behaviour.7.suicidal ideation"

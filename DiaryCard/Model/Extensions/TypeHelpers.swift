@@ -3,9 +3,56 @@ import SwiftData
 import Foundation
 import SwiftUI
 
+
+extension Int {
+    static var week: Int { 7 * day }
+    static var day: Int { 24 * hour }
+    static var hour: Int { 3_600 }
+}
+
+extension Comparable {
+    func between(_ lhs: Self, and rhs: Self) -> Bool {
+        return self >= lhs && self <= rhs
+    }
+}
+
+extension Equatable {
+    func checkIf(_ condition: Bool, then trueValue: Self, otherwise falseValue: Self) -> Self {
+        return condition ? trueValue : falseValue
+    }
+}
+
+func not(_ condition: Bool) -> Bool {
+    !condition
+}
+
+func run(_ trueAction: () -> Void, if condition: Bool, else falseAction: () -> Void) {
+    if condition {
+        trueAction()
+        return
+    }
+    falseAction()
+}
+
 extension String {
+    static var nothing: String { "" }
+    static var space: String { " " }
+    static var forwardSlash: String { "/" }
+    static var backSlash: String { "\\" }
+    static var equals: String { "=" }
+    static var quote: String { "\"" }
+    static var newline: String { "\n" }
+    static var dot: String { "." }
+    static var colon: String { ":" }
+    static var semicolon: String { ";" }
+    
     func isEmptyOrWhitespace() -> Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    /// Case insensitive string check
+    func equals(_ other: String) -> Bool {
+        self.lowercased() == other.lowercased()
     }
 }
 
@@ -18,18 +65,10 @@ extension String? {
     }
 }
 
-extension String {
-    static var nothing: String { "" }
-}
-
 extension Optional {
     func orDefaultTo(_ defaultValue: Wrapped) -> Wrapped {
         self ?? defaultValue
     }
-}
-
-extension Logger {
-    static let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.srao.diarycard", category: "App")
 }
 
 extension Date {
@@ -86,72 +125,20 @@ extension Date {
         formatter.locale = .current
         return formatter.string(from: self)
     }
-}
-
-extension View {
-    func checkIf(_ condition: Bool, then showView: () -> some View,
-               otherwise showDefault: () -> some View = { EmptyView() }) -> AnyView {
-        condition ? AnyView(showView()) : AnyView(showDefault())
-    }
     
-    func getBinding(for keyPath: WritableKeyPath<DateInterval, Date>,
-                    from interval: Binding<DateInterval>) -> Binding<Date> {
-        return Binding<Date>(
-            get: { interval.wrappedValue[keyPath: keyPath] },
-            set: { interval.wrappedValue[keyPath: keyPath] = $0 }
-        )
-    }
-    
-    func blackAndWhite(theme: ColorScheme) -> some View {
-        self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
-    }
-    
-    func onAppearOrChange<V>(of first: V, or second: V, _ action: @escaping () -> Void) -> some View where V : Equatable {
-        return self.onAppear { action() }
-            .onChange(of: first) { action() }
-            .onChange(of: second) { action() }
-    }
-    
-    func blurIf(_ condition: Bool) -> some View {
-        self.blur(radius: 3 * (condition ? 1 : 0))
-    }
-    
-    func fetch(from start: Date, to end: Date, in context: ModelContext) -> [Card] {
-        let fetcher = FetchDescriptor<Card>(
-            predicate: #Predicate { $0.date >= start && $0.date <= end },
-            sortBy: [SortDescriptor(\.date, order: .reverse)]
-        )
-        return (try? context.fetch(fetcher)).orDefaultTo([])
+    func toString(as format: String = "yyyy-MM-dd") -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
     }
 }
 
-
-extension Text {
-    func blackAndWhite(theme: ColorScheme) -> some View {
-        self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
-    }
+extension Logger {
+    static let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.srao.diarycard", category: "App")
 }
 
-extension Int {
-    static var week: Int { 7 * day }
-    static var day: Int { 24 * hour }
-    static var hour: Int { 3_600 }
-}
-
-
-// Section: Globals
-func not(_ condition: Bool) -> Bool {
-    !condition
-}
-
-extension Comparable {
-    func between(_ lhs: Self, and rhs: Self) -> Bool {
-        return self >= lhs && self <= rhs
-    }
-}
-
-extension Equatable {
-    func checkIf(_ condition: Bool, then trueValue: Self, otherwise falseValue: Self) -> Self {
-        return condition ? trueValue : falseValue
+extension Value {
+    static var nothing: Value {
+        Value.string(.nothing)
     }
 }
