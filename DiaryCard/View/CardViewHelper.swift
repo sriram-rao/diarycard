@@ -2,16 +2,14 @@ import SwiftUI
 import SwiftData
 
 extension CardView {
-    func getNameView(name: String) -> some View {
-        return Group {
-            Text(name.isSubfield ? .nothing : name.field)
-                .font(.system(size: 14).lowercaseSmallCaps())
-                .foregroundStyle(.blue)
-                .fixedSize(horizontal: false, vertical: false)
-                .lineLimit(2)
-                .truncationMode(.tail)
-                .padding(.leading, 10)
-        }
+    func getNameView(for name: String,
+                     ofSize size: Font = Font.caption.lowercaseSmallCaps()) -> some View {
+        Text(name).font(size.lowercaseSmallCaps())
+            .foregroundStyle(.blue)
+            .fixedSize(horizontal: false, vertical: false)
+            .lineLimit(2)
+            .truncationMode(.tail)
+            .padding(.leading, 10)
     }
     
     func getNextField(after key: String, in list: [String]) -> String {

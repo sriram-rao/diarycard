@@ -12,8 +12,8 @@ struct SummaryView: View {
     @State var refresh: Bool = false
     
     @State var pdfUrl: URL = FileManager.default.temporaryDirectory.appendingPathComponent("test.pdf")
-//    @State var pdfUrl: URL = Bundle.main.url(forResource: "default", withExtension: ".pdf")
-//        .orDefaultTo(FileManager.default.temporaryDirectory.appendingPathComponent("test.pdf"))
+    //    @State var pdfUrl: URL = Bundle.main.url(forResource: "default", withExtension: ".pdf")
+    //        .orDefaultTo(FileManager.default.temporaryDirectory.appendingPathComponent("test.pdf"))
     
     var body: some View {
         VStack{
@@ -29,24 +29,49 @@ struct SummaryView: View {
             refreshCards()
             self.pdfUrl = generatePdf()
         }
-        .toolbar { bottomBar }
+        .overlay(content: {
+            bottomBar
+        })
+        
+        
     }
     
     var topBar: some View {
         Text("Top Bar")
     }
     
-    var bottomBar: some ToolbarContent {
-        ToolbarItem(placement: .bottomBar, content: {
+    var bottomBar: some View {
+        VStack{
+            Spacer()
             HStack {
+                refreshButton
                 Spacer()
-                Button("Refresh PDF") {
-                    Task {
-                        self.refresh.toggle()
-                    }
-                }
+                saveButton
+                shareButton
             }
-        })
+            .padding(.horizontal, 30)
+            .background(Color.clear)
+            .font(.title3)
+            
+        }
+    }
+    
+    var refreshButton: some View {
+        Button(action: { self.refresh.toggle() }, label: { Label(String.nothing, systemImage: "arrow.clockwise")
+                .labelStyle(.iconOnly)
+        }).minimalStyle()
+    }
+    
+    var shareButton: some View {
+        ShareLink(item: pdfUrl, subject: Text("Diary Card \(self.end.toString())")){
+            Label(String.nothing, systemImage: "square.and.arrow.up")
+        }.minimalStyle()
+    }
+    
+    var saveButton: some View {
+        Button(action: { self.saveToDisk() },
+               label: { Label("", systemImage: "internaldrive") })
+        .minimalStyle()
     }
     
     func generatePdf() -> URL {
@@ -58,6 +83,28 @@ struct SummaryView: View {
         }
         
         return outputUrl
+    }
+    
+    func saveToDisk() {
+        self.pdfUrl = generatePdf()
+        let savePath = getSavePath()
+        do {
+            try FileManager.default.createDirectory(at: savePath.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try FileManager.default.copyItem(at: pdfUrl, to: savePath)
+        } catch (let error) {
+            print("Unable to save. Error: \(error)")
+        }
+    }
+    
+    func getSavePath() -> URL {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        else { fatalError("Error with finding save location.") }
+        
+        let url = directory.appending(path: "Cards")
+            .appending(path: "Diary Card \(end.toString())")
+            .appendingPathExtension("pdf")
+        print("open \(url.path)")
+        return url
     }
     
     func refreshCards() {
@@ -115,17 +162,12 @@ extension SummaryView {
     }
     
     func getTextRow(for keys: [String], in card: Card) -> Row {
-        let dict = OrderedDictionary(grouping: keys, by: \.field)
-        return dict.map {_, keyNames in
-            print("Key names: \(keyNames)")
-            return Value.string(
-            keyNames.map{ key in
-                
-                print("Key: \(key)")
-                return [ key.isSubfield ? [key.subfield.capitalized, .colon, .space].merged: .nothing,
-                  card[key.key].asString,
-                  .newline, MarkupTag.LINE_BREAK ].merged
-            }.merged
-        )}
+        OrderedDictionary(grouping: keys, by: \.field)
+            .map {_, keyNames in
+                Value.string(keyNames.map{ key in
+                    [ key.isSubfield ? [key.subfield.capitalized, .colon, .space].merged: .nothing,
+                      card[key.key].asString,
+                      .newline, MarkupTag.LINE_BREAK ].merged
+                }.merged)}
     }
 }

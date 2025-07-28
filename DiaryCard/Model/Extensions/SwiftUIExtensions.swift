@@ -21,14 +21,15 @@ extension String {
     
     /// The order rank corresponding to an (unpassed) list)
     /// i.e. the number in the string, if present as the second of the dot-separated strings.
-    /// If self has no number, value is 1000.
+    /// If self has no number, returns 1000.
     /// group.1.field:sub --> 1
     var position: Int {
         Int(self.components(separatedBy: String.dot)
             .second).orDefaultTo(1000)
     }
     
-    /// The name of the field without prefixes and sub-fields... group.1.field:sub --> field
+    /// The name of the field without prefixes and sub-fields...
+    ///  group.1.field:sub --> field
     var field: String {
         self.isSubfield
             ? self.fieldFull.name
@@ -63,7 +64,8 @@ extension String {
             : .nothing
     }
     
-    /// Is self a sub-field? (Checks for presence of ":")... group.1.field:sub --> true; group.1.field --> false
+    /// Is self a sub-field? (Checks for presence of ":")...
+    /// group.1.field:sub --> true; group.1.field --> false
     var isSubfield: Bool {
         self.contains(.colon)
     }
@@ -78,6 +80,12 @@ extension String {
     /// Checks if self is a part of the group, i.e., self begins with group + .dot
     func belongsTo(_ group: String) -> Bool {
         return self.group.equals(group)
+    }
+    
+    func checkStandalone(in names: [String]) -> Bool {
+        not(isSubfield && names.contains(where: {
+            $0.key.equals(self.key.fieldFull) && $0 != self
+        }))
     }
 }
 

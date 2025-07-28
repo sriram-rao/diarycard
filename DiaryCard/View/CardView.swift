@@ -25,7 +25,7 @@ struct CardView: View {
             
             ForEach(nonTextKeys.keys.sorted(), id: \.hashValue) {key in
                 VStack {
-                    getNameView(name: key).font(.caption.lowercaseSmallCaps())
+                    getNameView(for: key, ofSize: .caption)
                     renderKeys(keys: nonTextKeys[key].orDefaultTo( [] ))
                 }
                 .padding(.vertical, 10)
@@ -107,13 +107,14 @@ struct CardView: View {
     }
     
     func renderKeys(keys: [String]) -> some View {
-        return ForEach(keys, id: \.capitalized) {key in
+        ForEach(keys, id: \.capitalized) {key in
             Group {
                 checkIf(not(key.getSubfields(keys: keys).isEmpty),
-                      then: { renderCompound(key: key) },
-                      otherwise: {
-                    checkIf(not(key.isSubfield), then: { render(key: key) })
+                        then: { renderCompound(key: key) },
+                        otherwise: {
+                    checkIf(key.checkStandalone(in: keys), then: { render(key: key) })
                 })
+                Divider()
             }
             .padding(.horizontal, 25)
             .padding(.vertical, 5)
@@ -122,9 +123,8 @@ struct CardView: View {
     
     func render(key: String) -> some View {
         VStack (alignment: .leading) {
-            getNameView(name: key)
+            getNameView(for: key.checkStandalone(in: card.keys) ? key.name : .nothing)
             getView(for: key)
-            Divider()
         }
     }
     
@@ -132,7 +132,7 @@ struct CardView: View {
         let group = key.key.getSubfields(keys: card.keys)
         return VStack (alignment: .leading) {
             HStack {
-                getNameView(name: key)
+                getNameView(for: key.field)
                 Spacer()
                 ForEach(group, id: \.self) {key in
                     render(key: key)

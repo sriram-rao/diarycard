@@ -44,6 +44,7 @@ class MarkupTag {
     }
     
     func apply(classes names: String...) -> MarkupTag {
+        if names.isEmpty || names.spaced.isEmptyOrWhitespace() { return self }
         self.classNames += names.spaced + .space
         return self
     }
@@ -60,8 +61,10 @@ extension MarkupTag {
     static let TABLE_CELL: String = "td"
     static let TABLE_HEADER: String = "th"
     static let TABLE_ROW: String = "tr"
+    static let TABLE_BODY: String = "tbody"
     static let TABLE: String = "table"
     static let DIV: String = "div"
+    static let SPAN: String = "span"
     static let LINE_BREAK: String = "<br/>"
     
     static var HEADING : (Int) -> String { heading }
@@ -71,13 +74,22 @@ extension MarkupTag {
     }
     
     static func tabulate(_ matrix: RowSet) -> MarkupTag {
-        MarkupTag(for: TABLE, children: matrix.enumerated().map({ row_number, row in
-            MarkupTag(for: TABLE_ROW, children: row.map({cell in
-                MarkupTag(for: row_number == 0 ? TABLE_HEADER : TABLE_CELL,
-                          withText: cell.toString())
-                .apply(classes: getStyle(for: cell, of: TABLE_CELL))
+        MarkupTag(for: TABLE, children: [
+            MarkupTag(for: TABLE_BODY,
+                      children: matrix.enumerated().map({ row_number, row in
+                
+                MarkupTag(for: TABLE_ROW, children: row.map({cell in
+                    makeCell(cell, isHeader: row_number == 0)
+                }))
             }))
-        })).apply(classes: getStyle(of: TABLE))
+        ]).apply(classes: getStyle(of: TABLE))
+    }
+    
+    static func makeCell(_ value: Value, isHeader: Bool = false) -> MarkupTag {
+        MarkupTag(for: isHeader ? TABLE_HEADER : TABLE_CELL,
+                  withText: value.kind == .stringArray ? .nothing : value.toString(),
+                  children: value.kind == .stringArray ? getContentForArray(value) : []
+        ).apply(classes: getStyle(for: value, of: TABLE_CELL))
     }
     
     
@@ -86,6 +98,13 @@ extension MarkupTag {
             return "simple-table"
         }
         return stylers[value.kind].orDefaultTo({ _ in .nothing }) (value)
+    }
+    
+    static func getContentForArray(_ values: Value) -> [MarkupTag] {
+        values.asStringArray.enumerated().map({ index, value in
+            MarkupTag(for: SPAN, withText: value)
+                .apply(classes: "selected-value", colourClasses[index])
+        })
     }
     
     nonisolated(unsafe) static let stylers: Dictionary<Value.Kind, (Value) -> String> = [
@@ -111,6 +130,18 @@ extension MarkupTag {
         6: "block-color-blue_background",
         10: "block-color-orange_background"
     ]
+    
+    static let colourClasses: [String] = [
+        "select-value-color-default",
+        "select-value-color-pink",
+        "select-value-color-blue",
+        "select-value-color-gray",
+        "select-value-color-orange",
+        "select-value-color-purple",
+        "select-value-color-brown",
+        "select-value-color-red",
+        "select-value-color-green",
+    ]
 }
 
 extension Value {
@@ -135,7 +166,17 @@ class Html {
             .replacingOccurrences(of: "{{date}}", with: weekEnding.toString())
             .replacingOccurrences(of: "{{text}}", with: textMap.toHtml())
             .replacingOccurrences(of: "{{measures}}", with: measureMap.toHtml())
+        log(html)
         return html
+    }
+    
+    private static func log(_ string: String, into path: String = "/Users/sriramrao/Downloads/notion exports/sample_\(Date()).html") {
+        do {
+          try string.write(to: URL(filePath: path), atomically: true, encoding: .utf8)
+        }
+        catch {
+          print("Error writing: \(error.localizedDescription)")
+        }
     }
     
     static func tabulate(_ name: String, from data: RowSet) -> String {
@@ -170,10 +211,15 @@ extension Dictionary where Key == String, Value == RowSet {
     func toHtml() -> String {
         self.sorted(by: { $0.key < $1.key })
             .map({name, data in [
-                MarkupTag(for: MarkupTag.DIV, children: [
-                    MarkupTag(for: MarkupTag.heading(3), withText: name),
-                    MarkupTag.tabulate(data)
-                ]).toString(),
+                MarkupTag(for: MarkupTag.heading(3),
+                          withText: name).toString(),
+                MarkupTag(for: MarkupTag.SPAN, children: [
+                    MarkupTag(for: MarkupTag.SPAN,
+                              children: [MarkupTag.tabulate(data)])
+                    .addStyle(styles: ["display": "table-cell"])
+                ])
+                .addStyle(styles: ["width": "100%", "display": "table"])
+                .toString(),
                 .newline
             ].merged
             }).merged
@@ -862,11 +908,9 @@ class Utilities {
             
         </style></head><body>
             <article id="8e42fb53-30d0-4c7e-a208-a7794ab6448f" class="page sans">
-                <h1 class="page-title">Diary Card — {{date}}</h1>
-                <div class="page-body">
-                    {{text}}
-                    {{measures}}
-                </div>
+                <h1 class="page-title">Diary Card — {{date}}</h1><div class="page-body">{{text}}{{measures}}</div>
+                        class="page-body">{{text}}{{measures}}</div>
+                        class="page-body">{{text}}{{measures}}</div>
             </article>
             <span class="sans" style="font-size:14px;padding-top:2em"></span>
         </body>

@@ -42,11 +42,16 @@ struct CardsView: View {
                 getRangeButton(for: $end)
                 Spacer()
                 pickerButton.padding(.trailing, 20)
-            }
+            }.padding(.top, 10)
             
-            NavigationLink(destination: SummaryView(start: start, end: end)) {
-                Text("Summary")
-            }
+            HStack {
+                Spacer()
+                NavigationLink(destination: SummaryView(start: start, end: end)) {
+                    Text("Summary")
+                }
+            }.padding(.horizontal, 20)
+            .padding(.top, 10)
+            
         }
     }
     
@@ -127,6 +132,7 @@ struct CardsView: View {
         }
         let newCard = Card(date: date, attributes: Schema.get())
         modelContext.insert(newCard)
+        try? modelContext.save()
         refreshCards()
         return newCard
     }
@@ -135,6 +141,7 @@ struct CardsView: View {
         for index in indices {
             modelContext.delete(cards[index])
         }
+        try? modelContext.save()
     }
     
     func refreshCards() {

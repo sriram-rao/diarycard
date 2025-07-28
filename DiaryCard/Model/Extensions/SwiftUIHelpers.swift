@@ -41,6 +41,11 @@ extension View {
         )
         return (try? context.fetch(fetcher)).orDefaultTo([])
     }
+    
+    func minimalStyle() -> some View {
+        self.buttonStyle(Minimal())
+            .frame(alignment: .center)
+    }
 }
 
 extension Text {
@@ -49,7 +54,19 @@ extension Text {
     }
 }
 
-public enum Theme: String {
+struct Minimal: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
+            .padding(15)
+            .background(.ultraThinMaterial)
+            .foregroundStyle(.blue)
+            .clipShape(Circle())
+    }
+}
+
+public enum Theme: String, CaseIterable {
     case bubblegum
     case buttercup
     case indigos

@@ -43,6 +43,7 @@ extension String {
     static var quote: String { "\"" }
     static var newline: String { "\n" }
     static var dot: String { "." }
+    static var comma: String { "," }
     static var colon: String { ":" }
     static var semicolon: String { ";" }
     

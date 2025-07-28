@@ -56,35 +56,35 @@ enum Value: Codable, Hashable {
     }
     
     var asString: String {
-        return unwrap() ?? ""
+        return unwrap().orDefaultTo(.nothing)
     }
 
     var asInt: Int {
-        return unwrap() ?? 0
+        return unwrap().orDefaultTo(0)
     }
 
     var asBool: Bool {
-        return unwrap() ?? false
+        return unwrap().orDefaultTo(false)
     }
 
     var asDate: Date {
-        return unwrap() ?? Date()
+        return unwrap().orDefaultTo(Date())
     }
 
     var asStringArray: [String] {
-        return unwrap() ?? []
+        return unwrap().orDefaultTo(Array())
     }
     
     func toString() -> String {
         switch self {
-            case .int(let v): return String(v)
-            case .string(let v): return v
-            case .bool(let v): return String(v)
-            case .date(let v):
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd"
-                return formatter.string(from: v)
-            case .stringArray(let v): return v.joined(separator: ",")
+        case .int(let v): return String(v)
+        case .string(let v): return v
+        case .bool(let v): return String(v)
+        case .date(let v):
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            return formatter.string(from: v)
+        case .stringArray(let v): return v.joined(separator: .comma)
         }
     }
 }
