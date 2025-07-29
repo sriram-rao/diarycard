@@ -12,7 +12,6 @@ struct StartView: View {
     }
     
     func initializeData() -> some View {
-        
         return EmptyView()
     }
 }

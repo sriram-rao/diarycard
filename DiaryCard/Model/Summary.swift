@@ -25,3 +25,20 @@ class Summary {
         return Array(data.values)
     }
 }
+
+@Observable class Message {
+    public var text: String
+    public var category: Category
+    
+    public init(text: String, category: Category) {
+        self.text = text
+        self.category = category
+    }
+}
+
+public enum Category: Int, CaseIterable {
+    case error
+    case warning
+    case success
+    case info
+}

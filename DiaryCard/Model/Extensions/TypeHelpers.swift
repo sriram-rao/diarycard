@@ -12,7 +12,7 @@ extension Int {
 
 extension Comparable {
     func between(_ lhs: Self, and rhs: Self) -> Bool {
-        return self >= lhs && self <= rhs
+        return self >= lhs && self < rhs
     }
 }
 

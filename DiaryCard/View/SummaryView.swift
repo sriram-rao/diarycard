@@ -6,17 +6,23 @@ import SwiftUI
 
 struct SummaryView: View {
     @Environment(\.modelContext) var modelContext
-    @State var start: Date = .today.goBack(2 * 30 * .day)
+    @State var start: Date = .today.goBack(7 * .day)
     @State var end: Date = .today
     @State var cards: [Card] = []
     @State var refresh: Bool = false
+    @State var pdfUrl: URL = Bundle.main.url(
+        forResource: "default", withExtension: ".pdf")
+        .orDefaultTo(URL.documentsDirectory)
     
-    @State var pdfUrl: URL = FileManager.default.temporaryDirectory.appendingPathComponent("test.pdf")
-    //    @State var pdfUrl: URL = Bundle.main.url(forResource: "default", withExtension: ".pdf")
-    //        .orDefaultTo(FileManager.default.temporaryDirectory.appendingPathComponent("test.pdf"))
+    init(from start: Date = .today.goBack(7 * .day), to end: Date = .today) {
+        self.start = start
+        self.end = end
+    }
     
     var body: some View {
         VStack{
+            Text("Save path: " + getSavePath().relativeString).font(.caption)
+            // To make SwiftUI refresh the screen because there isn't a direct way.
             if refresh {
                 PDFDisplay(url: self.pdfUrl, refresh: refresh)
             }
@@ -32,12 +38,6 @@ struct SummaryView: View {
         .overlay(content: {
             bottomBar
         })
-        
-        
-    }
-    
-    var topBar: some View {
-        Text("Top Bar")
     }
     
     var bottomBar: some View {
@@ -52,13 +52,12 @@ struct SummaryView: View {
             .padding(.horizontal, 30)
             .background(Color.clear)
             .font(.title3)
-            
         }
     }
     
     var refreshButton: some View {
-        Button(action: { self.refresh.toggle() }, label: { Label(String.nothing, systemImage: "arrow.clockwise")
-                .labelStyle(.iconOnly)
+        Button(action: { self.refresh.toggle() },
+               label: { Label(String.nothing, systemImage: "arrow.clockwise")
         }).minimalStyle()
     }
     
@@ -69,7 +68,7 @@ struct SummaryView: View {
     }
     
     var saveButton: some View {
-        Button(action: { self.saveToDisk() },
+        Button(action: { _ = self.saveToDisk() },
                label: { Label("", systemImage: "internaldrive") })
         .minimalStyle()
     }
@@ -85,26 +84,29 @@ struct SummaryView: View {
         return outputUrl
     }
     
-    func saveToDisk() {
-        self.pdfUrl = generatePdf()
+    func saveToDisk() -> URL {
         let savePath = getSavePath()
         do {
-            try FileManager.default.createDirectory(at: savePath.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try FileManager.default.createDirectory(at: savePath.deletingLastPathComponent(),
+                                                    withIntermediateDirectories: true)
             try FileManager.default.copyItem(at: pdfUrl, to: savePath)
         } catch (let error) {
             print("Unable to save. Error: \(error)")
         }
+        return savePath
     }
     
     func getSavePath() -> URL {
-        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        else { fatalError("Error with finding save location.") }
         
-        let url = directory.appending(path: "Cards")
+        guard let directory = try? FileManager.default.url(
+            for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        else {
+            fatalError("Error with finding save location.")
+        }
+        
+        return directory.appending(path: "Cards")
             .appending(path: "Diary Card \(end.toString())")
             .appendingPathExtension("pdf")
-        print("open \(url.path)")
-        return url
     }
     
     func refreshCards() {

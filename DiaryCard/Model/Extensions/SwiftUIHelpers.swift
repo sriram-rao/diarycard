@@ -48,12 +48,6 @@ extension View {
     }
 }
 
-extension Text {
-    func blackAndWhite(theme: ColorScheme) -> some View {
-        self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
-    }
-}
-
 struct Minimal: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

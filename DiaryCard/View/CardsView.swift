@@ -10,7 +10,7 @@ struct CardsView: View {
     @State var showPicker = false
     @State var path = NavigationPath()
     
-    @State var start = Date().goBack(30 * .day)
+    @State var start = Date().goBack(7 * .day)
     @State var end = Date()
     
     @State var pickerDate: Date = .today
@@ -36,22 +36,24 @@ struct CardsView: View {
             Text("Diary Cards")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            
             HStack {
-                getRangeButton(for: $start).padding(.leading, 20)
-                getRangeButton(for: $end)
-                Spacer()
-                pickerButton.padding(.trailing, 20)
-            }.padding(.top, 10)
-            
-            HStack {
-                Spacer()
-                NavigationLink(destination: SummaryView(start: start, end: end)) {
-                    Text("Summary")
+                VStack (alignment: .leading, spacing: 15) {
+                    getRangeButton(for: $start)
+                    getRangeButton(for: $end)
                 }
-            }.padding(.horizontal, 20)
-            .padding(.top, 10)
-            
+                
+                Spacer()
+                VStack (alignment: .trailing, spacing: 15) {
+                    getToolbarButton(for: selectedDate.orDefaultTo($pickerDate),
+                                     called: "Go To",
+                                     showing: { Image(systemName: "calendar") })
+
+                    getQuickLink(to: "Export", with: "richtext.page",
+                                 at: SummaryView(from: start, to: end))
+                }
+            }
+            .padding(.vertical, 5)
+            .padding(.horizontal, 20)
         }
     }
     
@@ -80,39 +82,42 @@ struct CardsView: View {
         VStack(alignment: .center) {
             DateView(value: date)
                 .pickerStyle()
-                .onChange(of: date.wrappedValue) {
-                    print("Date: \(date.wrappedValue)")
+                .onChange(of: date.wrappedValue, {
+                    print("Path appending")
                     path.append(getCard(for: date.wrappedValue.startOfDay))
-                }
+                })
             Spacer()
         }
     }
     
-    var pickerButton: some View {
-        Button(action: {
-            showPicker = true
-            selectedDate = $pickerDate
-        }, label: {
-            Text("Date")
-                .font(.headline)
-                .blackAndWhite(theme: colorScheme)
-            Image(systemName: "calendar")
-                .font(.headline)
-                .blackAndWhite(theme: colorScheme)
-        })
+    func getRangeButton(for date: Binding<Date>) -> some View {
+        getToolbarButton(for: date,
+                         called: (date.wrappedValue == end ? "To" : "From"),
+                         showing: { Text(date.wrappedValue.getRelativeDay()).foregroundStyle(.blue) })
     }
     
-    func getRangeButton(for date: Binding<Date>) -> some View {
+    func getToolbarButton(for date: Binding<Date>, called name: String = .nothing, showing label: () -> some View) -> some View {
         Button(action: {
             showPicker = true
             selectedDate = date
         }, label: {
-            Text(date.wrappedValue == end ? "To" : .nothing)
-                .blackAndWhite(theme: colorScheme)
-            Text(date.wrappedValue.getRelativeDay())
-                .font(.headline)
-                .foregroundStyle(.blue)
+            Group {
+                Text(name)
+                label()
+            }
+            .font(.headline)
+            .blackAndWhite(theme: colorScheme)
         })
+    }
+    
+    func getQuickLink(to name: String, with systemImage: String,
+                      at destination: some View) -> some View {
+        NavigationLink(destination: destination) {
+            HStack { Text(name)
+                Image(systemName: systemImage)
+            }.font(.headline)
+                .blackAndWhite(theme: colorScheme)
+        }
     }
     
     func createLabel(for card: Card) -> some View {
@@ -131,17 +136,25 @@ struct CardsView: View {
             return card
         }
         let newCard = Card(date: date, attributes: Schema.get())
-        modelContext.insert(newCard)
-        try? modelContext.save()
-        refreshCards()
+        do {
+            modelContext.insert(newCard)
+            try modelContext.save()
+            refreshCards()
+        } catch(let error) {
+            print(error)
+        }
         return newCard
     }
     
     func deleteCard(_ indices: IndexSet) {
-        for index in indices {
-            modelContext.delete(cards[index])
+        do {
+            for index in indices {
+                modelContext.delete(cards[index])
+            }
+            try modelContext.save()
+        } catch (let error) {
+            print(error)
         }
-        try? modelContext.save()
     }
     
     func refreshCards() {

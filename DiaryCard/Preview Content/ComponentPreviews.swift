@@ -68,28 +68,31 @@ import SwiftData
     PopoverButton(types: ["type1", "type2"], action: { selected.toggle() })
 }
 
-#Preview("Get on submit test") {
-//    let list: [String] = CardSchema.attributes.keys.sorted()
-    var textKeys: [String] {
-        get { Schema.attributes.filter({ $0.value.kind == .string }).keys.sorted() }
-    }
-    
-    var nonTextKeys: OrderedDictionary<String, [String]> {
-        get {
-            OrderedDictionary(
-                grouping: Schema.attributes.keys
-                    .filter { !(textKeys.contains($0)) },
-                by: { $0.group }
-            )
-        }
-    }
-    
-    var allKeys: [String] {
-        textKeys + nonTextKeys.values.flatMap(\.self).filter({ !$0.isSubfield })
-    }
-    
-    let currentKey: String = "behaviour.7.suicidal ideation"
-    Text("all keys: \(allKeys)")
-    Text("Next focus:" + CardView(card: Card(date: Date()))
-            .getNextField(after: currentKey, in: allKeys))
-}
+//#Preview("Get on submit test") {
+////    let list: [String] = Schema.attributes.keys.sorted()
+//    // Breaks but Xcode doesn't have the tools to debug it.
+//    // (The tool is a debugger.)
+//    // Not going to figure out other ways
+//    var textKeys: [String] {
+//        get { Schema.attributes.filter({ $0.value.kind == .string }).keys.sorted() }
+//    }
+//    
+//    var nonTextKeys: OrderedDictionary<String, [String]> {
+//        get {
+//            OrderedDictionary(
+//                grouping: Schema.attributes.keys
+//                    .filter { !(textKeys.contains($0)) },
+//                by: { $0.group }
+//            )
+//        }
+//    }
+//    
+//    var allKeys: [String] {
+//        textKeys + nonTextKeys.values.flatMap(\.self).filter({ !$0.isSubfield })
+//    }
+//    
+//    let currentKey: String = "behaviour.7.suicidal ideation"
+//    Text("all keys: \(allKeys)")
+//    Text("Next focus:" + CardView(card: Card(date: Date()))
+//            .getNextField(after: currentKey, in: allKeys))
+//}

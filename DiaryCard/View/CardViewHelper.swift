@@ -13,9 +13,13 @@ extension CardView {
     }
     
     func getNextField(after key: String, in list: [String]) -> String {
-        let index: Int = list.firstIndex(of: key).orDefaultTo(-1)
-        if index.between(0, and: list.endIndex - 1) {
-            return list[index + 1]
+        do {
+            let index: Int = list.firstIndex(of: key).orDefaultTo(0)
+            if index.between(0, and: list.endIndex - 1) {
+                return list[index + 1]
+            }
+        } catch (let error) {
+            print(error)
         }
         return .nothing
     }
@@ -126,18 +130,5 @@ struct HomeButton: View {
         NavigationStack {
             NavigationLink(destination: CardsView(), label: { Text("Cards") })
         }
-    }
-}
-
-struct TapBackground: View {
-    let tapAction: () -> Void
-    
-    var body: some View {
-        Rectangle().fill(Color(.systemBackground).opacity(0.4))
-            .blur(radius: 20)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .onTapGesture {
-                tapAction()
-            }
     }
 }
