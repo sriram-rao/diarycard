@@ -7,74 +7,74 @@ enum Value: Codable, Hashable {
     case bool(Bool)
     case date(Date)
     case stringArray([String])
-    
+
     func unwrap<T>() -> T? {
         switch self {
-            case .int(let v): return v as? T
-            case .string(let v): return v as? T
-            case .bool(let v): return v as? T
-            case .date(let v): return v as? T
-            case .stringArray(let v): return v as? T
+        case .int(let val): return val as? T
+        case .string(let val): return val as? T
+        case .bool(let val): return val as? T
+        case .date(let val): return val as? T
+        case .stringArray(let val): return val as? T
         }
     }
-    
+
     static func wrap<T>(_ value: T) -> Value? {
         switch value {
-            case let v as Int: return .int(v)
-            case let v as String: return .string(v)
-            case let v as Bool: return .bool(v)
-            case let v as Date: return .date(v)
-            case let v as [String]: return .stringArray(v)
-            default: return Value.wrap(String(describing: value))
+        case let val as Int: return .int(val)
+        case let val as String: return .string(val)
+        case let val as Bool: return .bool(val)
+        case let val as Date: return .date(val)
+        case let val as [String]: return .stringArray(val)
+        default: return Value.wrap(String(describing: value))
         }
     }
-    
+
     static func wrapOrDefault<T>(_ value: T) -> Value {
-        return wrap(value).orDefaultTo(.nothing)
+        return wrap(value).orDefault(to: Value.nothing)
     }
-    
+
     var kind: Kind {
         switch self {
-            case .int: return .int
-            case .string: return .string
-            case .bool: return .bool
-            case .date: return .date
-            case .stringArray: return .stringArray
+        case .int: return .int
+        case .string: return .string
+        case .bool: return .bool
+        case .date: return .date
+        case .stringArray: return .stringArray
         }
     }
-    
+
     enum Kind: Codable {
         case int
         case string
         case bool
         case date
         case stringArray
-        
+
         func toString() -> String {
             String(describing: self)
         }
     }
-    
+
     var asString: String {
-        return unwrap().orDefaultTo(.nothing)
+        return unwrap().orDefault(to: .nothing)
     }
 
     var asInt: Int {
-        return unwrap().orDefaultTo(0)
+        return unwrap().orDefault(to: 0)
     }
 
     var asBool: Bool {
-        return unwrap().orDefaultTo(false)
+        return unwrap().orDefault(to: false)
     }
 
     var asDate: Date {
-        return unwrap().orDefaultTo(Date())
+        return unwrap().orDefault(to: Date())
     }
 
     var asStringArray: [String] {
-        return unwrap().orDefaultTo(Array())
+        return unwrap().orDefault(to: Array())
     }
-    
+
     func toString() -> String {
         switch self {
         case .int(let v): return String(v)
@@ -87,4 +87,6 @@ enum Value: Codable, Hashable {
         case .stringArray(let v): return v.joined(separator: .comma)
         }
     }
+    
+    static let nothing: Value = .string(.nothing)
 }

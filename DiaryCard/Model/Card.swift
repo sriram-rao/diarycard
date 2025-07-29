@@ -9,11 +9,6 @@ final class Card {
     var keys: [String] {
         Array(self.attributes.keys)
     }
-    var id: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
-    }
     
     init(date: Date, attributes: Dictionary<String, Value> = [:]) {
         self.attributes = attributes
@@ -26,9 +21,5 @@ final class Card {
     
     subscript(key: String) -> Value {
         self.get(key: key)
-    }
-    
-    func getAttributeNames() -> [String] {
-        Array(attributes.keys)
     }
 }

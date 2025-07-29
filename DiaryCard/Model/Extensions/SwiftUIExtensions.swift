@@ -25,7 +25,7 @@ extension String {
     /// group.1.field:sub --> 1
     var position: Int {
         Int(self.components(separatedBy: String.dot)
-            .second).orDefaultTo(1000)
+            .second).orDefault(to: 1000)
     }
     
     /// The name of the field without prefixes and sub-fields...
@@ -48,13 +48,13 @@ extension String {
     /// The first word in a dot-separated list of words... group.1.field --> group
     var group: String {
         self.components(separatedBy: String.dot)
-            .first.orDefaultTo(.nothing)
+            .first.orDefault(to: .nothing)
     }
     
     /// The name of the attribute, including sub-field if self is a sub-field... group.1.field:sub --> field:sub
     var name: String {
         self.components(separatedBy: String.dot)
-            .last.orDefaultTo(.nothing)
+            .last.orDefault(to: .nothing)
     }
     
     /// The name of the sub-field only... group.1.field:sub --> sub
@@ -104,11 +104,5 @@ extension Array where Element == String {
     
     var second: String {
         self[1]
-    }
-}
-
-extension Binding where Value == diarycard.Value {
-    func toString() -> String {
-        return wrappedValue.toString()
     }
 }

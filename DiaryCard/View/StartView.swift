@@ -7,7 +7,6 @@ struct StartView: View {
     var body: some View {
         NavigationStack {
             CardsView()
-//            SummaryView()
         }
     }
     

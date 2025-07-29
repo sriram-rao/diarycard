@@ -10,30 +10,32 @@ struct PopoverList: View {
             ForEach(full, id: \.self) {skill in
                 let skillSelected = selected.contains(skill)
                 let style = getStyle(for: skillSelected)
+                
                 Button {
                     skillSelected ? remove(skill) : add(skill)
                 } label: {
-                    Text(skill).foregroundStyle(style.labelTextColor)
-                    Spacer()
-                    Image(systemName: style.imageName)
-                        .foregroundStyle(style.imageColor)
-                }.padding(.all, 10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5).fill(style.buttonFillColor)
-                            .stroke(.blue, lineWidth: style.lineStrokeWidth)
-                    )
-                    .frame(maxWidth: 200)
+                    showButtonLabel(for: skill, isSelected: skillSelected)
+                }
+                .padding(.all, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(style.buttonFillColor)
+                        .stroke(.blue, lineWidth: style.lineStrokeWidth)
+                )
+                .frame(maxWidth: 200)
             }
         }
         .focusable(true, interactions: .activate)
     }
     
-    func showButtonLabel(_ skillSelected: Bool) -> some View {
-        let style = getStyle(for: skillSelected)
-        return Image(systemName: style.imageName)
-            .foregroundStyle(style.imageColor)
-        .padding(.horizontal, 5)
-        .frame(width: 30, height: 20)
+    func showButtonLabel(for skill: String, isSelected: Bool) -> some View {
+        let style = getStyle(for: isSelected)
+        return Group {
+            Text(skill).foregroundStyle(style.labelTextColor)
+            Spacer()
+            Image(systemName: style.imageName)
+                .foregroundStyle(style.imageColor)
+        }
     }
     
     func getStyle(for skillSelected: Bool) -> Style {
@@ -120,7 +122,7 @@ struct Toast: View {
     ]
     
     func getFillColor() -> Color {
-        levelColorMap[level].orDefaultTo(.blue)
+        levelColorMap[level].orDefault(to: .blue)
     }
     
     

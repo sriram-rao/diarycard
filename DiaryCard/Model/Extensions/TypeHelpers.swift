@@ -16,22 +16,8 @@ extension Comparable {
     }
 }
 
-extension Equatable {
-    func checkIf(_ condition: Bool, then trueValue: Self, otherwise falseValue: Self) -> Self {
-        return condition ? trueValue : falseValue
-    }
-}
-
 func not(_ condition: Bool) -> Bool {
     !condition
-}
-
-func run(_ trueAction: () -> Void, if condition: Bool, else falseAction: () -> Void) {
-    if condition {
-        trueAction()
-        return
-    }
-    falseAction()
 }
 
 extension String {
@@ -57,17 +43,8 @@ extension String {
     }
 }
 
-extension String? {
-    func isNilOrWhiteSpace() -> Bool {
-        guard let self = self else {
-            return true 
-        }
-        return self.isEmptyOrWhitespace()
-    }
-}
-
 extension Optional {
-    func orDefaultTo(_ defaultValue: Wrapped) -> Wrapped {
+    func orDefault(to defaultValue: Wrapped) -> Wrapped {
         self ?? defaultValue
     }
 }
@@ -79,10 +56,6 @@ extension Date {
     
     var startOfDay: Date {
         Calendar.current.startOfDay(for: self)
-    }
-    
-    func addDays(_ days: Int) -> Date {
-        return addDuration(days, .day)
     }
     
     func addDuration(_ number: Int, _ blockSize: Calendar.Component) -> Date {
@@ -116,8 +89,7 @@ extension Date {
         let currentWeek = Calendar.current.component(.weekOfYear, from: reference)
         let dayWeek = Calendar.current.component(.weekOfYear, from: self)
         
-        return [ -1: "Next", 0: .nothing,
-                  1: "Last"][currentWeek - dayWeek].orDefaultTo(.nothing)
+        return [-1: "Next", 0: .nothing, 1: "Last"][currentWeek - dayWeek].orDefault(to: .nothing)
     }
     
     func getDay() -> String {
@@ -131,15 +103,5 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.string(from: self)
-    }
-}
-
-extension Logger {
-    static let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.srao.diarycard", category: "App")
-}
-
-extension Value {
-    static var nothing: Value {
-        Value.string(.nothing)
     }
 }

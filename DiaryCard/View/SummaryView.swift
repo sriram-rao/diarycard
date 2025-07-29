@@ -10,9 +10,8 @@ struct SummaryView: View {
     @State var end: Date = .today
     @State var cards: [Card] = []
     @State var refresh: Bool = false
-    @State var pdfUrl: URL = Bundle.main.url(
-        forResource: "default", withExtension: ".pdf")
-        .orDefaultTo(URL.documentsDirectory)
+    @State var pdfUrl: URL = Bundle.main.url(forResource: "default", withExtension: ".pdf")
+        .orDefault(to: URL.documentsDirectory)
     
     init(from start: Date = .today.goBack(7 * .day), to end: Date = .today) {
         self.start = start
@@ -21,7 +20,6 @@ struct SummaryView: View {
     
     var body: some View {
         VStack{
-            Text("Save path: " + getSavePath().relativeString).font(.caption)
             // To make SwiftUI refresh the screen because there isn't a direct way.
             if refresh {
                 PDFDisplay(url: self.pdfUrl, refresh: refresh)
@@ -69,7 +67,7 @@ struct SummaryView: View {
     
     var saveButton: some View {
         Button(action: { _ = self.saveToDisk() },
-               label: { Label("", systemImage: "internaldrive") })
+               label: { Label(String.nothing, systemImage: "internaldrive") })
         .minimalStyle()
     }
     
@@ -78,9 +76,8 @@ struct SummaryView: View {
             .appendingPathComponent("Diary Card \(self.end.toString()).pdf")
         
         _ = Task {
-            try? await generateHtml().print(to: outputUrl)
+            try await generateHtml().print(to: outputUrl)
         }
-        
         return outputUrl
     }
     
@@ -97,7 +94,6 @@ struct SummaryView: View {
     }
     
     func getSavePath() -> URL {
-        
         guard let directory = try? FileManager.default.url(
             for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         else {
@@ -123,13 +119,13 @@ extension SummaryView {
         Html.generateHtml(
             for: getComments(for: Schema.getKeysOf(group: "text")),
             and: getMeasures(for: Schema.getKeysOf(group: "text", excluded: true)),
-            weekEnding: (sortedCards.first?.date).orDefaultTo(Date())
+            weekEnding: (sortedCards.first?.date).orDefault(to: Date())
         )
     }
     
     func getComments(for keys: [String]) -> Dictionary<String, RowSet> {
         [
-            "Comments": getTextRowsHeader(with: keys) +
+            "Comments": getTextRowHeader(with: keys) +
             sortedCards.map({ card in
                 [.date(card.date)] + getTextRow(for: keys, in: card)
             })
@@ -159,7 +155,7 @@ extension SummaryView {
         [ [.string("Date")] + sortedCards.map{ .date($0.date) } ]
     }
     
-    func getTextRowsHeader(with keys: [String]) -> RowSet {
+    func getTextRowHeader(with keys: [String]) -> RowSet {
         [[Value.string("Date")] + keys.fields.map({ Value.string($0) })]
     }
     

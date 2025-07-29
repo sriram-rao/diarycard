@@ -14,7 +14,7 @@ extension CardView {
     
     func getNextField(after key: String, in list: [String]) -> String {
         do {
-            let index: Int = list.firstIndex(of: key).orDefaultTo(0)
+            let index: Int = list.firstIndex(of: key).orDefault(to: 0)
             if index.between(0, and: list.endIndex - 1) {
                 return list[index + 1]
             }
@@ -32,7 +32,7 @@ extension CardView {
     }
     
     func getDateBinding() -> Binding<Date> {
-        return Binding<Date>(
+        Binding<Date>(
             get: {
                 return card.date
             },
@@ -54,7 +54,7 @@ struct NumberView: View {
         let valueString = Binding<String>(
             get: { String(value) },
             set: {newValue in
-                value = Int(newValue).orDefaultTo(0)
+                value = Int(newValue).orDefault(to: 0)
             }
         )
         

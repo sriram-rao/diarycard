@@ -38,16 +38,9 @@ import SwiftData
     Text("Live Preview: \(value)\n")
     Spacer()
     NavigationStack(path: $path) {
-        CardsView().getPicker(for: $value)
+        DateView(value: $value)
+            .pickerStyle()
     }
-    Spacer()
-}
-
-#Preview("Calendar") {
-    @Previewable @State var value: Date = Date()
-    Text("Live Preview: \(value)\n")
-    Spacer()
-    CalendarView()
     Spacer()
 }
 

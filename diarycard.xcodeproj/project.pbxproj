@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CA0264C52E1E40DB00FB2C06 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = CA0264C42E1E40DB00FB2C06 /* HorizonCalendar */; };
-		CA0264C72E1E4D3C00FB2C06 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0264C62E1E4D3200FB2C06 /* CalendarView.swift */; };
 		CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */; };
 		CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */; };
 		CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */; };
@@ -54,7 +53,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CA0264C62E1E4D3200FB2C06 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 			children = (
 				CAA98A242E3417FC0041F02B /* PDFDisplay.swift */,
 				CA9B21F52E2F20D200AB715A /* SummaryView.swift */,
-				CA0264C62E1E4D3200FB2C06 /* CalendarView.swift */,
 				CA8A38B72E1A250C000945F0 /* PopoverList.swift */,
 				CAD9C4432E11E88100F01584 /* CardViewHelper.swift */,
 				CA899EAA2E1B5F5400A46D91 /* CardView.swift */,
@@ -391,7 +388,6 @@
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
 				CA89CE6B2E21844000086F2C /* Schema.swift in Sources */,
-				CA0264C72E1E4D3C00FB2C06 /* CalendarView.swift in Sources */,
 				CA9B21F62E2F20D600AB715A /* SummaryView.swift in Sources */,
 				CA9B21FB2E318D1200AB715A /* Summary.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,

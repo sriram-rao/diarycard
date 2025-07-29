@@ -7,14 +7,6 @@ extension View {
         condition ? AnyView(showView()) : AnyView(showDefault())
     }
     
-    func getBinding(for keyPath: WritableKeyPath<DateInterval, Date>,
-                    from interval: Binding<DateInterval>) -> Binding<Date> {
-        return Binding<Date>(
-            get: { interval.wrappedValue[keyPath: keyPath] },
-            set: { interval.wrappedValue[keyPath: keyPath] = $0 }
-        )
-    }
-    
     func blackAndWhite(theme: ColorScheme) -> some View {
         self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
     }
@@ -23,11 +15,6 @@ extension View {
         return self.onAppear { action() }
             .onChange(of: first) { action() }
             .onChange(of: second) { action() }
-    }
-    
-    func onAppearOrChange<V>(of first: V, _ action: @escaping () -> Void) -> some View where V : Equatable {
-        return self.onAppear { action() }
-            .onChange(of: first) { action() }
     }
     
     func blurIf(_ condition: Bool) -> some View {
@@ -39,13 +26,13 @@ extension View {
             predicate: #Predicate { $0.date >= start && $0.date <= end },
             sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
-        return (try? context.fetch(fetcher)).orDefaultTo([])
+        return (try? context.fetch(fetcher)).orDefault(to: [])
     }
     
     func minimalStyle() -> some View {
         self.buttonStyle(Minimal())
             .frame(alignment: .center)
-    }
+    }    
 }
 
 struct Minimal: ButtonStyle {
@@ -63,27 +50,27 @@ struct Minimal: ButtonStyle {
 public enum Theme: String, CaseIterable {
     case bubblegum
     case buttercup
-    case indigos
+    case indigo
     case lavender
-    case magentas
+    case magenta
     case navy
-    case oranges
+    case orange
     case oxblood
     case periwinkle
     case poppy
-    case purples
+    case purple
     case seafoam
     case sky
     case tan
-    case teals
-    case yellows
+    case teal
+    case yellow
     case offwhite
     
     var accentColor: Color {
         switch self {
-        case .bubblegum, .buttercup, .lavender, .oranges, .periwinkle,
-                .poppy, .seafoam, .sky, .tan, .teals, .yellows, .offwhite: return .black
-        case .indigos, .magentas, .navy, .oxblood, .purples: return .white
+        case .bubblegum, .buttercup, .lavender, .orange, .periwinkle,
+             .poppy, .seafoam, .sky, .tan, .teal, .yellow, .offwhite: return .black
+        case .indigo, .magenta, .navy, .oxblood, .purple: return .white
         }
     }
     
@@ -93,10 +80,6 @@ public enum Theme: String, CaseIterable {
     
     var name: String {
         rawValue.capitalized
-    }
-    
-    static func parse(themeName: String) -> Theme {
-        return Theme(rawValue: themeName) ?? .indigos
     }
 }
 

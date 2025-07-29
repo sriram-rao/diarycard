@@ -26,7 +26,7 @@ struct CardView: View {
             ForEach(nonTextKeys.keys.sorted(), id: \.hashValue) {key in
                 VStack {
                     getNameView(for: key, ofSize: .caption)
-                    renderKeys(keys: nonTextKeys[key].orDefaultTo( [] ))
+                    renderKeys(keys: nonTextKeys[key].orDefault( to: [] ))
                 }
                 .padding(.vertical, 10)
             }
@@ -79,7 +79,7 @@ struct CardView: View {
             get: { self.card[selectedKey].asStringArray },
             set: { self.card.attributes[selectedKey] = Value.wrap($0) }
         )
-        return PopoverList(selected: binding, full: Skills[selectedKey].orDefaultTo([]))
+        return PopoverList(selected: binding, full: Skills[selectedKey].orDefault(to: []))
     }
     
     @State var needsPopover: Bool = false
@@ -144,7 +144,7 @@ struct CardView: View {
     
     // Kept to experiment with autofocusing skills section
     func focusNext() {
-        let nextFocus = getNextField(after: focusField.orDefaultTo(.nothing), in: allKeys)
+        let nextFocus = getNextField(after: focusField.orDefault(to: .nothing), in: allKeys)
         if !nextFocus.isEmptyOrWhitespace() {
             focusField = nextFocus
         }
@@ -166,7 +166,7 @@ struct CardView: View {
     
     func getViewUnformatted(for name: String) -> some View {
         let name = name.key
-        if not(card.attributes.keys.contains(name)) {
+        if not(card.keys.contains(name)) {
             return AnyView(Text("Not available \(name)"))
         }
 
