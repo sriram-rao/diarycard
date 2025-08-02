@@ -19,13 +19,6 @@ class Html {
             .replacingOccurrences(of: "{{measures}}", with: measureMap.toHtml())
     }
 
-    static func tabulate(_ name: String, from data: RowSet) -> String {
-        [
-            MarkupTag(for: MarkupTag.heading(1), withText: name).toString(), .newline,
-            MarkupTag.tabulate(data).toString(),
-        ].merged
-    }
-
     static func getTemplate() -> String {
         guard let template = Bundle.main.url(forResource: "template", withExtension: "html"),
             let html = try? String(contentsOf: template, encoding: .utf8)
@@ -66,9 +59,7 @@ class MarkupTag {
     var open: String { self.makeStartTag() }
     var close: String { self.makeEndTag() }
 
-    // What does this do? You might ask. Read the name, I might say.
-    // It makes the start tag e.g. <span class="...">
-    // Dream to debug
+    // The start tag i.e.. <span class="...">.
     func makeStartTag(withStyle: Bool = true, withClass: Bool = true) -> String {
         [
             .bracketOpen, name,
@@ -90,7 +81,7 @@ class MarkupTag {
 
     // Returning self to enable chaining [E.g. tag.apply(classes...).addStyle(styles...).toString()]
     func apply(classes names: String...) -> MarkupTag {
-        if names.spaced.isEmptyOrWhitespace() { return self }
+        if names.spaced.isBlank() { return self }
         self.classNames += names.spaced + .space
         return self
     }
@@ -155,7 +146,7 @@ extension MarkupTag {
         if tag.equals(TABLE) {
             return "simple-table"
         }
-        return stylers[value.kind].orDefault(to: { _ in .nothing })(value)
+        return stylers[value.kind].orUse({ _ in .nothing })(value)
     }
 
     static func getContentForArray(_ values: Value) -> [MarkupTag] {
@@ -203,18 +194,6 @@ extension MarkupTag {
     ]
 }
 
-extension String {
-    static var bracketOpen: String { "<" }
-    static var bracketClose: String { ">" }
-    static var CLASS: String { "class" }
-    static var STYLE: String { "style" }
-}
-
-extension Array where Element == String {
-    var merged: String { joined(separator: .nothing) }
-    var spaced: String { joined(separator: .space) }
-}
-
 extension Dictionary where Key == String, Value == RowSet {
     func toHtml() -> String {
         self.sorted(by: { $0.key < $1.key })
@@ -234,4 +213,16 @@ extension Dictionary where Key == String, Value == RowSet {
                 ].merged
             }).merged
     }
+}
+
+extension String {
+    static var bracketOpen: String { "<" }
+    static var bracketClose: String { ">" }
+    static var CLASS: String { "class" }
+    static var STYLE: String { "style" }
+}
+
+extension Array where Element == String {
+    var merged: String { joined(separator: .nothing) }
+    var spaced: String { joined(separator: .space) }
 }

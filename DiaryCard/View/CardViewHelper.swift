@@ -1,36 +1,36 @@
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 extension CardView {
-    func getNameView(for name: String,
-                     ofSize size: Font = Font.caption.lowercaseSmallCaps()) -> some View {
+    func getNameView(
+        for name: String,
+        ofSize size: Font = Font.callout
+    ) -> some View {
         Text(name).font(size.lowercaseSmallCaps())
-            .foregroundStyle(.blue)
             .fixedSize(horizontal: false, vertical: false)
             .lineLimit(2)
             .truncationMode(.tail)
             .padding(.leading, 10)
     }
-    
-    func getNextField(after key: String, in list: [String]) -> String {
-        do {
-            let index: Int = list.firstIndex(of: key).orDefault(to: 0)
-            if index.between(0, and: list.endIndex - 1) {
-                return list[index + 1]
-            }
-        } catch (let error) {
-            print(error)
+
+    func getNextField(after key: String, in list: [String], going forwards: Bool) -> String {
+        let index: Int = list.firstIndex(of: key).orUse(0)
+        if forwards && index.between(0, and: list.endIndex - 1) {
+            return list[index + 1]
+        }
+        if not(forwards && index.between(1, and: list.endIndex)) {
+            return list[index - 1]
         }
         return .nothing
     }
-    
+
     func getBinding<T>(for key: String) -> Binding<T> {
         Binding<T>(
             get: { card[key].unwrap()! },
             set: { newValue in card.attributes[key] = Value.wrap(newValue) }
         )
     }
-    
+
     func getDateBinding() -> Binding<Date> {
         Binding<Date>(
             get: {
@@ -40,39 +40,55 @@ extension CardView {
                 card.date = newValue
             })
     }
-    
+
     func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                        to: nil, from: nil, for: nil)
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil, from: nil, for: nil)
     }
 }
 
 struct NumberView: View {
     @Binding var value: Int
-    
+    @State var preselectText: Bool = true
+
     var body: some View {
         let valueString = Binding<String>(
             get: { String(value) },
-            set: {newValue in
-                value = Int(newValue).orDefault(to: 0)
-            }
+            set: { value = Int($0).orUse(0) }
         )
         
-        VStack(alignment: .center) {
-            TextField(valueString.wrappedValue, text: valueString)
-                .keyboardType(.numberPad)
-                .frame(width: 20)
-            
-            Slider(value: getFloatBinding(), in: 0...10, step: 1) {  }
-            minimumValueLabel: { Text("Low") }
-            maximumValueLabel: { Text("High") }
-                .tint(value.between(4, and: 7) ? .buttercup
-                    : value < 4 ? .secondary : .poppy
-            )
-        }
-        .padding(.horizontal, 20)
+        TextField(
+            valueString.wrappedValue,
+            text: valueString,
+            selection: getSelectionBinding()
+        )
+        .textFieldStyle(.roundedBorder)
+        .multilineTextAlignment(.center)
+        .keyboardType(.numberPad)
+        .frame(width: 100)
+        .onChange(
+            of: value,
+            {
+                preselectText = false
+            })
+        .padding(2)
     }
-    
+
+    var slider: some View {
+        Slider(value: getFloatBinding(), in: 0...10, step: 1) {
+        } minimumValueLabel: {
+            Text("Low")
+        } maximumValueLabel: {
+            Text("High")
+        }
+        .tint(
+            value.between(4, and: 7)
+                ? .buttercup
+                : value < 4 ? .secondary : .poppy
+        )
+    }
+
     func getFloatBinding() -> Binding<Float> {
         .init(
             get: { Float(value) },
@@ -81,29 +97,56 @@ struct NumberView: View {
             }
         )
     }
+
+    func getSelectionBinding() -> Binding<TextSelection?> {
+        Binding<TextSelection?>(
+            get: {
+                preselectText && value > 0
+                    ? TextSelection(range: String(value).startIndex..<String(value).endIndex) : nil
+            },
+            set: { _ in }
+        )
+    }
 }
 
-struct TextView : View {
+struct TextView: View {
     @Binding var value: String
-    
-    var body : some View {
-        TextField(value, text: $value, axis: .vertical)
-            .textFieldStyle(.plain)
-            .padding(6)
+    @State var preselectText: Bool = false
+
+    var body: some View {
+        TextField(
+            value,
+            text: $value,
+            selection: Binding<TextSelection?>(
+                get: {
+                    preselectText ? TextSelection(range: value.startIndex..<value.endIndex) : nil
+                },
+                set: { _ in }),
+            axis: .vertical
+        )
+        .textFieldStyle(.roundedBorder)
+        .padding(2)
+        .onChange(
+            of: value,
+            {
+                preselectText = false
+            })
     }
 }
 
 struct DateView: View {
     @Binding var value: Date
-    
+
     var body: some View {
         ZStack {
-            DatePicker(selection: $value, displayedComponents: [.date],
-                       label: {Text(value, style: .date)})
+            DatePicker(
+                selection: $value, displayedComponents: [.date],
+                label: { Text(value, style: .date) }
+            )
             .labelsHidden()
         }
     }
-    
+
     func pickerStyle() -> some View {
         self.datePickerStyle(.graphical)
             .padding(.vertical, 30)
@@ -115,10 +158,10 @@ struct DateView: View {
 
 struct BooleanView: View {
     @Binding var value: Bool
-    
+
     var body: some View {
         Toggle(value ? "Active" : "Inactive", isOn: $value)
-            .font(.callout)
+            .font(.caption)
             .toggleStyle(.button)
             .buttonStyle(.borderedProminent)
             .tint(value ? .poppy : .blue)

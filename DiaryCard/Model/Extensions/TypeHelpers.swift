@@ -33,7 +33,7 @@ extension String {
     static var colon: String { ":" }
     static var semicolon: String { ";" }
     
-    func isEmptyOrWhitespace() -> Bool {
+    func isBlank() -> Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
@@ -44,7 +44,7 @@ extension String {
 }
 
 extension Optional {
-    func orDefault(to defaultValue: Wrapped) -> Wrapped {
+    func orUse(_ defaultValue: Wrapped) -> Wrapped {
         self ?? defaultValue
     }
 }
@@ -89,7 +89,7 @@ extension Date {
         let currentWeek = Calendar.current.component(.weekOfYear, from: reference)
         let dayWeek = Calendar.current.component(.weekOfYear, from: self)
         
-        return [-1: "Next", 0: .nothing, 1: "Last"][currentWeek - dayWeek].orDefault(to: .nothing)
+        return [-1: "Next", 0: .nothing, 1: "Last"][currentWeek - dayWeek].orUse(.nothing)
     }
     
     func getDay() -> String {

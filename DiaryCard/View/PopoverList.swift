@@ -6,13 +6,15 @@ struct PopoverList: View {
     let full: [String]
     
     var body: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 1) {
             ForEach(full, id: \.self) {skill in
                 let skillSelected = selected.contains(skill)
                 let style = getStyle(for: skillSelected)
                 
                 Button {
-                    skillSelected ? remove(skill) : add(skill)
+//                    withAnimation {
+                        skillSelected ? remove(skill) : add(skill)
+//                    }
                 } label: {
                     showButtonLabel(for: skill, isSelected: skillSelected)
                 }
@@ -41,7 +43,7 @@ struct PopoverList: View {
     func getStyle(for skillSelected: Bool) -> Style {
         Style(labelTextColor: skillSelected ? .blue : .secondary,
               buttonFillColor: skillSelected ? Color.white : .gray.opacity(0.1),
-              lineStrokeWidth: skillSelected ? 2 : 0,
+              lineStrokeWidth: skillSelected ? 1 : 0,
               imageName: skillSelected ? "minus.circle" : "plus.circle.fill",
               imageColor: skillSelected ? .blue : .gray)
     }
@@ -70,13 +72,14 @@ struct PopoverButton: View {
     let action: () -> Void
 
     var body : some View {
-        Button(action: action, label: {
-            Text(ListFormatter().string(from: types) ?? "Add skills")
+        Button(action: { action() },
+               label: {
+            Text(ListFormatter().string(from: types).orUse("Add skills"))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .lineLimit(1)
         })
-        .foregroundStyle(colorScheme == ColorScheme.dark ? Color.sky : Color.blue)
+        .foregroundStyle(colorScheme == ColorScheme.dark ? .buttercup : .brown)
         .focusable(true, interactions: .activate)
     }
 }
@@ -85,12 +88,10 @@ struct TapBackground: View {
     let tapAction: () -> Void
     
     var body: some View {
-        Rectangle().fill(Color(.systemBackground).opacity(0.4)) // change color back to systemBackground
+        Rectangle().fill(Color(.systemBackground).opacity(0.4)) 
             .blur(radius: 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .onTapGesture {
-                tapAction()
-            }
+            .onTapGesture { tapAction() }
     }
 }
 
@@ -122,7 +123,7 @@ struct Toast: View {
     ]
     
     func getFillColor() -> Color {
-        levelColorMap[level].orDefault(to: .blue)
+        levelColorMap[level].orUse(.blue)
     }
     
     

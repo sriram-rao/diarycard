@@ -6,12 +6,12 @@ import SwiftUI
 
 struct SummaryView: View {
     @Environment(\.modelContext) var modelContext
-    @State var start: Date = .today.goBack(7 * .day)
-    @State var end: Date = .today
+    @State var start: Date
+    @State var end: Date
     @State var cards: [Card] = []
     @State var refresh: Bool = false
     @State var pdfUrl: URL = Bundle.main.url(forResource: "default", withExtension: ".pdf")
-        .orDefault(to: URL.documentsDirectory)
+        .orUse(URL.documentsDirectory)
     
     init(from start: Date = .today.goBack(7 * .day), to end: Date = .today) {
         self.start = start
@@ -119,7 +119,7 @@ extension SummaryView {
         Html.generateHtml(
             for: getComments(for: Schema.getKeysOf(group: "text")),
             and: getMeasures(for: Schema.getKeysOf(group: "text", excluded: true)),
-            weekEnding: (sortedCards.first?.date).orDefault(to: Date())
+            weekEnding: (sortedCards.first?.date).orUse(Date())
         )
     }
     

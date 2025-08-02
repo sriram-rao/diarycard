@@ -30,7 +30,7 @@ enum Value: Codable, Hashable {
     }
 
     static func wrapOrDefault<T>(_ value: T) -> Value {
-        return wrap(value).orDefault(to: Value.nothing)
+        return wrap(value).orUse(Value.nothing)
     }
 
     var kind: Kind {
@@ -56,23 +56,23 @@ enum Value: Codable, Hashable {
     }
 
     var asString: String {
-        return unwrap().orDefault(to: .nothing)
+        return unwrap().orUse(.nothing)
     }
 
     var asInt: Int {
-        return unwrap().orDefault(to: 0)
+        return unwrap().orUse(0)
     }
 
     var asBool: Bool {
-        return unwrap().orDefault(to: false)
+        return unwrap().orUse(false)
     }
 
     var asDate: Date {
-        return unwrap().orDefault(to: Date())
+        return unwrap().orUse(Date())
     }
 
     var asStringArray: [String] {
-        return unwrap().orDefault(to: Array())
+        return unwrap().orUse(Array())
     }
 
     func toString() -> String {

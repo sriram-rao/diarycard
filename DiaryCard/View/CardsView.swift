@@ -12,9 +12,10 @@ struct CardsView: View {
 
     @State var start = Date().goBack(7 * .day)
     @State var end = Date()
+    @State var toLatest = true
 
     @State var pickerDate: Date = .today
-    @State var selectedDate: Binding<Date>? = nil
+    @State var selectedDate: Binding<Date>?
 
     var body: some View {
         ZStack {
@@ -48,7 +49,23 @@ struct CardsView: View {
     var dateRangeFilter: some View {
         VStack(alignment: .leading, spacing: 15) {
             getRangeButton(for: $start)
-            getRangeButton(for: $end)
+            HStack {
+                Text("To").font(.headline)
+                Toggle("Newest", isOn: $toLatest)
+                    .toggleStyle(.button)
+                    .buttonStyle(.borderless)
+                    .font(.headline)
+                    .foregroundStyle(toLatest ? Color.blue : .secondary)
+                    .strikethrough(toLatest ? false : true)
+                
+                getRangeButton(for: $end, withStyle: {text in
+                    text.foregroundStyle(toLatest ? .secondary : Color.blue)
+                        .strikethrough(toLatest ? true : false)
+                })
+                .onChange(of: end, {
+                    toLatest = false
+                })
+            }
         }
     }
 
@@ -66,7 +83,7 @@ struct CardsView: View {
 
             getQuickLink(
                 to: "Export", with: "richtext.page",
-                at: SummaryView(from: start, to: end))
+                at: SummaryView(from: start, to: not(toLatest) ? end : .today.goForward(4 * .week)))
         }
     }
 
@@ -81,6 +98,18 @@ struct CardsView: View {
         }
         .blurIf(showPicker)
         .task { _ = getCard(for: .today) }
+        .refreshable {
+            refreshCards()
+        }
+        .onChange(of: start, {
+            refreshCards()
+        })
+        .onChange(of: end, {
+            refreshCards()
+        })
+        .onChange(of: toLatest, {
+            refreshCards()
+        })
     }
 
     var pickerView: some View {
@@ -90,7 +119,7 @@ struct CardsView: View {
                 Group {
                     TapBackground { showPicker = false }
                     VStack(alignment: .center) {
-                        DateView(value: selectedDate.orDefault(to: $pickerDate))
+                        DateView(value: selectedDate.orUse($pickerDate))
                             .pickerStyle()
                         Spacer()
                     }
@@ -98,11 +127,14 @@ struct CardsView: View {
             })
     }
 
-    func getRangeButton(for date: Binding<Date>) -> some View {
+    func getRangeButton(for date: Binding<Date>,
+                        withStyle applyStyle: (Text) -> Text = {text in text.foregroundStyle(.blue)} ) -> some View {
         getToolbarButton(
             for: date,
-            called: (date.wrappedValue == end ? "To" : "From"),
-            showing: { Text(date.wrappedValue.getRelativeDay()).foregroundStyle(.blue) })
+            called: (date.wrappedValue == end ? "" : "From"),
+            showing: {
+                applyStyle(Text(date.wrappedValue.getRelativeDay()))
+            })
     }
 
     func getToolbarButton(
@@ -156,7 +188,7 @@ struct CardsView: View {
             modelContext.insert(newCard)
             try modelContext.save()
             refreshCards()
-        } catch (let error) {
+        } catch let error {
             print(error)
         }
         return newCard
@@ -168,12 +200,14 @@ struct CardsView: View {
                 modelContext.delete(cards[index])
             }
             try modelContext.save()
-        } catch (let error) {
+        } catch let error {
             print(error)
         }
     }
 
     func refreshCards() {
-        self.cards = fetch(from: start, to: end, in: modelContext)
+        self.cards = fetch(
+            from: start, to: not(toLatest) ? end : .today.goForward(4 * .week),
+            in: modelContext)
     }
 }

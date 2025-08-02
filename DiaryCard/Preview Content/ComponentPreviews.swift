@@ -2,16 +2,16 @@ import OrderedCollections
 import SwiftUI
 import SwiftData
 
-#Preview("Text") {
-    @Previewable @State var text: String = "text.comment"
-    Text("Live Preview: \(text)")
-    TextView(value: $text)
-}
-
 #Preview("Number") {
     @Previewable @State var number: Int = 10
     Text("Live Preview: \(number)")
-    NumberView(value: $number)
+    NumberView(value: $number, preselectText: true)
+}
+
+#Preview("Text") {
+    @Previewable @State var text: String = "text.comment"
+    Text("Live Preview: \(text)")
+    TextView(value: $text, preselectText: true)
 }
 
 #Preview("Bool") {
