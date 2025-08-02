@@ -6,15 +6,13 @@ struct PopoverList: View {
     let full: [String]
     
     var body: some View {
-        VStack(spacing: 1) {
+        VStack(alignment: .leading, spacing: 1) {
             ForEach(full, id: \.self) {skill in
                 let skillSelected = selected.contains(skill)
                 let style = getStyle(for: skillSelected)
                 
                 Button {
-//                    withAnimation {
-                        skillSelected ? remove(skill) : add(skill)
-//                    }
+                    skillSelected ? remove(skill) : add(skill)
                 } label: {
                     showButtonLabel(for: skill, isSelected: skillSelected)
                 }
@@ -24,7 +22,7 @@ struct PopoverList: View {
                         .fill(style.buttonFillColor)
                         .stroke(.blue, lineWidth: style.lineStrokeWidth)
                 )
-                .frame(maxWidth: 200)
+                .frame(maxWidth: 250)
             }
         }
         .focusable(true, interactions: .activate)
@@ -72,14 +70,15 @@ struct PopoverButton: View {
     let action: () -> Void
 
     var body : some View {
-        Button(action: { action() },
+        Button(action: { withAnimation { action() } },
                label: {
-            Text(ListFormatter().string(from: types).orUse("Add skills"))
+            let skills = ListFormatter().string(from: types).orUse(.nothing)
+            Text(not(skills.isEmpty) ? skills : "Add Skills")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .lineLimit(1)
         })
-        .foregroundStyle(colorScheme == ColorScheme.dark ? .buttercup : .brown)
+        .foregroundStyle(colorScheme == ColorScheme.dark ? .buttercup : .oxblood)
         .focusable(true, interactions: .activate)
     }
 }
@@ -91,7 +90,7 @@ struct TapBackground: View {
         Rectangle().fill(Color(.systemBackground).opacity(0.4)) 
             .blur(radius: 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .onTapGesture { tapAction() }
+            .onTapGesture { withAnimation { tapAction() } }
     }
 }
 

@@ -63,30 +63,14 @@ struct NumberView: View {
             text: valueString,
             selection: getSelectionBinding()
         )
-        .textFieldStyle(.roundedBorder)
         .multilineTextAlignment(.center)
         .keyboardType(.numberPad)
-        .frame(width: 100)
-        .onChange(
-            of: value,
-            {
-                preselectText = false
-            })
-        .padding(2)
-    }
-
-    var slider: some View {
-        Slider(value: getFloatBinding(), in: 0...10, step: 1) {
-        } minimumValueLabel: {
-            Text("Low")
-        } maximumValueLabel: {
-            Text("High")
-        }
-        .tint(
-            value.between(4, and: 7)
-                ? .buttercup
-                : value < 4 ? .secondary : .poppy
-        )
+        .frame(width: 120, height: 30)
+        .onChange(of: value, {
+            preselectText = false
+        })
+        .background(getColor().opacity(0.6).gradient)
+        .clipShape(RoundedRectangle(cornerRadius: 5, style: .circular))
     }
 
     func getFloatBinding() -> Binding<Float> {
@@ -106,6 +90,16 @@ struct NumberView: View {
             },
             set: { _ in }
         )
+    }
+    
+    func getColor() -> Color {
+        if value <= 3 {
+            return .secondary.opacity(0.5)
+        }
+        if value <= 6 {
+            return .blue.opacity(0.5)
+        }
+        return .poppy.opacity(0.75)
     }
 }
 
@@ -144,6 +138,7 @@ struct DateView: View {
                 label: { Text(value, style: .date) }
             )
             .labelsHidden()
+            .transition(.slide)
         }
     }
 

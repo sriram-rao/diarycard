@@ -37,7 +37,7 @@ struct CardsView: View {
             }
             pickerView.zIndex(1)
         }
-        .onAppearOrChange(of: start, or: end, refreshCards)
+        .onAppearOrChange(of: start, or: end, { refreshCards() })
     }
 
     var topBar: some View {
@@ -75,9 +75,7 @@ struct CardsView: View {
                 for: $pickerDate, called: "Go To",
                 showing: { Image(systemName: "calendar") }
             )
-            .onChange(
-                of: pickerDate,
-                {
+            .onChange(of: pickerDate, {
                     path.append(getCard(for: pickerDate.startOfDay))
                 })
 
@@ -117,10 +115,12 @@ struct CardsView: View {
             showPicker,
             then: {
                 Group {
-                    TapBackground { showPicker = false }
+                    TapBackground { withAnimation { showPicker = false } }
+                        .transition(.blurReplace)
                     VStack(alignment: .center) {
                         DateView(value: selectedDate.orUse($pickerDate))
                             .pickerStyle()
+                            .transition(.blurReplace)
                         Spacer()
                     }
                 }

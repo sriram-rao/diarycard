@@ -41,15 +41,12 @@ struct CardView: View {
                 needsTapBackground,
                 then: {
                     TapBackground {
-                        withAnimation {
-                            needsPopover = false
-                            needsDateSelection = false
-                            selectedKey = .nothing
-                            focusField = .nothing
-                            dismissKeyboard()
-                        }
+                        needsPopover = false
+                        needsDateSelection = false
+                        selectedKey = .nothing
+                        focusField = .nothing
+                        dismissKeyboard()
                     }
-                    .transition(.opacity)
                 })
         }
     }
@@ -87,8 +84,12 @@ struct CardView: View {
             }
 
             checkIf(needsDateSelection) {
-                DateView(value: card.getDateBinding())
-                    .pickerStyle()
+                VStack{
+                    DateView(value: card.getDateBinding())
+                        .pickerStyle()
+                        .padding(.top, 30)
+                    Spacer()
+                }
             }
         }
     }
@@ -135,6 +136,7 @@ struct CardView: View {
             set: { self.card.attributes[selectedKey.key] = Value.wrap($0) }
         )
         return PopoverList(selected: binding, full: Skills[selectedKey.key].orUse([]))
+            .transition(.slide)
     }
 
     @State var needsPopover: Bool = false
@@ -208,7 +210,7 @@ struct CardView: View {
             ForEach(groups.keys.sorted(), id: \.hashValue) { key in
                 VStack(alignment: aligned) {
                     getNameView(for: key, ofSize: .callout)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.secondary)
                     renderKeys(keys: groups[key].orUse([]), alignment: .center)
                 }
                 .frame(maxWidth: 370 / 2)
