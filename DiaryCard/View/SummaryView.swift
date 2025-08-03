@@ -117,8 +117,8 @@ struct SummaryView: View {
 extension SummaryView {
     func generateHtml() -> String {
         Html.generateHtml(
-            for: getComments(for: Schema.getKeysOf(group: "text")),
-            and: getMeasures(for: Schema.getKeysOf(group: "text", excluded: true)),
+            for: getComments(for: Schema.getKeysIf(inGroup: "text")),
+            and: getMeasures(for: Schema.getKeysIf(excluded: true, inGroup: "text")),
             weekEnding: (sortedCards.first?.date).orUse(Date())
         )
     }

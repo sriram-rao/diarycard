@@ -4,6 +4,7 @@ import SwiftData
 import SwiftUI
 
 struct CardView: View {
+    @Environment(\.colorScheme) var colorScheme
     let card: Card
 
     var body: some View {
@@ -22,10 +23,9 @@ struct CardView: View {
     var layer0: some View {
         ScrollView {
             VStack {
-                renderKeys(keys: textKeys)
+                renderKeys(textKeys)
                 renderColumns()
-                renderKeys(
-                    keys: Schema.attributes.filter { $0.value.kind == .stringArray }.keys.elements)
+                renderKeys(Schema.getKeysIf(type: .stringArray))
             }
             .blurIf(needsTapBackground)
         }
@@ -36,19 +36,15 @@ struct CardView: View {
     }
 
     var layer1: some View {
-        VStack {
-            checkIf(
-                needsTapBackground,
-                then: {
-                    TapBackground {
-                        needsPopover = false
-                        needsDateSelection = false
-                        selectedKey = .nothing
-                        focusField = .nothing
-                        dismissKeyboard()
-                    }
-                })
-        }
+        VStack {checkIf(needsTapBackground) {
+            TapBackground {
+                needsPopover = false
+                needsDateSelection = false
+                selectedKey = .nothing
+                focusField = .nothing
+                dismissKeyboard()
+            }
+        }}
     }
 
     var layer2: some View {
@@ -56,31 +52,16 @@ struct CardView: View {
             checkIf(needsPopover) {
                 VStack {
                     Spacer()
-                    Text(selectedKey.field.capitalized)
-                        .font(.headline)
-                        .padding(.bottom, 20)
                     popover
                     HStack{
                         Spacer()
-                        checkIf(focusField != allKeys.first, then: {
-                            Button(
-                                action: { withAnimation {
-                                    focusNext(forwards: false)
-                                } },
-                                label: { Text("Previous") })
-                            .padding(.trailing, 20)
-                            .buttonStyle(.borderedProminent)
+                        getPaddedNextButton(forwards: false)
                             .tint(.secondary)
-                        })
-                        checkIf(focusField != allKeys.last, then: {
-                            Button(action: { withAnimation { focusNext() } },
-                                   label: { Text("Next") })
-                            .padding(.trailing, 20)
-                            .buttonStyle(.borderedProminent)
-                        })
+                        getPaddedNextButton()
                     }
-                }.padding(.bottom, 25)
-                    .transition(.opacity)
+                }
+                .padding(.bottom, 25)
+                .transition(.opacity)
             }
 
             checkIf(needsDateSelection) {
@@ -98,35 +79,36 @@ struct CardView: View {
         ToolbarItemGroup(
             placement: .principal,
             content: {
-                Button(
-                    action: {
-                        withAnimation { needsDateSelection = true }
-                    },
-                    label: {
-                        Text(card.date.getRelativeDay())
-                            .font(.title3)
-                            .foregroundStyle(.blue)
-                            .bold()
-                    })
+                Button(action: { withAnimation { needsDateSelection = true } },
+                       label: {
+                    Text(card.date.getRelativeDay())
+                        .font(.title3)
+                        .foregroundStyle(.blue)
+                        .bold()
+                })
             })
     }
 
     var keyboardBar: some ToolbarContent {
         ToolbarItemGroup(placement: .keyboard) {
             Spacer()
-            checkIf(
-                not(focusField == allKeys.first),
-                then: {
-                    Button("Previous", action: {
-                        withAnimation { focusNext(forwards: false) }
-                    })
-                })
-            checkIf(
-                not(focusField == allKeys.last),
-                then: {
-                    Button("Next", action: { withAnimation { focusNext() } })
-                })
+            getNextButton(forwards: false)
+            getNextButton()
             Button("Done", action: dismissKeyboard)
+        }
+    }
+    
+    func getPaddedNextButton(forwards: Bool = true) -> some View {
+        getNextButton(forwards: forwards)
+            .padding(.trailing, 20)
+            .buttonStyle(.borderedProminent)
+    }
+    
+    func getNextButton(forwards: Bool = true) -> some View {
+        checkIf((forwards && not(focusField == allKeys.last))
+                || (not(forwards) && not(focusField == allKeys.first))) {
+            Button(forwards ? "Next" : "Previous",
+                   action: { withAnimation { focusNext(forwards: forwards) } })
         }
     }
 
@@ -135,8 +117,14 @@ struct CardView: View {
             get: { self.card[selectedKey.key].asStringArray },
             set: { self.card.attributes[selectedKey.key] = Value.wrap($0) }
         )
-        return PopoverList(selected: binding, full: Skills[selectedKey.key].orUse([]))
-            .transition(.slide)
+        return VStack {
+            Text(selectedKey.field.capitalized)
+                .font(.headline)
+                .padding(.bottom, 20)
+            
+            PopoverList(selected: binding, full: Skills[selectedKey.key].orUse([]))
+                .transition(.slide)
+        }
     }
 
     @State var needsPopover: Bool = false
@@ -149,13 +137,11 @@ struct CardView: View {
         needsPopover || needsDateSelection
     }
 
-    var textKeys: [String] {
-        Schema.attributes.filter({ $0.value.kind == .string }).keys.sorted()
-    }
+    var textKeys: [String] { Schema.getKeysIf(type: .string) }
 
     var nonTextKeys: OrderedDictionary<String, [String]> {
         OrderedDictionary(
-            grouping: Schema.attributes.keys.filter { !(textKeys.contains($0)) },
+            grouping: Schema.getKeysIf { not(textKeys.contains($0)) },
             by: { $0.group }
         )
     }
@@ -163,59 +149,46 @@ struct CardView: View {
     var allKeys: [String] {
         textKeys + nonTextKeys.values.flatMap(\.self).filter({ not($0.isSubfield) })
     }
-
-    func renderKeys(keys: [String], alignment: HorizontalAlignment = .leading) -> some View {
-        ForEach(keys, id: \.capitalized) { key in
-            VStack(alignment: alignment) {
-                checkIf(
-                    not(key.getSubfields(keys: keys).isEmpty),
-                    then: { renderCompound(key: key) },
-                    otherwise: {
-                        checkIf(key.checkStandalone(in: keys), then: { render(key: key) })
-                    })
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 5)
-        }
-    }
-
-    func render(key: String, aligned: HorizontalAlignment = .leading) -> some View {
-        VStack(alignment: aligned) {
-            getNameView(for: key.checkStandalone(in: card.keys)
-                        ? key.label : .nothing)
-                .foregroundStyle(.blue)
-            getView(for: key)
-        }
-    }
-
-    func renderCompound(key: String, aligned: HorizontalAlignment = .center) -> some View {
-        let group = key.key.getSubfields(keys: card.keys)
-        return VStack(alignment: aligned) {
-            getNameView(for: key.field).foregroundStyle(.blue)
-            ForEach(group, id: \.self) { key in
-                render(key: key)
-            }
-            getView(for: key)
-        }
-    }
-
+    
     func renderColumns(aligned: HorizontalAlignment = .center) -> some View {
-        let measureKeys = Schema.attributes.filter {
-            not([.string, .stringArray].contains($0.value.kind))
-        }.keys
         let groups = OrderedDictionary(
-            grouping: measureKeys, by: { $0.key.group }
-        )
+            grouping: Schema.getKeysIf(include: false, types: [.string, .stringArray]),
+            by: { $0.key.group })
+        
         return HStack(alignment: .firstTextBaseline) {
             ForEach(groups.keys.sorted(), id: \.hashValue) { key in
                 VStack(alignment: aligned) {
                     getNameView(for: key, ofSize: .callout)
                         .foregroundStyle(.secondary)
-                    renderKeys(keys: groups[key].orUse([]), alignment: .center)
+                    renderKeys(groups[key].orUse([]), alignment: .center)
                 }
                 .frame(maxWidth: 370 / 2)
                 .padding(.vertical, 10)
             }
+        }
+    }
+
+    func renderKeys(_ keys: [String], alignment: HorizontalAlignment = .leading) -> some View {
+        ForEach(keys, id: \.capitalized) { key in
+            checkIf(key.isStandalone(in: keys)) {
+                VStack(alignment: alignment) {
+                    render(key: key, group: key.getSubfields(keys: keys))
+                }}
+            .padding(.horizontal, 20)
+            .padding(.vertical, 5)
+        }
+    }
+
+    func render(key: String, group: [String]) -> some View {
+        VStack(alignment: group.isEmpty ? .leading : .center) {
+            getNameView(for: key.isStandalone(in: card.keys) ? key.label : .nothing)
+                .blackAndWhite(theme: colorScheme)
+            
+            VStack(alignment: .center) {
+                ForEach(group, id: \.self) { key in
+                    getView(for: key) }
+            }
+            getView(for: key)
         }
     }
 
@@ -235,16 +208,15 @@ struct CardView: View {
             .font(.system(size: 16))
             .focused($focusField, equals: key)
             .frame(alignment: .center)
-            .overlay(
-                RoundedRectangle(cornerRadius: 7)
-                    .stroke(focusField == key ? Color.sky : Color.clear, lineWidth: 1)
+            .overlay(RoundedRectangle(cornerRadius: 7)
+                .stroke(focusField == key ? Color.sky : Color.clear, lineWidth: 1)
             )
     }
 
     func getViewUnformatted(for attribute: String) -> some View {
         let name = attribute.key
         if not(card.keys.contains(name)) {
-            return AnyView(Text("Not available \(name)"))
+            return AnyView(Text("Not available \(name)."))
         }
 
         switch card[name].kind {

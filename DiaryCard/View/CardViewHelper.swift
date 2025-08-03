@@ -66,40 +66,28 @@ struct NumberView: View {
         .multilineTextAlignment(.center)
         .keyboardType(.numberPad)
         .frame(width: 120, height: 30)
+        .background(getColor().opacity(0.3).gradient)
         .onChange(of: value, {
             preselectText = false
         })
-        .background(getColor().opacity(0.6).gradient)
         .clipShape(RoundedRectangle(cornerRadius: 5, style: .circular))
-    }
-
-    func getFloatBinding() -> Binding<Float> {
-        .init(
-            get: { Float(value) },
-            set: { newValue in
-                value = Int(newValue.rounded())
-            }
-        )
     }
 
     func getSelectionBinding() -> Binding<TextSelection?> {
         Binding<TextSelection?>(
             get: {
                 preselectText && value > 0
-                    ? TextSelection(range: String(value).startIndex..<String(value).endIndex) : nil
+                ? TextSelection(range: String(value).startIndex..<String(value).endIndex)
+                : nil
             },
             set: { _ in }
         )
     }
     
     func getColor() -> Color {
-        if value <= 3 {
-            return .secondary.opacity(0.5)
-        }
-        if value <= 6 {
-            return .blue.opacity(0.5)
-        }
-        return .poppy.opacity(0.75)
+        if value <= 3 { return .secondary.opacity(( Double(5 - value) / 5)) }
+        if value <= 6 { return .blue.opacity(Double(value - 2) / 5) }
+        return .poppy.opacity(Double(value - 5) / 5)
     }
 }
 
@@ -120,11 +108,9 @@ struct TextView: View {
         )
         .textFieldStyle(.roundedBorder)
         .padding(2)
-        .onChange(
-            of: value,
-            {
-                preselectText = false
-            })
+        .onChange(of: value, {
+            preselectText = false
+        })
     }
 }
 
@@ -160,6 +146,7 @@ struct BooleanView: View {
             .toggleStyle(.button)
             .buttonStyle(.borderedProminent)
             .tint(value ? .poppy : .blue)
+            .animation(.easeInOut, value: value)
     }
 }
 

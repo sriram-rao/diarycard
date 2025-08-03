@@ -51,8 +51,20 @@ public class Schema {
         Array(attributes.keys.sorted())
     }
     
-    static func getKeysOf(group: String, excluded: Bool = false) -> [String] {
-        attributeNames.filter { $0.belongsTo(group) == not(excluded) }
+    static func getKeysIf(excluded: Bool = false, inGroup: String) -> [String] {
+        attributeNames.filter { $0.belongsTo(inGroup) == not(excluded) }
+    }
+    
+    static func getKeysIf(type valueType: Value.Kind) -> [String] {
+        getKeysIf(types: [valueType])
+    }
+    
+    static func getKeysIf(include: Bool = true, types valueTypes: [Value.Kind]) -> [String] {
+        Schema.attributes.filter({ valueTypes.contains($0.value.kind) == include }).keys.elements
+    }
+    
+    static func getKeysIf(_ predicate: (String) -> Bool) -> [String] {
+        Schema.attributeNames.filter(predicate)
     }
 }
 

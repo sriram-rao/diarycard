@@ -130,7 +130,7 @@ extension MarkupTag {
                             }))
                     }))
             ]
-        ).apply(classes: getStyle(of: TABLE))
+        ).apply(classes: getStyle(in: TABLE))
     }
 
     static func makeCell(_ value: Value, isHeader: Bool = false) -> MarkupTag {
@@ -138,11 +138,11 @@ extension MarkupTag {
             for: isHeader ? TABLE_HEADER : TABLE_CELL,
             withText: value.kind == .stringArray ? .nothing : value.toString(),
             children: value.kind == .stringArray ? getContentForArray(value) : []
-        ).apply(classes: getStyle(for: value, of: TABLE_CELL))
+        ).apply(classes: getStyle(for: value, in: TABLE_CELL))
     }
 
     // This replaces switch-case. I think it looks cleaner. It has a small performance benefit too.
-    static func getStyle(for value: Value = .nothing, of tag: String = .nothing) -> String {
+    static func getStyle(for value: Value = .nothing, in tag: String = .nothing) -> String {
         if tag.equals(TABLE) {
             return "simple-table"
         }

@@ -91,7 +91,9 @@ extension String {
     /// Finds all sub-fields of self using the array (keys).
     func getSubfields(keys: [String]) -> [String] {
         keys.filter({
-            $0.isSubfield && self.equals($0.fieldFull)
+            $0.isSubfield
+            && self.equals($0.fieldFull)
+            && not($0.isStandalone(in: keys))
         })
     }
 
@@ -100,12 +102,11 @@ extension String {
         return self.group.equals(group)
     }
 
-    func checkStandalone(in names: [String]) -> Bool {
-        not(
-            isSubfield
-                && names.contains(where: {
-                    $0.key.equals(self.key.fieldFull) && $0 != self
-                }))
+    func isStandalone(in names: [String]) -> Bool {
+        not(isSubfield
+            && names.contains(where: {
+            $0.key.equals(self.key.fieldFull) && $0 != self
+        }))
     }
 }
 
