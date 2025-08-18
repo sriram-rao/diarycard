@@ -8,7 +8,7 @@ struct SummaryView: View {
     @Environment(\.modelContext) var modelContext
     @State var start: Date
     @State var end: Date
-    @State var cards: [Card] = []
+    @State var cards = OrderedSet<Card>()
     @State var refresh: Bool = false
     @State var pdfUrl: URL = Bundle.main.url(forResource: "default", withExtension: ".pdf")
         .orUse(URL.documentsDirectory)
@@ -28,7 +28,7 @@ struct SummaryView: View {
                 PDFDisplay(url: self.pdfUrl, refresh: refresh)
             }
         }
-        .task {
+        .onAppear() {
             self.refresh = true
             refreshCards()
             self.pdfUrl = generatePdf()
@@ -106,11 +106,7 @@ struct SummaryView: View {
     }
     
     func refreshCards() {
-        cards = fetch(from: start, to: end, in: modelContext)
-    }
-    
-    var sortedCards: [Card] {
-        cards.sorted(by: { $0.date > $1.date })
+        cards = fetchUnique(from: start, to: end, in: modelContext)
     }
 }
 
@@ -119,14 +115,14 @@ extension SummaryView {
         Html.generateHtml(
             for: getComments(for: Schema.getKeysIf(inGroup: "text")),
             and: getMeasures(for: Schema.getKeysIf(excluded: true, inGroup: "text")),
-            weekEnding: (sortedCards.first?.date).orUse(Date())
+            weekEnding: (cards.first?.date).orUse(Date())
         )
     }
     
     func getComments(for keys: [String]) -> Dictionary<String, RowSet> {
         [
             "Comments": getTextRowHeader(with: keys) +
-            sortedCards.map({ card in
+            cards.map({ card in
                 [.date(card.date)] + getTextRow(for: keys, in: card)
             })
         ]
@@ -145,14 +141,14 @@ extension SummaryView {
         getDatesRowHeader() +
         attributes.map { attribute in
             [.string(attribute.name.capitalized)] + Array((Summary
-                .create(for: attribute, from: sortedCards).data
+                .create(for: attribute, from: cards).data
                 .map{$0.value}
             ))
         }
     }
     
     func getDatesRowHeader() -> RowSet {
-        [ [.string("Date")] + sortedCards.map{ .date($0.date) } ]
+        [ [.string("Date")] + cards.map{ Value.date($0.date) } ]
     }
     
     func getTextRowHeader(with keys: [String]) -> RowSet {

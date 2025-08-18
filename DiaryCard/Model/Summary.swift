@@ -1,4 +1,5 @@
 import SwiftUI
+import OrderedCollections
 
 class Summary {
     public var name: String
@@ -14,7 +15,12 @@ class Summary {
         let summary = Summary(of: attribute, as: cards.reduce(into: [:]){ result, card in
             result[card.date] = card[attribute]
         })
+        
         return summary
+    }
+    
+    static func create(for attribute: String, from cards: OrderedSet<Card>) -> Summary {
+        Summary.create(for: attribute, from: cards.elements)
     }
     
     public var keys: [Date] {

@@ -1,22 +1,16 @@
-//
-//  CardExtension.swift
-//  diarycard
-//
-//  Created by Sriram Rao on 6/26/25.
-//
 import Foundation
 
 extension Card {
     private static let formatter = DateFormatter()
-    private static func getDate(from: String) -> Date {
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.date(from: from)!
+    private static func getDate(_ date: Date, plus addDays: Int = 0) -> Date {
+        print("Day start: \(date.startOfDay)")
+        print("Day \(date.startOfDay.goForward(addDays * .day))")
+        return date.startOfDay.goForward(addDays * .day)
     }
     
     static func getSampleData() -> [Card] {
         return [
-            Card(date: getDate(from: "2025-07-25"), attributes: [
-    //            "date": .date(getDate(from: "2025-06-25")),
+            Card(date: getDate(Date(), plus: -1), attributes: [
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
                 "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
@@ -46,8 +40,7 @@ extension Card {
                 "skills.inter-personal effectiveness": .stringArray(["Clarify Priorities", "Validate Me"])
             ]),
             
-            Card(date: getDate(from: "2025-07-24"), attributes: [
-    //            "date": .date(getDate(from: "2025-06-24")),
+            Card(date: getDate(Date(), plus: -2), attributes: [
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
                 "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
@@ -77,8 +70,7 @@ extension Card {
                 "skills.inter-personal effectiveness": .stringArray([])
             ]),
             
-            Card(date: getDate(from: "2025-07-23"), attributes: [
-    //            "date": .date(getDate(from: "2025-06-23")),
+            Card(date: getDate(Date(), plus: -3), attributes: [
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
                 "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
@@ -108,8 +100,7 @@ extension Card {
                 "skills.inter-personal effectiveness": .stringArray(["Clarify Priorities", "Validate Me", "DEAR MAN"])
             ]),
             
-            Card(date: getDate(from: "2025-07-22"), attributes: [
-    //            "date": .date(getDate(from: "2025-06-25")),
+            Card(date: getDate(Date(), plus: -4), attributes: [
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
                 "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
@@ -139,8 +130,7 @@ extension Card {
                 "skills.inter-personal effectiveness": .stringArray(["Clarify Priorities", "Validate Me"])
             ]),
             
-            Card(date: getDate(from: "2025-07-21"), attributes: [
-    //            "date": .date(getDate(from: "2025-06-24")),
+            Card(date: getDate(Date(), plus: -5), attributes: [
                 "text.comment": .string("Test commentTest commentTest commentTest comment"),
                 
                 "text.5-minute journal:fuck yeahs": .string("Fuck yeah!"),
@@ -170,7 +160,7 @@ extension Card {
                 "skills.inter-personal effectiveness": .stringArray([])
             ]),
             
-            Card(date: getDate(from: "2025-07-20"), attributes: [
+            Card(date: getDate(Date(), plus: -6), attributes: [
     //            "date": .date(getDate(from: "2025-06-23")),
                 "text.comment": .string("Oldest"),
                 

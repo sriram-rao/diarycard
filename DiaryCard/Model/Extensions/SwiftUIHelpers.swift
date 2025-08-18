@@ -1,4 +1,5 @@
 import SwiftData
+import OrderedCollections
 import SwiftUI
 
 extension View {
@@ -26,15 +27,28 @@ extension View {
 
     func fetch(from start: Date, to end: Date, in context: ModelContext) -> [Card] {
         let fetcher = FetchDescriptor<Card>(
-            predicate: #Predicate { $0.date >= start && $0.date <= end },
-            sortBy: [SortDescriptor(\.date, order: .reverse)]
+            predicate: #Predicate { $0.date >= start.startOfDay && $0.date <= end.startOfDay }
         )
         return (try? context.fetch(fetcher)).orUse([])
+            .sorted(by: {card1, card2 in card1.date > card2.date})
+    }
+    
+    func fetchUnique(from start: Date, to end: Date, in context: ModelContext) -> OrderedSet<Card> {
+        OrderedSet(fetch(from: start, to: end, in: context))
     }
 
     func minimalStyle() -> some View {
         self.buttonStyle(Minimal())
             .frame(alignment: .center)
+    }
+    
+    func linkButtonStyle(colour: Color, backgroundOpacity: Double = 0.1, colourScheme: ColorScheme = .light) -> some View {
+        self.padding(7.5)
+            .buttonStyle(.borderless)
+            .tint(colour)
+            .background( RoundedRectangle(cornerRadius: 7.5).fill(
+                colourScheme == .dark && colour == .secondary ? Color.white :
+                colour.opacity(backgroundOpacity)) )
     }
 }
 
@@ -90,5 +104,9 @@ public enum Theme: String, CaseIterable {
 extension Color {
     static var offwhite: Color {
         return Color(red: 0xF5, green: 0xF5, blue: 0xF5, opacity: 1)
+    }
+    
+    static func themed(_ theme: ColorScheme, light: Color, dark: Color) -> Color {
+        theme == .light ? light : dark
     }
 }

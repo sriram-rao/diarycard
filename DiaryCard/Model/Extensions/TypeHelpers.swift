@@ -63,7 +63,7 @@ extension Date {
     }
     
     func goForward(_ duration: Int) -> Date {
-        return Date().addDuration(duration, .second)
+        return self.addDuration(duration, .second)
     }
     
     func goBack(_ duration: Int) -> Date {
@@ -80,7 +80,7 @@ extension Date {
             return today > day ? "Yesterday" : "Tomorrow"
         }
         if timeBetween < TimeInterval(7 * 86_400) {
-            return "\(self.getRelativeWeek()) \(self.getDay())"
+            return "\(self.getRelativeWeek())\(self.getDay())"
         }
         return DateFormatter.localizedString(from: self, dateStyle: .long, timeStyle: .none)
     }
@@ -89,7 +89,7 @@ extension Date {
         let currentWeek = Calendar.current.component(.weekOfYear, from: reference)
         let dayWeek = Calendar.current.component(.weekOfYear, from: self)
         
-        return [-1: "Next", 0: .nothing, 1: "Last"][currentWeek - dayWeek].orUse(.nothing)
+        return [-1: "Next ", 0: .nothing, 1: "Last "][currentWeek - dayWeek].orUse(.nothing)
     }
     
     func getDay() -> String {

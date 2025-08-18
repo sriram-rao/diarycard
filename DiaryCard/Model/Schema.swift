@@ -29,7 +29,7 @@ public class Schema {
         
         "skills.1.distress tolerance": .stringArray(["ACCEPTS", "STOP"]),
         "skills.2.core mindfulness": .stringArray(["Observe", "Wise Mind"]),
-        "skills.3.emotion regulation": .stringArray(["Build Mastery"]),
+        "skills.3.emotion regulation": .stringArray(["(B)uild Mastery"]),
         "skills.4.inter-personal effectiveness": .stringArray(["Validate Me"])
     ]
     

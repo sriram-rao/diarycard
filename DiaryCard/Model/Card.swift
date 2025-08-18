@@ -3,7 +3,7 @@ import SwiftData
 import SwiftUI
 
 @Model
-final class Card {
+final class Card: Hashable {
     var attributes: [String: Value]
     var date: Date
     var keys: [String] {
@@ -21,5 +21,9 @@ final class Card {
 
     subscript(key: String) -> Value {
         self.get(key: key)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.attributes.hashValue)
     }
 }
