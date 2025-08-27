@@ -29,7 +29,7 @@ public class Schema {
         
         "skills.1.distress tolerance": .stringArray(["ACCEPTS", "STOP"]),
         "skills.2.core mindfulness": .stringArray(["Observe", "Wise Mind"]),
-        "skills.3.emotion regulation": .stringArray(["(B)uild Mastery"]),
+        "skills.3.emotion regulation": .stringArray(["Accumulate Short-Term +"]),
         "skills.4.inter-personal effectiveness": .stringArray(["Validate Me"])
     ]
     
@@ -71,8 +71,9 @@ public class Schema {
 let Skills = [
         "skills.distress tolerance": ["ACCEPTS", "IMPROVE", "STOP", "Pros & Cons", "TIPP", "GRACE", "Radical Acceptance"],
         "skills.core mindfulness": ["Wise Mind", "Observe", "Describe", "Participate", "Non-Judgemental Stance", "One Mindful", "Effective"],
-        "skills.emotion regulation": ["(Ac.) Short-Term +","(Ac.) Long-Term +", "(B)uild Mastery",
-                                      "(C)ope Ahead", "PLEASE", "Check The Facts", "Opposite Action", "Let Go of Suffering"],
+        "skills.emotion regulation": ["(Ac.) Short-Term +", "(Ac.) Short-Term +", "(B)uild Mastery", "(C)ope Ahead",
+                                      "Accumulate Long-Term +", "Build Mastery",
+                                      "Cope Ahead", "PLEASE", "Check The Facts", "Opposite Action", "Let Go of Suffering"],
         "skills.inter-personal effectiveness": ["Clarify Priorities", "DEAR MAN", "GIVE", "FAST",
                                                "Validate Me", "Validate Others", "Challenge Self-Judgement"]
     ]

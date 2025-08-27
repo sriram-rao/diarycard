@@ -11,7 +11,7 @@ import SwiftData
 #Preview("Text") {
     @Previewable @State var text: String = "text.comment"
     Text("Live Preview: \(text)")
-    TextView(value: $text, preselectText: true)
+    TextView(value: $text, preselectText: false)
 }
 
 #Preview("Bool") {

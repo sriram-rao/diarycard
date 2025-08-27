@@ -224,7 +224,7 @@ struct CardView: View {
             return AnyView(NumberView(value: getBinding(for: name), preselectText: true))
             
         case .string:
-            return AnyView(TextView(value: getBinding(for: name), preselectText: true))
+            return AnyView(TextView(value: getBinding(for: name), preselectText: false))
             
         case .date:
             return AnyView(DateView(value: getBinding(for: name)))

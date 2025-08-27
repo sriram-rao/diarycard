@@ -68,6 +68,18 @@
 		CA9B21FA2E318D0400AB715A /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
 		CA9B22082E3216A500AB715A /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		CAA98A242E3417FC0041F02B /* PDFDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDisplay.swift; sourceTree = "<group>"; };
+		CABF4BFC2E5EC990006D4935 /* card_dark_scrolled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_dark_scrolled.png; sourceTree = "<group>"; };
+		CABF4BFD2E5EC990006D4935 /* card_light_scrolled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_light_scrolled.png; sourceTree = "<group>"; };
+		CABF4BFE2E5EC990006D4935 /* cards_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_dark.png; sourceTree = "<group>"; };
+		CABF4BFF2E5EC990006D4935 /* cards_date_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_date_dark.png; sourceTree = "<group>"; };
+		CABF4C002E5EC990006D4935 /* cards_date_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_date_light.png; sourceTree = "<group>"; };
+		CABF4C012E5EC990006D4935 /* cards_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_light.png; sourceTree = "<group>"; };
+		CABF4C022E5EC990006D4935 /* export_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = export_dark.png; sourceTree = "<group>"; };
+		CABF4C032E5EC990006D4935 /* export_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = export_light.png; sourceTree = "<group>"; };
+		CABF4C042E5EC990006D4935 /* popover_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popover_dark.png; sourceTree = "<group>"; };
+		CABF4C052E5EC990006D4935 /* popover_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popover_light.png; sourceTree = "<group>"; };
+		CABF4C062E5EC990006D4935 /* single_card_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = single_card_dark.png; sourceTree = "<group>"; };
+		CABF4C072E5EC990006D4935 /* single_card_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = single_card_light.png; sourceTree = "<group>"; };
 		CAD9C4432E11E88100F01584 /* CardViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewHelper.swift; sourceTree = "<group>"; };
 		CAD9C4592E12378300F01584 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		CADC361A2DE1092D00539E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,6 +158,7 @@
 		CA7291412D88D2E8004AF2DE = {
 			isa = PBXGroup;
 			children = (
+				CABF4C082E5EC990006D4935 /* images */,
 				CADC367A2DE1110700539E69 /* readme.md */,
 				CA9B21F42E2F1E7F00AB715A /* story.md */,
 				CADC36592DE10D9300539E69 /* DiaryCard */,
@@ -163,6 +176,25 @@
 				CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CABF4C082E5EC990006D4935 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CABF4BFC2E5EC990006D4935 /* card_dark_scrolled.png */,
+				CABF4BFD2E5EC990006D4935 /* card_light_scrolled.png */,
+				CABF4BFE2E5EC990006D4935 /* cards_dark.png */,
+				CABF4BFF2E5EC990006D4935 /* cards_date_dark.png */,
+				CABF4C002E5EC990006D4935 /* cards_date_light.png */,
+				CABF4C012E5EC990006D4935 /* cards_light.png */,
+				CABF4C022E5EC990006D4935 /* export_dark.png */,
+				CABF4C032E5EC990006D4935 /* export_light.png */,
+				CABF4C042E5EC990006D4935 /* popover_dark.png */,
+				CABF4C052E5EC990006D4935 /* popover_light.png */,
+				CABF4C062E5EC990006D4935 /* single_card_dark.png */,
+				CABF4C072E5EC990006D4935 /* single_card_light.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		CADC364C2DE10CF100539E69 /* Tests */ = {
