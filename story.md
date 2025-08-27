@@ -7,11 +7,11 @@ Every part of it was a pain. And it needed lots of formatting to be readable in 
 
 The issues I had were that it was 
 1. Ugly
-2. Tedious to fill -- too many phone taps
+2. Tedious to fill - too many phone taps
 3. Difficult to export (to share)
 4. Difficult to fill on my phone
 5. Difficult to export (to share) on my phone
-6. A weekly file, and so, needed file duplication. 
+6. A weekly file, so it needed file duplication. 
 
 To make this easier, I made a Notion database for each of the three group of measures in my spreadsheet. 
 This made it a lot less ugly. Notion looks really neat! 
