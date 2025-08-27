@@ -6,7 +6,7 @@ Each entry captures metrics for emotions configured in the app. (This will be cu
 It also has a Skill section where you can select skills you used during the day.
 The export button creates a PDF with data from the chosen range of dates, which is the previous 7 days by default.
 
-For those interested in origin story, [it's here](story.md)
+For those interested in the origin story, [it's here](story.md).
 
 Including a few screenshots to make this readme look nice.
 
