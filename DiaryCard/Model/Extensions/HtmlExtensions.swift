@@ -93,12 +93,9 @@ class MarkupTag {
             }).spaced + .space
         return self
     }
-    // What do I even explain apart from my running commentary?
-    // It's all in the code already.
 }
 
 extension MarkupTag {
-    // This enables all the expressive code
     static let TABLE_CELL: String = "td"
     static let TABLE_HEADER: String = "th"
     static let TABLE_ROW: String = "tr"
@@ -115,8 +112,6 @@ extension MarkupTag {
 
     /// Creates an HTML table from matrix, the passed in 2D array
     static func tabulate(_ matrix: RowSet) -> MarkupTag {
-        // I love the part where you use all the coolness you built.
-        // This almost reads like English.
         MarkupTag(
             for: TABLE,
             children: [
@@ -141,7 +136,6 @@ extension MarkupTag {
         ).apply(classes: getStyle(for: value, in: TABLE_CELL))
     }
 
-    // This replaces switch-case. I think it looks cleaner. It has a small performance benefit too.
     static func getStyle(for value: Value = .nothing, in tag: String = .nothing) -> String {
         if tag.equals(TABLE) {
             return "simple-table"
@@ -174,7 +168,7 @@ extension MarkupTag {
         },
     ]
 
-    // I've restricted the super specific code to this file. I'll handle them later (TM)
+    // TODO: Too specific, should be a config 
     static let intStyle: [Int: String] = [
         3: "block-color-grey_background",
         6: "block-color-blue_background",
