@@ -29,11 +29,11 @@ class Html {
     }
 }
 
-// HTML tag data structure. Needed just this to represent the DOM tree.
+// HTML tag data structure. Need just this to represent the DOM tree.
 class MarkupTag {
     /// "classNames" is for CSS class names that go in the class="" part of markup. Not a fan of that name for the variable...
     /// "content" is the data part that goes in the middle of the tag. E.g. "blah" in <div>blah</div>
-    /// "children" are the markup nodes that are within this one. E.g. <span></span> in <div><span>1</span></div>
+    /// "children" are the markup nodes that are within this one. E.g. <span>1</span> in <div><span>1</span></div>
     var name: String
     var content: String
     var classNames: String
