@@ -6,3 +6,4 @@ diarycard.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/*
 .build*
 buildServer.json
 Tests/diarycardUITests/*
+target/
