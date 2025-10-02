@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension Card {
+@MainActor extension Card {
     func getBinding(key: String) -> Binding<Value> {
         guard attributes[key] != nil else {
             return Binding(get: { Value.wrap(String.nothing)! }, set: { _ in })

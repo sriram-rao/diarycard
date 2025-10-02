@@ -1,16 +1,31 @@
 import SwiftData
 import SwiftUI
 
+enum CardError: LocalizedError {
+    case invalidValue(String)
+    case keyNotFound(String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidValue(let message):
+            return message
+        case .keyNotFound(let key):
+            return "Key not found: \(key)"
+        }
+    }
+}
+
 extension CardView {
     func getNameView(
         for name: String,
         ofSize size: Font = Font.callout
     ) -> some View {
-        Text(name).font(size.lowercaseSmallCaps())
+        Text(name.capitalized).font(size)
             .fixedSize(horizontal: false, vertical: false)
             .lineLimit(2)
             .truncationMode(.tail)
-            .padding(.leading, 10)
+//            .padding(.leading, 10)
+//            .padding(.top, 5)
     }
 
     func getNextField(after key: String, in list: [String], going forwards: Bool) -> String {
@@ -26,8 +41,21 @@ extension CardView {
 
     func getBinding<T>(for key: String) -> Binding<T> {
         Binding<T>(
-            get: { card[key].unwrap()! },
-            set: { newValue in card.attributes[key] = Value.wrap(newValue) }
+            get: { 
+                do {
+                    guard let value: T = card[key].unwrap() else {
+                        throw CardError.invalidValue("Could not unwrap value for key: \(key)")
+                    }
+                    return value
+                } catch {
+                    showError("Failed to get value for \(key): \(error.localizedDescription)")
+                    // Return a default value - this might crash but that's what you want during development
+                    return card[key].unwrap()!
+                }
+            },
+            set: { newValue in
+                card.attributes[key] = Value.wrap(newValue)
+            }
         )
     }
 
@@ -63,13 +91,15 @@ struct NumberView: View {
             text: valueString,
             selection: getSelectionBinding()
         )
+        .textFieldStyle(.plain)
         .multilineTextAlignment(.center)
         .keyboardType(.numberPad)
+        
         .frame(width: 120, height: 30)
-        .background(getColor().opacity(0.3).gradient)
         .onChange(of: value, {
             preselectText = false
         })
+//        .background(getColor().opacity(0.3).gradient)
         .clipShape(RoundedRectangle(cornerRadius: 5, style: .circular))
     }
 
@@ -106,7 +136,7 @@ struct TextView: View {
                 set: { _ in }),
             axis: .vertical
         )
-        .textFieldStyle(.roundedBorder)
+        .textFieldStyle(.plain)
         .padding(2)
         .onChange(of: value, {
             preselectText = false
@@ -118,22 +148,18 @@ struct DateView: View {
     @Binding var value: Date
 
     var body: some View {
-        ZStack {
-            DatePicker(
-                selection: $value, displayedComponents: [.date],
-                label: { Text(value, style: .date) }
-            )
-            .labelsHidden()
-            .transition(.slide)
-        }
-    }
-
-    func pickerStyle() -> some View {
-        self.datePickerStyle(.graphical)
-            .padding(.vertical, 30)
-            .background(.ultraThinMaterial.opacity(0.80))
-            .cornerRadius(20)
-            .scaleEffect(0.85)
+        DatePicker(
+            "Select Date",
+            selection: $value,
+            displayedComponents: [.date]
+        )
+        .datePickerStyle(.graphical)
+        .labelsHidden()
+        .glassEffect(
+            .regular.interactive(),
+            in: .rect(cornerRadius: 20)
+        )
+        .scaleEffect(0.85)
     }
 }
 
@@ -155,5 +181,40 @@ struct HomeButton: View {
         NavigationStack {
             NavigationLink(destination: CardsView(), label: { Text("Cards") })
         }
+    }
+}
+
+
+#Preview("Number") {
+    @Previewable @State var number: Int = 10
+    Text(verbatim: "Live Preview: \(number)")
+    NumberView(value: $number, preselectText: true)
+}
+
+#Preview("Text") {
+    @Previewable @State var text: String = "text.comment"
+    Text(verbatim: "Live Preview: \(text)")
+    TextView(value: $text, preselectText: false)
+}
+
+#Preview("Name View") {
+    @Previewable @State var number: Int = 10
+    VStack {
+        CardView(card: Card()).getNameView(for: "Number")
+        NumberView(value: $number, preselectText: true)
+    }.background(Color(.systemGray6))
+}
+
+#Preview("Stack") {
+    @Previewable @State var number: Int = 10
+    VStack {
+        VStack {
+            CardView(card: Card()).getNameView(for: "Number")
+            NumberView(value: $number, preselectText: true)
+        }.background(Color(.systemGray6))
+        VStack {
+            CardView(card: Card()).getNameView(for: "Number")
+            NumberView(value: $number, preselectText: true)
+        }.background(Color(.systemGray6))
     }
 }

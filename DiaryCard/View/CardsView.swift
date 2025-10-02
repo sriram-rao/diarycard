@@ -22,6 +22,7 @@ struct CardsView: View {
 
     var body: some View {
         ZStack {
+            Background()
             NavigationStack(path: $path) {
                 topBar
 
@@ -122,16 +123,22 @@ struct CardsView: View {
     }
 
     var cardList: some View {
-        List {
+        ScrollView {
             ForEach(cards.filter({ not(hiddenCards.contains($0))
                                 || showHidden })) { card in
                 NavigationLink(
                     destination: CardView(card: card),
-                    label: { createLabel(for: card) }
+                    label: {
+                        createLabel(for: card)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
                 )
-                .backgroundStyle(.white.opacity(0.8))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .foregroundStyle(.primary.opacity(
                     hiddenCards.contains(card) ? 0.5 : 1))
+                .padding(5)
+                .glassEffect(.clear)
                 .swipeActions {
                     Button(role: .destructive){
                         hiddenCards.contains(card)
@@ -141,11 +148,12 @@ struct CardsView: View {
                         hiddenCards.contains(card)
                         ? Label("Hide", systemImage: "eye.slash")
                         : Label("Unhide", systemImage: "eye")
-//                            .backgroundStyle(.green)
                     }
                 }
+                .padding(5)
             }
         }
+        .backgroundStyle(.clear)
         .blurIf(showPicker)
         .onAppear { _ = getCard(for: .today) }
         .onAppearOrChange(of: start, or: end, { refreshCards() })
@@ -158,19 +166,16 @@ struct CardsView: View {
         checkIf(
             showPicker,
             then: {
-                Group {
-                    TapBackground { withAnimation { showPicker = false } }
-                        .transition(.blurReplace)
+                ZStack {
+                    DismissibleOverlay { showPicker = false }
+                    
                     VStack(alignment: .center) {
                         DateView(value: selectedDate.orUse($pickerDate))
-                            .pickerStyle()
-                            .transition(.blurReplace)
+                            .transition(.scale.combined(with: .opacity))
                         Spacer()
                     }
                 }
-                .animation(.bouncy, body: {val in
-                    val
-                })
+                .animation(.bouncy, value: showPicker)
             })
     }
     
@@ -201,7 +206,7 @@ struct CardsView: View {
             })
     }
 
-    func createLabel(for card: Card, addSuffix suffix: String = .nothing, withColour colour: Color = .clear) -> some View {
+    func createLabel(for card: Card, addSuffix suffix: String = .nothing, withColour colour: Color = .clear, withImage image: String = .nothing) -> some View {
         createLabel(
             label: [card.date.getRelativeDay(), suffix].merged,
             titleText: ["text.comment",
@@ -210,11 +215,13 @@ struct CardsView: View {
                 .map({ card.get(key: $0) .asString })
                 .filter({ not($0.isBlank()) })
                 .joined(separator: ", "),
+            image: image,
             colour: colour,
-            font: .body
+            font: .body,
         )
     }
     
+    // createLabel(
     func createLabel(label: String = .nothing, titleText: String = .nothing,
                      image: String = .nothing, colour: Color = .clear, font size: Font = .headline) -> some View {
         HStack {
@@ -225,7 +232,9 @@ struct CardsView: View {
             Text(titleText).lineLimit(1)
                 .truncationMode(.tail)
             checkIf(not(image.isEmpty), then: {
-                Image(systemName: image)
+                Group {
+                    Image(systemName: image)
+                }
             })
         }
         .font(size)
@@ -257,4 +266,9 @@ struct CardsView: View {
             from: start, to: not(toLatest) ? end : .today.goForward(4 * .week),
             in: modelContext)
     }
+}
+
+
+#Preview("Default Cards Search View", traits: .cardSampleData) {
+    NavigationStack { CardsView() }
 }

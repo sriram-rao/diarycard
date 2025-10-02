@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CA0264C52E1E40DB00FB2C06 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = CA0264C42E1E40DB00FB2C06 /* HorizonCalendar */; };
+		CA57E72B2E8614FA006A2546 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA57E72A2E8614F4006A2546 /* Background.swift */; };
+		CA57E72D2E861562006A2546 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA57E72C2E86155F006A2546 /* Pattern.swift */; };
 		CA5E1D5D2E0CE737000DEAF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */; };
 		CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */; };
 		CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */; };
@@ -29,6 +31,7 @@
 		CAA702DE2E29C07D0020F83A /* SwiftUINavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = CAA702DD2E29C07D0020F83A /* SwiftUINavigationTransitions */; };
 		CAA98A252E3418060041F02B /* PDFDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA98A242E3417FC0041F02B /* PDFDisplay.swift */; };
 		CAA98A282E342AFF0041F02B /* HtmlToPdf in Frameworks */ = {isa = PBXBuildFile; productRef = CAA98A272E342AFF0041F02B /* HtmlToPdf */; };
+		CAB9B2BE2E850D9B00336D94 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB9B2BD2E850D9B00336D94 /* ErrorView.swift */; };
 		CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4432E11E88100F01584 /* CardViewHelper.swift */; };
 		CAD9C45A2E12378700F01584 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9C4592E12378300F01584 /* Value.swift */; };
 		CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC361D2DE1092D00539E69 /* diarycardApp.swift */; };
@@ -53,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA57E72A2E8614F4006A2546 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		CA57E72C2E86155F006A2546 /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
 		CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		CA5E1D7B2E0E18E5000DEAF2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
@@ -68,6 +73,7 @@
 		CA9B21FA2E318D0400AB715A /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
 		CA9B22082E3216A500AB715A /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		CAA98A242E3417FC0041F02B /* PDFDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDisplay.swift; sourceTree = "<group>"; };
+		CAB9B2BD2E850D9B00336D94 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		CABF4BFC2E5EC990006D4935 /* card_dark_scrolled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_dark_scrolled.png; sourceTree = "<group>"; };
 		CABF4BFD2E5EC990006D4935 /* card_light_scrolled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_light_scrolled.png; sourceTree = "<group>"; };
 		CABF4BFE2E5EC990006D4935 /* cards_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_dark.png; sourceTree = "<group>"; };
@@ -221,6 +227,8 @@
 		CADC364E2DE10D2A00539E69 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CA57E72C2E86155F006A2546 /* Pattern.swift */,
+				CA57E72A2E8614F4006A2546 /* Background.swift */,
 				CAA98A242E3417FC0041F02B /* PDFDisplay.swift */,
 				CA9B21F52E2F20D200AB715A /* SummaryView.swift */,
 				CA8A38B72E1A250C000945F0 /* PopoverList.swift */,
@@ -228,6 +236,7 @@
 				CA899EAA2E1B5F5400A46D91 /* CardView.swift */,
 				CA5E1D822E0E6A3C000DEAF2 /* CardsView.swift */,
 				CA5E1D5C2E0CE731000DEAF2 /* StartView.swift */,
+				CAB9B2BD2E850D9B00336D94 /* ErrorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -339,7 +348,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					CA7291492D88D2E8004AF2DE = {
 						CreatedOnToolsVersion = 16.2;
@@ -416,11 +425,14 @@
 			files = (
 				CAA98A252E3418060041F02B /* PDFDisplay.swift in Sources */,
 				CAD9C45A2E12378700F01584 /* Value.swift in Sources */,
+				CA57E72D2E861562006A2546 /* Pattern.swift in Sources */,
 				CA8A38B82E1A2514000945F0 /* PopoverList.swift in Sources */,
 				CADC36242DE1092D00539E69 /* diarycardApp.swift in Sources */,
 				CA5E1D842E0E6A44000DEAF2 /* CardsView.swift in Sources */,
 				CA89CE6B2E21844000086F2C /* Schema.swift in Sources */,
 				CA9B21F62E2F20D600AB715A /* SummaryView.swift in Sources */,
+				CA57E72B2E8614FA006A2546 /* Background.swift in Sources */,
+				CAB9B2BE2E850D9B00336D94 /* ErrorView.swift in Sources */,
 				CA9B21FB2E318D1200AB715A /* Summary.swift in Sources */,
 				CA5E1D7C2E0E18EA000DEAF2 /* Card.swift in Sources */,
 				CAD9C4452E11E88100F01584 /* CardViewHelper.swift in Sources */,
@@ -471,8 +483,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 8BJRT6BH24;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_ONLY_ACTIVE_RESOURCES = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Diary Card";
@@ -488,7 +503,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
@@ -521,8 +536,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DiaryCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 8BJRT6BH24;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_ONLY_ACTIVE_RESOURCES = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiaryCard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Diary Card";
@@ -538,7 +556,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
@@ -623,6 +641,7 @@
 				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "";
 				ON_DEMAND_RESOURCES_PREFETCH_ORDER = "";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
@@ -686,6 +705,7 @@
 				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "";
 				ON_DEMAND_RESOURCES_PREFETCH_ORDER = "";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "";

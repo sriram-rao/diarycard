@@ -10,7 +10,7 @@ final class Card: Hashable {
         Array(self.attributes.keys)
     }
 
-    init(date: Date, attributes: [String: Value] = [:]) {
+    init(date: Date = Date.today, attributes: [String: Value] = [:]) {
         self.attributes = attributes
         self.date = date
     }

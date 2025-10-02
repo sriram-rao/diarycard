@@ -60,7 +60,7 @@ struct SummaryView: View {
     }
     
     var shareButton: some View {
-        ShareLink(item: pdfUrl, subject: Text("Diary Card \(self.end.toString())")){
+        ShareLink(item: pdfUrl, subject: Text(verbatim: "Diary Card \(self.end.toString())")){
             Label(String.nothing, systemImage: "square.and.arrow.up")
         }.minimalStyle()
     }
@@ -165,3 +165,4 @@ extension SummaryView {
                 }.merged)}
     }
 }
+

@@ -2,6 +2,19 @@ import SwiftData
 import OrderedCollections
 import SwiftUI
 
+struct DismissibleOverlay: View {
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        Color.black.opacity(0.3)
+            .ignoresSafeArea()
+            .onTapGesture {
+                withAnimation { onDismiss() }
+            }
+            .transition(.opacity)
+    }
+}
+
 extension View {
     func checkIf(
         _ condition: Bool, then showView: () -> some View,
@@ -12,6 +25,10 @@ extension View {
 
     func blackAndWhite(theme: ColorScheme) -> some View {
         self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
+    }
+    
+    func glassyFocus(inFocus: Bool) -> some View {
+        self.glassEffect((inFocus ? Glass.regular : .clear).interactive())
     }
 
     func onAppearOrChange<V>(of first: V, or second: V, _ action: @escaping () -> Void) -> some View
@@ -108,5 +125,24 @@ extension Color {
     
     static func themed(_ theme: ColorScheme, light: Color, dark: Color) -> Color {
         theme == .light ? light : dark
+    }
+    
+    init(asset name: String, bundle: Bundle = .main) {
+    #if canImport(UIKit)
+        if let uiColor = UIColor(named: name, in: bundle, compatibleWith: nil) {
+            self = Color(uiColor)
+            return
+        }
+    #elseif canImport(AppKit)
+        if let nsColor = NSColor(named: NSColor.Name(name), bundle: bundle) {
+            self = Color(nsColor)
+            return
+        }
+    #endif
+        // Asset not found; avoid falling back to a system color with the same name (e.g., "magenta").
+        #if DEBUG
+        assertionFailure("Missing color asset '\(name)'. Avoid system color collision. Rename the asset or ensure it exists in the asset catalog.")
+        #endif
+        self = Color.clear
     }
 }
