@@ -25,6 +25,7 @@ struct CardView: View {
     
     var backgroundLayer: some View {
         Background()
+            .blurIf(needsTapBackground)
     }
 
     var layer0: some View {
@@ -150,7 +151,7 @@ struct CardView: View {
                 .fontWeight(.semibold)
                 .foregroundStyle(.primary)
             
-            PopoverList(selected: binding, full: Skills[viewState.selectedKey.key].orUse([]))
+            PopoverList(selected: binding, items: Skills[viewState.selectedKey.key].orUse([]))
                 .transition(.slide)
         }
         .padding(24)
@@ -161,7 +162,7 @@ struct CardView: View {
     @State private var viewState = ViewState()
     @FocusState private var focusField: String?
     @ScaledMetric private var attributeNameWidth: CGFloat = 60
-    
+
     struct ViewState {
         var needsPopover: Bool = false
         var needsDateSelection: Bool = false
@@ -190,7 +191,7 @@ struct CardView: View {
         let groups = OrderedDictionary(
             grouping: Schema.getKeysIf(include: false, types: [.string, .stringArray]),
             by: { $0.key.group })
-        
+
         return HStack(alignment: .firstTextBaseline, spacing: 8) {
             ForEach(groups.keys.sorted(), id: \.hashValue) { key in
                 VStack(alignment: aligned, spacing: 0) {
@@ -198,18 +199,18 @@ struct CardView: View {
                         .foregroundStyle(.secondary)
                     renderKeys(groups[key].orUse([]), alignment: .center)
                 }
-                .frame(maxWidth: 370 / 2)
+                .frame(maxWidth: 390 / 2)
             }
         }
     }
 
     func renderKeys(_ keys: [String], alignment: HorizontalAlignment = .leading) -> some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 3) {
             ForEach(keys, id: \.capitalized) { key in
                 VStack(alignment: alignment) {
                     render(key: key, group: key.getSubfields(keys: keys))
                 }
-                .padding(.horizontal, 35)
+                .padding(.horizontal, 30)
                 .padding(.vertical, 5)
             }
         }
@@ -233,8 +234,6 @@ struct CardView: View {
             VStack(alignment: .leading) {
                 keyView
                 valueView
-                    .padding(5)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 subKeyView
             }
         })
@@ -245,13 +244,12 @@ struct CardView: View {
             VStack(alignment: .center) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 0)
-                        .frame(width: 100, height: 30)
+                        .frame(width: 40, height: 30)
                         .foregroundStyle(.clear)
-                        .glassyFocus(inFocus: $focusField.wrappedValue == key)
-                    keyView.padding(.bottom, 50)
-                    valueView
+                    keyView.padding(.bottom, 60)
+                    valueView.padding(.top, 10)
                 }
-                subKeyView
+                subKeyView.padding(.top, -35)
             }
         })
     }
@@ -266,11 +264,14 @@ struct CardView: View {
     }
     
     func render_base(key: String, group: [String], arrange: (AnyView, AnyView, AnyView) -> (some View)) -> some View {
+
+        let keyView = AnyView(getNameView(
+            for: key.isStandalone(in: card.keys) ? key.label : .nothing,
+            description: FieldDescriptions[key.key]
+        ).padding(.bottom, 5))
         
-        let keyView = AnyView(getNameView(for: key.isStandalone(in: card.keys) ? key.label : .nothing)
-            .blackAndWhite(theme: colorScheme))
-        
-        let valueView = AnyView(getView(for: key).focused($focusField, equals: key))
+        let valueView = AnyView(getView(for: key)
+            .focused($focusField, equals: key))
         
         let subKeyView = AnyView(ForEach(group, id: \.self) { subKey in
             getView(for: subKey)
@@ -305,12 +306,21 @@ struct CardView: View {
         }
     }
 
+    @ViewBuilder
     func getView(for key: String) -> some View {
-        return getViewUnformatted(for: key)
+        let base = getViewUnformatted(for: key)
             .font(.system(size: 16))
             .focused($focusField, equals: key)
             .frame(alignment: .center)
-            .background(Color(.clear))
+
+        if card[key.key].kind != .stringArray {
+            base.glassyTextBackground(
+                isFocused: $focusField.wrappedValue == key,
+                tinted: getColor(for: key)
+            )
+        } else {
+            base
+        }
     }
     
     func getColor(for key: String) -> Color {
@@ -321,7 +331,7 @@ struct CardView: View {
         if value <= 3 {
             return Color.gray
         }
-        if value <= 7 {
+        if value < 7 {
             return Color.blue
         }
         return Color.red
@@ -330,7 +340,7 @@ struct CardView: View {
     @ViewBuilder
     func getViewUnformatted(for attribute: String) -> some View {
         let name = attribute.key
-        if !card.keys.contains(name) {
+        if !card.hasKey(name) {
             EmptyView()
         } else {
             switch card[name].kind {
@@ -374,3 +384,4 @@ struct CardView: View {
         CardView(card: cards.first!)
     }
 }
+

@@ -26,9 +26,14 @@ extension View {
     func blackAndWhite(theme: ColorScheme) -> some View {
         self.foregroundStyle((theme == ColorScheme.light ? Color.black : .white).opacity(0.75))
     }
-    
-    func glassyFocus(inFocus: Bool) -> some View {
-        self.glassEffect((inFocus ? Glass.regular : .clear).interactive())
+
+    func glassyTextBackground(isFocused: Bool, tinted: Color = Color.clear) -> some View {
+        self.glassEffect(
+            (isFocused
+                ? Glass.regular
+                : Glass.clear.tint(tinted.opacity(0.2))
+            ).interactive()
+        )
     }
 
     func onAppearOrChange<V>(of first: V, or second: V, _ action: @escaping () -> Void) -> some View
@@ -59,13 +64,16 @@ extension View {
             .frame(alignment: .center)
     }
     
-    func linkButtonStyle(colour: Color, backgroundOpacity: Double = 0.1, colourScheme: ColorScheme = .light) -> some View {
-        self.padding(7.5)
+    @ViewBuilder
+    func linkButtonStyle(colour: Color, backgroundOpacity: Double = 0.1, colourScheme: ColorScheme = .light, addGlass: Bool = true) -> some View {
+        let base = self.padding(7.5)
             .buttonStyle(.borderless)
-            .tint(colour)
-            .background( RoundedRectangle(cornerRadius: 7.5).fill(
-                colourScheme == .dark && colour == .secondary ? Color.white :
-                colour.opacity(backgroundOpacity)) )
+            .foregroundStyle(colour)
+        if addGlass {
+            base.glassEffect(.clear.tint(colour.opacity(backgroundOpacity)).interactive())
+        } else {
+            base
+        }
     }
 }
 
@@ -146,3 +154,4 @@ extension Color {
         self = Color.clear
     }
 }
+

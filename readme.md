@@ -1,10 +1,17 @@
 # Mood Journal Application
 
-This is a mood journal application, customised for Dialectical Behaviour Therapy (DBT). 
-It creates an entry everyday that can be filled in at any time. 
-Each entry captures metrics for emotions configured in the app. (This will be customizable soon) 
+This is a mood journal application, customised for Dialectical Behaviour Therapy (DBT).
+It creates an entry everyday that can be filled in at any time.
+Each entry captures metrics for emotions configured in the app. (This will be customizable soon)
 It also has a Skill section where you can select skills you used during the day.
 The export button creates a PDF with data from the chosen range of dates, which is the previous 7 days by default.
+
+## Features
+
+- **Field descriptions**: Tap the info icon (ⓘ) next to any field name to see helpful descriptions and rating scales
+- **Skill descriptions**: Tap the info icon, long press, or swipe vertically on any skill to view detailed explanations
+- **Glass effect UI**: Modern iOS design with frosted glass backgrounds and smooth animations
+- **Dark/Light mode**: Full support for both color schemes
 
 For those interested in the origin story, [it's here](story.md).
 

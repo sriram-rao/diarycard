@@ -64,6 +64,7 @@
 		CA72914A2D88D2E8004AF2DE /* diarycard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diarycard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA72915E2D88D2EB004AF2DE /* diarycardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7291682D88D2EB004AF2DE /* diarycardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = diarycardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA73DEBC2EAC9140007CDB5E /* agents.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = agents.md; sourceTree = "<group>"; };
 		CA745C162E34F51B0041598D /* default.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = default.pdf; sourceTree = "<group>"; };
 		CA899EAA2E1B5F5400A46D91 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA89CE6A2E21843900086F2C /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
@@ -166,6 +167,7 @@
 			children = (
 				CABF4C082E5EC990006D4935 /* images */,
 				CADC367A2DE1110700539E69 /* readme.md */,
+				CA73DEBC2EAC9140007CDB5E /* agents.md */,
 				CA9B21F42E2F1E7F00AB715A /* story.md */,
 				CADC36592DE10D9300539E69 /* DiaryCard */,
 				CADC364C2DE10CF100539E69 /* Tests */,

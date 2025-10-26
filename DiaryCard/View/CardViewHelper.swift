@@ -18,14 +18,15 @@ enum CardError: LocalizedError {
 extension CardView {
     func getNameView(
         for name: String,
+        description: String? = nil,
         ofSize size: Font = Font.callout
     ) -> some View {
-        Text(name.capitalized).font(size)
-            .fixedSize(horizontal: false, vertical: false)
-            .lineLimit(2)
-            .truncationMode(.tail)
-//            .padding(.leading, 10)
-//            .padding(.top, 5)
+        NameViewWithTooltip(
+            name: name,
+            description: description,
+            size: size,
+            colorScheme: colorScheme
+        )
     }
 
     func getNextField(after key: String, in list: [String], going forwards: Bool) -> String {
@@ -94,12 +95,10 @@ struct NumberView: View {
         .textFieldStyle(.plain)
         .multilineTextAlignment(.center)
         .keyboardType(.numberPad)
-        
-        .frame(width: 120, height: 30)
+        .frame(width: 80, height: 30)
         .onChange(of: value, {
             preselectText = false
         })
-//        .background(getColor().opacity(0.3).gradient)
         .clipShape(RoundedRectangle(cornerRadius: 5, style: .circular))
     }
 
@@ -136,8 +135,8 @@ struct TextView: View {
                 set: { _ in }),
             axis: .vertical
         )
+        .padding(10)
         .textFieldStyle(.plain)
-        .padding(2)
         .onChange(of: value, {
             preselectText = false
         })
@@ -167,12 +166,53 @@ struct BooleanView: View {
     @Binding var value: Bool
 
     var body: some View {
-        Toggle(value ? "Active" : "Inactive", isOn: $value)
+        Toggle(value ? " Active " : "Inactive", isOn: $value)
             .font(.caption)
             .toggleStyle(.button)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.glass)
             .tint(value ? .poppy : .blue)
             .animation(.easeInOut, value: value)
+    }
+}
+
+struct NameViewWithTooltip: View {
+    let name: String
+    let description: String?
+    let size: Font
+    let colorScheme: ColorScheme
+
+    @State private var showingTooltip = false
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Text(name.capitalized).font(size)
+                .fixedSize(horizontal: false, vertical: false)
+                .lineLimit(2)
+                .truncationMode(.tail)
+                .blackAndWhite(theme: colorScheme)
+
+            if description != nil {
+                Image(systemName: "info.circle")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            if description != nil {
+                showingTooltip.toggle()
+            }
+        }
+        .popover(isPresented: $showingTooltip, content: {
+            if let description = description {
+                Text(description)
+                    .font(.caption)
+                    .padding(.horizontal, 6)
+                    .frame(idealWidth: 280, idealHeight: 2)
+                    .presentationCompactAdaptation(.popover)
+            }
+        })
+        
     }
 }
 

@@ -23,6 +23,7 @@ struct CardsView: View {
     var body: some View {
         ZStack {
             Background()
+                .blurIf(showPicker)
             NavigationStack(path: $path) {
                 topBar
 
@@ -32,14 +33,18 @@ struct CardsView: View {
                     navigationLinks
                 }
                 .padding(.horizontal, 20)
+                
                 HStack {
                     hideButton
                     Spacer()
                     todayCard
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 10)
+                
                 Spacer()
                 cardList
+                    .padding(.horizontal, 15)
             }
             
             pickerView.zIndex(1)
@@ -54,7 +59,7 @@ struct CardsView: View {
     }
 
     var dateRangeFilter: some View {
-        VStack(alignment: .leading, spacing: 15) {
+        VStack(alignment: .leading, spacing: 20) {
             getRangeButton(for: $start)
             
             HStack {
@@ -67,13 +72,16 @@ struct CardsView: View {
                     .font(.headline)
                     .animation(.linear, value: toLatest)
                 
-                getRangeButton(for: $end, withColour: toLatest ? .clear : rangeBlue)
+                getRangeButton(for: $end,
+                               withColour: rangeBlue,
+                               addGlass: !toLatest)
                     .onChange(of: end, {
                         toLatest = false
                     })
                     .animation(.linear, value: not(toLatest))
             }
             .padding(.leading, 10)
+            .glassEffect(.clear)
             .background(rangeBlue.opacity(0.13))
             .foregroundStyle(rangeBlue)
             .clipShape(RoundedRectangle(cornerRadius: 7))
@@ -82,7 +90,7 @@ struct CardsView: View {
     }
 
     var navigationLinks: some View {
-        VStack(alignment: .trailing, spacing: 15) {
+        VStack(alignment: .trailing, spacing: 20) {
             getToolbarButton(
                 for: $pickerDate,
                 showingText: "Go To",
@@ -123,43 +131,51 @@ struct CardsView: View {
     }
 
     var cardList: some View {
-        ScrollView {
-            ForEach(cards.filter({ not(hiddenCards.contains($0))
-                                || showHidden })) { card in
-                NavigationLink(
-                    destination: CardView(card: card),
-                    label: {
-                        createLabel(for: card)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                    }
-                )
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                .foregroundStyle(.primary.opacity(
-                    hiddenCards.contains(card) ? 0.5 : 1))
-                .padding(5)
-                .glassEffect(.clear)
-                .swipeActions {
-                    Button(role: .destructive){
-                        hiddenCards.contains(card)
-                        ? hiddenCards.removeAll(where: { $0 == card })
-                        : hiddenCards.append(card)
-                    } label: {
-                        hiddenCards.contains(card)
-                        ? Label("Hide", systemImage: "eye.slash")
-                        : Label("Unhide", systemImage: "eye")
-                    }
+        let filtered = showHidden ? cards : cards.filter { !hiddenCards.contains($0) }
+
+        return List {
+            ForEach(filtered) { card in
+                HStack {
+                    createLabel(for: card, withColour: .primary, glass: false, backgroundOpacity: 0)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .glassEffect(.clear)
+                        .foregroundStyle(.primary.opacity(hiddenCards.contains(card) ? 0.2 : 1))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 7)
+                        .foregroundColor(.navy) //Apply color for arrow only
                 }
-                .padding(5)
+                .listRowBackground(Color.clear)
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowSeparator(.hidden)
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    let isHidden = hiddenCards.contains(card)
+                    Button(isHidden ? "Unhide" : "Hide", role: isHidden ? nil : .destructive) {
+                        if isHidden {
+                            hiddenCards.removeAll(where: { $0 == card })
+                        } else {
+                            hiddenCards.append(card)
+                        }
+                    }
+                    .tint(isHidden ? .orange : .red)
+                }
+                .background(content: {
+                    NavigationLink(destination: CardView(card: card)) {}
+                        .opacity(0)
+                })
             }
         }
-        .backgroundStyle(.clear)
+        .listStyle(.plain)
+        .background(Color.clear)
+        .listRowSpacing(8)
+        .scrollContentBackground(.hidden)
         .blurIf(showPicker)
         .onAppear { _ = getCard(for: .today) }
         .onAppearOrChange(of: start, or: end, { refreshCards() })
         .onChange(of: toLatest) { refreshCards() }
-        
-    .animation(.bouncy, value: cards.filter({ hiddenCards.contains($0) }).count)
+        .animation(.bouncy, value: cards.filter({ hiddenCards.contains($0) }).count)
     }
 
     var pickerView: some View {
@@ -184,17 +200,20 @@ struct CardsView: View {
     var toolbarPink: Color { .themed(colorScheme, light: .magenta, dark: .bubblegum) }
 
     func getRangeButton(for date: Binding<Date>,
-                        withColour colour: Color = .blue ) -> some View {
+                        withColour colour: Color = .blue,
+                        addGlass: Bool = true) -> some View {
         getToolbarButton(
             for: date,
             called: (date.wrappedValue == end ? .nothing : "From"),
             showingText: date.wrappedValue.getRelativeDay(),
-            withColour: colour == .blue ? rangeBlue : colour
+            withColour: colour == .blue ? rangeBlue : colour,
+            addGlass: addGlass,
+            
         )
     }
 
     func getToolbarButton(
-        for date: Binding<Date>, called name: String = .nothing, showingText mainText: String = .nothing, showingImage image: String = .nothing, withColour colour: Color = .blue
+        for date: Binding<Date>, called name: String = .nothing, showingText mainText: String = .nothing, showingImage image: String = .nothing, withColour colour: Color = .blue, addGlass: Bool = true
     ) -> some View {
         Button(
             action: {
@@ -202,28 +221,29 @@ struct CardsView: View {
                 selectedDate = date
             },
             label: {
-                createLabel(label: name, titleText: mainText, image: image, colour: colour)
+                createLabel(label: name, titleText: mainText, image: image, colour: colour, glass: addGlass)
             })
     }
 
-    func createLabel(for card: Card, addSuffix suffix: String = .nothing, withColour colour: Color = .clear, withImage image: String = .nothing) -> some View {
+    func createLabel(for card: Card, addSuffix suffix: String = .nothing, withColour colour: Color = .clear, glass: Bool = true, withImage image: String = .nothing, backgroundOpacity: Double = 0.1) -> some View {
         createLabel(
-            label: [card.date.getRelativeDay(), suffix].merged,
+            label: [card.date.getRelativeDay(), .space, .space, .space, suffix].merged,
             titleText: ["text.comment",
                         "text.5-minute journal:fuck yeahs",
                         "text.5-minute journal:gratitude"]
-                .map({ card.get(key: $0) .asString })
+                .map({ card[$0].asString })
                 .filter({ not($0.isBlank()) })
                 .joined(separator: ", "),
             image: image,
             colour: colour,
+            glass: glass,
             font: .body,
+            backgroundOpacity: backgroundOpacity
         )
     }
     
-    // createLabel(
     func createLabel(label: String = .nothing, titleText: String = .nothing,
-                     image: String = .nothing, colour: Color = .clear, font size: Font = .headline) -> some View {
+                     image: String = .nothing, colour: Color = .clear, glass: Bool = true, font size: Font = .headline, backgroundOpacity: Double = 0.1) -> some View {
         HStack {
             checkIf(not(label.isEmpty), then: {
                 Text(label)
@@ -237,8 +257,9 @@ struct CardsView: View {
                 }
             })
         }
+        .padding(.horizontal, 10)
         .font(size)
-        .linkButtonStyle(colour: colour, colourScheme: colorScheme)
+        .linkButtonStyle(colour: colour, backgroundOpacity: backgroundOpacity, colourScheme: colorScheme, addGlass: glass)
     }
 
     func getCard(for date: Date) -> Card {
@@ -268,7 +289,65 @@ struct CardsView: View {
     }
 }
 
+struct SwipeableRow<Content: View, ActionContent: View>: View {
+    let actionWidth: CGFloat
+    let onAction: () -> Void
+    @ViewBuilder let actionContent: () -> ActionContent
+    @ViewBuilder let content: () -> Content
+
+    @GestureState private var dragX: CGFloat = 0
+    @State private var offsetX: CGFloat = 0
+
+    private func clampedOffset(for translationWidth: CGFloat) -> CGFloat {
+        let proposed = offsetX + translationWidth
+        return min(0, max(-actionWidth, proposed))
+    }
+
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            // Trailing action background/content
+            actionContent()
+                .frame(maxWidth: .infinity, alignment: .trailing)
+
+            // Foreground content that slides
+            content()
+                .offset(x: offsetX + dragX)
+                .contentShape(Rectangle())
+                .highPriorityGesture(
+                    DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                        .updating($dragX) { value, state, _ in
+                            let clamped = clampedOffset(for: value.translation.width)
+                            state = clamped - offsetX
+                        }
+                        .onEnded { value in
+                            let clamped = clampedOffset(for: value.translation.width)
+                            let shouldOpen = clamped < -actionWidth * 0.5
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.85)) {
+                                offsetX = shouldOpen ? -actionWidth : 0
+                            }
+                        }
+                )
+                .overlay(
+                    Group {
+                        if offsetX != 0 {
+                            Color.clear
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.25, dampingFraction: 0.85)) {
+                                        offsetX = 0
+                                    }
+                                }
+                        }
+                    }
+                )
+        }
+        .frame(maxWidth: .infinity)
+        .clipped()
+    }
+}
+
 
 #Preview("Default Cards Search View", traits: .cardSampleData) {
     NavigationStack { CardsView() }
 }
+
