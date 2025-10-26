@@ -98,25 +98,33 @@ struct SkillToggleButton: View {
     }
     
     // MARK: - Modular Subviews
+    private var infoIcon: some View {
+        Image(systemName: "info.circle")
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    onLongPress()
+                }
+            }
+    }
+
+    private var selectionIcon: some View {
+        Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+            .font(.title3)
+    }
+
     private var headerView: some View {
         HStack {
             Text(skill)
                 .font(isSelected ? .body.bold() : .body)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Image(systemName: "info.circle")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .onTapGesture {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        onLongPress()
-                    }
-                }
+            infoIcon
 
             Spacer()
 
-            Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                .font(.title3)
+            selectionIcon
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)

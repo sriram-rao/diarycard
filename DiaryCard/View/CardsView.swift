@@ -12,6 +12,7 @@ struct CardsView: View {
     @State var showPicker = false
     @State var showHidden = true
     @State var path = NavigationPath()
+    @State var showSettings = false
 
     @State var start = Date().goBack(7 * .day)
     @State var end = Date()
@@ -33,6 +34,9 @@ struct CardsView: View {
                     navigationLinks
                 }
                 .padding(.horizontal, 20)
+                .toolbar {
+                    settingsToolbar
+                }
                 
                 HStack {
                     hideButton
@@ -128,6 +132,22 @@ struct CardsView: View {
             destination: CardView(card: card),
             label: { createLabel(for: card, addSuffix: " - ", withColour: toolbarPink) }
         )
+    }
+
+    @ToolbarContentBuilder
+    var settingsToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                showSettings = true
+            } label: {
+                Image(systemName: "gear")
+                    .font(.title3)
+            }
+            .buttonStyle(.plain)
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
+        }
     }
 
     var cardList: some View {
